@@ -1,6 +1,10 @@
 // Font Families _config.scss
-$font-family--primary: 'Archivo Narrow', 'Roboto', 'Lato', ‘Lucida Sans’, 'Tahoma', ‘Lucida Grande’, ‘Lucida Sans Unicode’, Verdana, sans-serif;
-$font-family--secondary: 'Over the Rainbow', 'Shadows into light', 'Kaushan Script', 'Caveat', cursive;
+$font-family--primary: "Cantarell", "Roboto", "Lato", ‘Lucida Sans’, "Tahoma",
+  ‘Lucida Grande’, ‘Lucida Sans Unicode’, Verdana, sans-serif;
+$font-family--secondary: "Playfair Display", "Shadows into light",
+  "Kaushan Script", "Caveat", cursive;
+$font-family--accent: "Fjalla One", "Roboto", "Lato", ‘Lucida Sans’, "Tahoma",
+  ‘Lucida Grande’, ‘Lucida Sans Unicode’, Verdana, sans-serif;
 
 // Font Weights _config.scss
 $font-weight--light: 300;
@@ -15,42 +19,43 @@ $oblique: oblique;
 // Font Setup _config.scss
 $base__font-size: 1rem;
 $base__line: 125%;
-$letter-space: .1rem;
+$letter-space: 0.1rem;
 
 // Base colours. //
-$white:	#fff;
+$white: #fff;
 $grey: #797e83;
 $grey-light: #eee;
-$black:	#0b0b0b;
+$black: #0b0b0b;
 $strongred: #f00;
 
 // Brand colours. //
-$green:	 #36bb79;
-$blue:   #00556f;
-$orange: #f05022;
-$yellow: #ffc52f;
-$purple: #4c3040;
-
+$tangoOrange: #ef6a23;
+$resolutionBlue: #001c71;
+$regentGray: #8698a7;
+$heatherGray: #c2cdd6;
+$athensGray: #e2e3e9;
+$locustGreen: #696969;
+$silverRust: #cbc3bb;
+$zorba: #a69b95;
 
 // Colors usage _config.scss
 
-$color-primary: $green;
-$color-secondary: $blue;
-$color-accent: $orange;
-$color-shadow: $yellow;
-$color-shadow2: $purple;
-
+$color-primary: $tangoOrange;
+$color-secondary: $resolutionBlue;
+$color-accent: $regentGray;
+$color-shadow: $heatherGray;
+$color-shadow2: $locustGreen;
 
 // Social Media Colors _config.scss
 
-$twitter-clr:   #00aced;
-$facebook-clr:  #3b5998;
-$linkedinclr:   #007bb6;
+$twitter-clr: #00aced;
+$facebook-clr: #3b5998;
+$linkedinclr: #007bb6;
 $googleplusclr: #dd4b39;
 $instagram-clr: #125688;
-$youtube-clr:   #b00;
+$youtube-clr: #b00;
 $pinterest-clr: #cb2027;
-$snapchat-clr:  #fffc00;
+$snapchat-clr: #fffc00;
 
 $twitter-clr: transparent;
 $facebook-clr: transparent;
@@ -63,7 +68,7 @@ $snapchat-clr: transparent;
 
 // Path to Assets _config.scss
 
-$path--rel: '../img';
+$path--rel: "../img";
 
 // Transitions _config.scss
 
@@ -71,8 +76,8 @@ $trns-duration: 0.3s;
 
 // Breakpoints _config.scss
 
-$small:	 768px;
+$small: 768px;
 $medium: 1025px;
-$large:  1200px;
+$large: 1200px;
 $extralarge: 1600px;
 $maxlarge: 1900px;
