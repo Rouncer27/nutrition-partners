@@ -26,17 +26,20 @@ function getLocation() {
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
+
 function showPosition(position) {
+  console.log("hello 4");
   x.innerHTML =
     "Latitude: " +
     position.coords.latitude +
     "<br>Longitude: " +
     position.coords.longitude;
+
   getProvince(position.coords.latitude, position.coords.longitude);
 }
 
 function getProvince(lat, lng) {
-  console.log("hello 4");
+  console.log("hello 5");
   const locationURL = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}`;
   axios
     .get(`${locationURL}`)
