@@ -82,6 +82,7 @@ export default class Home extends Component {
     return (
       <div>
         <p>The Lauguage for this person is {this.state.browserLang}</p>
+        <p>The Location for this person is {this.state.userLocation}</p>
         {browserLang === "en" ? (
           <button onClick={this.switchTheLang}>French</button>
         ) : (

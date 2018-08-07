@@ -12032,6 +12032,12 @@ var Home = function (_Component) {
           "The Lauguage for this person is ",
           this.state.browserLang
         ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "The Location for this person is ",
+          this.state.userLocation
+        ),
         browserLang === "en" ? _react2.default.createElement(
           "button",
           { onClick: this.switchTheLang },
