@@ -11021,11 +11021,15 @@ if (sessionOption === null) {
 }
 
 var x = document.getElementById("demo");
+console.log(x);
 
 function getLocation() {
+  console.log("hello 1");
   if (navigator.geolocation) {
+    console.log("hello 2");
     navigator.geolocation.getCurrentPosition(showPosition);
   } else {
+    console.log("hello 3");
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
