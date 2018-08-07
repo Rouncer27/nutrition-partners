@@ -12,25 +12,3 @@ if (sessionOption === null) {
     sessionStorage.setItem("npWebLang", "en");
   }
 }
-
-var x = document.getElementById("demo");
-const API_KEY = "8e2f5850676548cb8ad0de88a1813fe4";
-
-function getLocation() {
-  axios
-    .get("https://api.ipgeolocation.io/getip")
-    .then(result => {
-      const userIP = result.data.ip;
-      axios
-        .get(
-          `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${userIP}`
-        )
-        .then(result => {
-          sessionStorage.setItem("npWebLocation", result.data.state_prov);
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log(err));
-}
-
-getLocation();
