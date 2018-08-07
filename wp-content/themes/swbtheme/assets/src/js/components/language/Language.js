@@ -14,41 +14,21 @@ if (sessionOption === null) {
 }
 
 var x = document.getElementById("demo");
-console.log(x);
+const API_KEY = "8e2f5850676548cb8ad0de88a1813fe4";
 
 function getLocation() {
-  console.log("hello 1");
-  if (navigator.geolocation) {
-    console.log("hello 2");
-    navigator.geolocation.getCurrentPosition(showPosition);
-    console.log("hello 6");
-  } else {
-    console.log("hello 3");
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function showPosition(position) {
-  console.log("hello 4");
-  x.innerHTML =
-    "Latitude: " +
-    position.coords.latitude +
-    "<br>Longitude: " +
-    position.coords.longitude;
-
-  getProvince(position.coords.latitude, position.coords.longitude);
-}
-
-function getProvince(lat, lng) {
-  console.log("hello 5");
-  const locationURL = `http://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}`;
   axios
-    .get(`${locationURL}`)
+    .get("https://api.ipgeolocation.io/getip")
     .then(result => {
-      console.log(result.data);
-      x.innerHTML = `You are from ${
-        result.data.results[0].address_components[4].long_name
-      }`;
+      const userIP = result.data.ip;
+      axios
+        .get(
+          `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${userIP}`
+        )
+        .then(result => {
+          sessionStorage.setItem("npWebLocation", result.data.state_prov);
+        })
+        .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
 }
