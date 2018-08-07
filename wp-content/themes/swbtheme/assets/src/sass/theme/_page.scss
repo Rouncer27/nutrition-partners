@@ -1,0 +1,25 @@
+.swb-page__content {
+	&--image {
+		padding: 2.5rem 0;
+	}
+
+	&--wrapper {
+		@include bp(bp-l) {
+			width: 80%;
+			margin: 0 auto;
+		}
+	}
+}
+
+.page-links {
+	width: 100%;
+	margin-top: 2em;
+	margin-bottom: 2em;
+	text-align: center;
+
+	&::after {
+		display: table;
+		clear: both;
+		content: '';
+	}
+}

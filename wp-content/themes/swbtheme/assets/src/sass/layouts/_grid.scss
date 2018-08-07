@@ -1,0 +1,66 @@
+@mixin container-base($display: block, $size: small) {
+	@if($display == flex) {
+		display: $display;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	
+	width: 100%;
+	max-width: 45rem;
+	margin: 1rem auto;
+	padding: 2rem;
+	@include bp(bp-m) { max-width: 100rem; }
+
+	@if($size == small) {
+		@include bp(bp-l) { max-width: 105rem; }
+	} @else if($size == medium) or ($size == large) or ($size == xlarge) or ($size == max) {
+		@include bp(bp-l) { max-width: 120rem; }
+	} @else if($size == large) or ($size == xlarge) or ($size == max) {
+		@include bp(bp-xl) { max-width: 145rem; }
+	} @else if($size == xlarge) or ($size == max) {
+		@include bp(bp-xxl) { max-width: 165rem; }
+	} @else if($size == max) {
+		@include bp(bp-max) { max-width: 185rem;}
+	}
+}
+
+.container,
+.flex-containers {
+	@include container-base(flex);
+}
+
+.swb-wrapper-small {
+	@include container-base();
+}
+
+.container-large {
+	@include container-base($size: large);
+}
+
+.swb-wrapper-small {
+	@include container-base();
+}
+
+.swb-wrapper-medium {
+	@include container-base($size: medium);
+}
+
+.swb-wrapper-large {
+	@include container-base($size: large);
+}
+
+.swb-wrapper-xlarge {
+	@include container-base($size: xlarge);
+}
+
+.swb-wrapper-max {
+	@include container-base($size: max);
+}
+
+.swb-wrapper-flex {
+	@include container-base(flex);
+}
+
+
+
+

@@ -1,0 +1,35 @@
+@mixin swbbtn() {
+    display: inline-block;
+    padding: .75rem 1.5rem;
+    transition: all .4s ease;
+    font-size: 1.8rem;
+    text-align: center;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+@mixin btn-default($color: $color-secondary) {
+    border-radius: .25rem;
+    background-color: $color;
+    color: $white;
+
+    &:hover {
+        background-color: lighten($color, 15%);
+        color: $white;
+    }
+}
+
+
+@mixin btn-default-2() {
+    border-bottom: 2px solid $black;
+    color: $black;
+    font-weight: $font-weight--bold;
+    text-transform: uppercase;
+
+    &:hover {
+        border-color: $color-primary;
+        color: $color-primary;
+    }
+}

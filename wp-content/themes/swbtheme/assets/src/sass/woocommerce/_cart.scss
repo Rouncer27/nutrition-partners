@@ -1,0 +1,615 @@
+/**************************************************************************************************
+Cart page
+**************************************************************************************************/
+.cartview {
+	padding-top: 2.5rem;
+
+	&__container {
+		max-width: 1000px;
+		margin-right: auto;
+		margin-left: auto;
+		
+		&--content {
+			width: 100%;
+		}
+	}
+}
+
+// These are the styles for the top menu table on the cart page. //
+.woocommerce-cart-form {
+	width: 100%;
+
+	table.shop_table {
+		width: 100%;
+
+		thead {
+			box-shadow: 0 0 0 1px $black;
+
+			tr {
+				.product-thumbnail {
+					display: none;
+
+					@include bp(bp-m) {
+						padding: 0;
+					}
+				}
+
+				.product-name {
+					@include bp(bp-m) {
+						padding: 0.5rem;
+					}
+				}
+
+				th {
+					font-size: 1.4rem;
+				}
+			}
+		}
+
+		tbody {
+			tr {
+				border-bottom: 1rem solid $color-secondary;
+				box-shadow: 0 0 0 1px $black;
+
+				@include bp(bp-m) {
+					border-bottom: 0 solid $color-secondary;
+				}
+
+				&:last-child {
+					border-bottom: 0 solid $color-secondary;
+				}
+
+				td {
+					padding: 1rem;
+					border-right: .1rem solid $grey;
+					font-size: 1.4rem;
+					line-height: normal;
+					
+					@include bp(bp-m) {
+						padding: 0.5em 2rem;
+						text-align: center;
+					}
+
+					&:last-of-type {
+						border-right: 0 solid $grey;
+					}
+
+					a {
+						transition: all $trns-duration;
+						color: $black;
+						font-size: 1.4rem;
+
+						&:hover {
+							color: $color-accent;
+						}
+					}
+
+					.quantity {
+						input {
+							text-align: center;
+						}
+					}
+				}
+
+				.product-remove {
+					@include bp(bp-m) {
+						width: 2.5rem;
+						padding: 0.5rem;
+					}
+
+					a {
+						color: transparent;
+						font: 0/0 serif;
+						text-shadow: none;
+							
+						@include bp(bp-m) {
+							color: transparent;
+							font: 0/0 serif;
+							text-shadow: none;
+						}
+
+						&::before {
+							@include fontAwesome();
+							display: inline-block;
+							transition: all $trns-duration;
+							color: $black;
+							font-size: 1.6rem;
+							content: '\f057';
+						}
+
+						&:hover {
+							color: transparent;
+
+							&::before {
+								color: $color-accent;
+							}
+						}
+					}
+				}
+
+				.product-thumbnail {
+					display: none;
+
+					@include bp(bp-m) {
+						padding: 0;
+					}
+				}
+
+				.product-name {
+					@include bp(bp-m) {
+						padding: 0.5rem;
+					}
+				}
+
+				.product-quantity {
+					.quantity {
+						width: 7.5rem;
+						margin-right: auto;
+						margin-left: auto;
+						border: 1px solid $black;
+
+						@include bp(bp-m) {
+							width: 5rem;
+						}
+
+						input {
+							width: 7.5rem;
+							background-color: rgba($color-accent, 0.2);
+
+							@include bp(bp-m) {
+								width: 50px;
+								padding: 0 0.25em;
+								background-color: rgba($color-accent, 0.2);
+							}
+						}
+					}
+				}
+
+				.product-subtotal {
+					font-weight: $font-weight--bold;
+
+					.woocommerce-Price-amount {
+						color: $strongred;
+					}
+				}
+
+				.actions { 
+					text-align: right;
+
+					input[name='update_cart'] {
+						width: 25rem;
+						margin-bottom: 1rem;
+
+						@include bp(bp-s-o) {
+							margin-right: auto;
+							margin-left: auto;
+						}
+
+						&:hover {
+							cursor: pointer;
+						}
+					}
+
+					.coupon {
+						position: relative;
+						width: 300px;
+						margin-right: auto;
+						margin-left: auto;
+
+						@include bp(bp-m) {
+							width: 250px;
+							margin-right: 0;
+							margin-left: auto;
+						}
+						
+						label {
+							font-style: italic;
+
+							@include bp(bp-m) {
+								position: absolute;
+								top: 30px;
+								left: -70px;
+							}
+						}
+
+						.input-text {
+							display: inline-block;
+							width: 300px;
+							margin-top: 1em;
+							margin-bottom: 1em;
+							float: none;
+							border-bottom: 4px solid $color-primary;
+							background-color: rgba($grey, 0.1);
+							text-align: center;
+
+							@include bp(bp-m) {
+								width: 250px;
+							}
+
+							&:focus {
+								border-color: $color-secondary;
+							}
+						}
+
+						.button {
+							@include swbbtn();
+							@include btn-default();
+							position: relative;
+							margin-bottom: 1em;
+							padding: 1rem 2rem;
+							border: 0;
+
+							&:hover {
+								cursor: pointer;
+							}
+						}
+					}
+
+					.button[name='update_cart'] {
+						@include swbbtn();
+						@include btn-default();
+						display: block;
+						width: 250px;
+						margin-right: auto;
+						margin-bottom: 1em;
+						margin-left: auto;
+						padding: 1rem 2rem;
+						border: 0;
+						line-height: normal;
+
+						@include bp(bp-m) {
+							display: inline-block;
+						}
+
+						&:disabled {
+							background-color: rgba($color-primary, .5);
+							color: $color-accent;
+							cursor: not-allowed;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// This is the styles for the bottom table on the cart page for the Cart Totals. //
+.cart-collaterals {
+	padding-top: 50px;
+	padding-bottom: 50px;
+
+	.cart_totals  {
+		text-align: center;
+
+		@include bp(bp-m) {
+			text-align: left;
+		}
+
+		h2 {
+			font-family: $font-family--primary;
+			font-size: 2.8rem;
+			text-align: center;
+
+			@include bp(bp-m) {
+				font-size: 2.2rem;
+				text-align: left;
+			}
+
+			@include bp(bp-l) {
+				font-size: 2.6rem;
+			}
+		}
+
+		.shop_table {
+			tbody {
+				width: 100%;
+				max-width: 400px;
+				margin: 0 auto;
+				font-size: 1.6rem;
+
+				tr {
+					th {
+						padding: 1rem;
+						border-bottom: 1px solid $color-shadow;
+						background-color: rgba($color-secondary, 0.7);
+						color: $color-primary;
+					}
+
+					td {
+						//width: 100%;
+						max-width: 400px;
+						padding: 2rem 4rem;
+						border-bottom: 1px solid $color-shadow;
+						background-color: rgba($color-shadow2, 0.3);
+						text-align: right;
+
+						@include bp(bp-m) {
+							min-width: 59rem;
+						}
+					}
+				}
+
+				.shipping {
+					p {
+						margin-bottom: 0;
+						text-align: right;
+					}
+
+					.button,
+					.shipping-calculator-button {
+						@include swbbtn();
+						@include btn-default();
+						padding: 1rem 2rem;
+						border: 0;
+						line-height: normal;
+					}
+
+					.shipping-calculator-form {
+						input[type='text'] {
+							display: block;
+							margin-top: 2rem;
+							margin-bottom: 2rem;
+							padding: 0.3rem 0.5rem;
+							border-bottom: 3px solid $color-secondary;
+							background-color: rgba($color-shadow, 0.1);
+							text-align: left;
+				
+							&:focus {
+								border-color: $color-primary;
+							}
+						}
+					}
+
+					#shipping_method {
+						display: flex;
+						flex-wrap: wrap;
+
+						li {
+							display: flex;
+							width: 50%;
+							margin-right: 0;
+							margin-bottom: 20px;
+							margin-left: 50%;
+
+							input {
+								align-self: center;
+								text-align: center;
+							}
+
+							label {
+								
+							}
+
+							input[type=radio] {
+								width: 50px;
+								height: 50px;
+								background: red;
+							}
+						}
+					}
+				}
+
+				.order-total {
+					th {
+						border-top: 3px solid $color-shadow;
+					}
+
+					td {
+						border-top: 3px solid $color-shadow;
+						border-bottom: 0 solid $color-secondary;
+						color: $black;
+						font-size: 1.6rem;
+					}
+				}
+
+				.recurring-totals {
+					width: 100%;
+
+					th {
+						@include bp(bp-s-o) {
+							display: block;
+							width: 100%;
+							background-color: transparent;
+							font-size: 2.6rem;
+							font-weight: normal;
+							text-align: center;
+						}
+						background-color: transparent;
+						color: $black;
+						font-family: $font-family--primary;
+						font-size: 2.6rem;
+						font-weight: normal;
+					}
+				}
+			}
+		}
+
+		.wc-proceed-to-checkout {
+			padding-top: 25px;
+			padding-bottom: 25px;
+
+			a {
+				@include swbbtn();
+				@include btn-default();
+				padding: 1rem 2rem;
+				border: 0;
+				line-height: normal;
+			}
+		}
+	}
+}
+
+body .cross-sells {
+    display: none !important;
+}
+
+@include bp(bp-s-o) {
+	/* START Make the cart table responsive */
+	/* http://css-tricks.com/responsive-data-tables/ */
+
+	/* Force table to not be like tables anymore */
+	.woocommerce-cart.woocommerce-page table.shop_table, 
+	.woocommerce-cart.woocommerce-page table.shop_table thead, 
+	.woocommerce-cart.woocommerce-page table.shop_table tbody, 
+	.woocommerce-cart.woocommerce-page table.shop_table th, 
+	.woocommerce-cart.woocommerce-page table.shop_table td, 
+	.woocommerce-cart.woocommerce-page table.shop_table tr { 
+		display: block; 
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.woocommerce-cart.woocommerce-page table.shop_table thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	.woocommerce-page table.shop_table tr { 
+		/*border: 1px solid #d2d3d3; */
+	}
+
+	.woocommerce-cart.woocommerce-page table.shop_table td { 
+		/* Behave  like a "row" */
+		border: 1px solid #d2d3d3; 
+		position: relative;
+		padding-left: 30% !important; 
+	}
+
+	.woocommerce-page table.shop_table {
+		border: none;
+	}
+
+	.woocommerce-page table.shop_table td.product-spacer {
+		border-color: #FFF;
+		height: 10px;
+	}
+
+	.woocommerce-cart.woocommerce-page table.shop_table td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+
+	/*
+	Label the data
+	*/
+	.woocommerce-page table.shop_table td.product-remove:before {
+		content: "DELETE";
+	}
+
+	.woocommerce-page table.shop_table td.product-thumbnail:before {
+		content: "IMAGE";
+	}
+
+	.woocommerce-page table.shop_table td.product-name:before {
+		content: "PRODUCT";
+	}
+
+	.woocommerce-page table.shop_table td.product-price:before {
+		content: "PRICE";
+	}
+
+	.woocommerce-page table.shop_table td.product-quantity:before {
+		content: "QUANTITY";
+	}
+
+	.woocommerce-page table.shop_table td.product-subtotal:before {
+		content: "SUBTOTAL";
+	}
+
+	.woocommerce-page table.shop_table td.product-total:before {
+		content: "TOTAL";
+	}
+
+	.woocommerce .quantity, 
+	.woocommerce #content .quantity, 
+	.woocommerce-page .quantity, 
+	.woocommerce-page #content .quantity {
+		margin: 0;
+	}
+
+	.woocommerce-page table.cart td.actions, 
+	.woocommerce-page #content table.cart td.actions {
+		text-align: left;
+		border: 0;
+		padding-left: 6px !important;
+	}
+
+	.woocommerce-page table.cart td.actions .button.alt, 
+	.woocommerce-page #content table.cart td.actions .button.alt {
+		margin-top: 10px;
+		float: left;
+	}
+
+	.woocommerce-page table.cart td.actions div, 
+	.woocommerce-page #content table.cart td.actions div,
+	.woocommerce-page table.cart td.actions input, 
+	.woocommerce-page #content table.cart td.actions input {
+		margin-bottom: 10px;
+	}
+
+	.woocommerce-page .cart-collaterals .cart_totals {
+		width: 100%;
+		float: left;
+		text-align: left;
+	}
+
+	.woocommerce-page .cart-collaterals .cart_totals th, 
+	.woocommerce-page .cart-collaterals .cart_totals td {
+		border: 0 !important;
+	}
+
+	.woocommerce-page .cart-collaterals .cart_totals table tr.cart-subtotal td,
+	.woocommerce-page .cart-collaterals .cart_totals table tr.shipping td,
+	.woocommerce-page .cart-collaterals .cart_totals table tr.total td {
+		padding-left: 6px !important;
+	}
+
+	.woocommerce-page table.shop_table tr.cart-subtotal td,
+	.woocommerce-page table.shop_table tr.shipping td,
+	.woocommerce-page table.shop_table tr.total td,
+	.woocommerce-page table.shop_table.order_details tfoot th,
+	.woocommerce-page table.shop_table.order_details tfoot td {
+		padding-left: 6px !important;
+		border: 0 !important;
+	}
+
+	.woocommerce-page table.shop_table tbody {
+		padding-top: 10px;
+	}
+
+	.woocommerce .col2-set .col-1, 
+	.woocommerce-page .col2-set .col-1,
+	.woocommerce .col2-set .col-2, 
+	.woocommerce-page .col2-set .col-2,
+	.woocommerce form .form-row-first, 
+	.woocommerce form .form-row-last, 
+	.woocommerce-page form .form-row-first, 
+	.woocommerce-page form .form-row-last {
+		width: 100%;
+		float: none;
+	}
+
+	.woocommerce .order_details ul, 
+	.woocommerce-page .order_details ul,
+	.woocommerce .order_details, 
+	.woocommerce-page .order_details {
+		padding: 0;
+	}
+
+	.woocommerce .order_details li, 
+	.woocommerce-page .order_details li {
+		margin-bottom: 10px;
+		clear: left;
+		border: 0;
+	}
+
+/* END Make the cart table responsive */
+}
+	
+	

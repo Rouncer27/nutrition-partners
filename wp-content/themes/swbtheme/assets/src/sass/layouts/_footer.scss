@@ -1,0 +1,48 @@
+// Main Footer Styles. //
+.mainfooter {
+	position: relative;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 7.5rem 0;
+	background-color: rgba($color-secondary, .9);
+
+	&__wrapper {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.socialmedia__menu {
+		padding: 2rem 0;
+		text-align: center;
+	}
+
+	&__copy {
+		width: 100%;
+		padding: 1.5rem;
+		text-align: center;
+
+		p {
+			margin-bottom: 0;
+			color: $white;
+			font-size: 1.2rem;
+			font-style: italic;
+
+			span {
+				display: block;
+				font-size: 1.2rem;
+			}
+
+			a {
+				transition: color $trns-duration linear;
+				color: $white;
+				font-size: 1.2rem;
+
+				&:hover {
+					color: $color-accent;
+				}
+			}
+		}
+	} 
+} 

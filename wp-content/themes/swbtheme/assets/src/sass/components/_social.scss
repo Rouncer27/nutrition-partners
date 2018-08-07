@@ -1,0 +1,215 @@
+.socialmedia {
+	width: 100%;
+	margin: 0 auto;
+
+	@include bp(bp-m) {
+		margin: 0;
+	}
+
+	&__menu {
+		margin: 0;
+		text-align: center;
+
+		@include bp(bp-m) {
+			text-align: left;
+		}
+
+		li {
+			display: inline-block;
+			justify-content: center;
+			margin-bottom: .5rem;
+			border-radius: 50%;
+			text-align: center;
+			overflow: hidden;
+
+			a {
+				@include fontAwesome();
+				display: block;
+				position: relative;
+				align-self: center;
+				width: 3.5rem;
+				height: 3.5rem;
+				transition: all 0.35s;
+
+				&::before {
+					display: block;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin: 0 auto;
+					transform: translate(-50%, -50%);
+					font-size: 1.8rem;
+				}
+			}
+		}
+	}
+}
+
+// Base social media styles. //
+.socialmedia {
+	&__menu {
+		&--twitter a {
+			background-color: $twitter-clr;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($twitter-clr, 20%);
+			}
+
+			&::before {
+				content: '\f099';
+			}
+		}
+
+		&--googleplus a {
+			background-color: $googleplusclr;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($googleplusclr, 20%);
+		}
+
+			&::before {
+				content: '\f0d5';
+			}
+		}
+
+		&--facebook a {
+			background-color: $facebook-clr;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($facebook-clr, 20%);
+			}
+
+			&::before {
+				content: '\f09a';
+			}
+		}
+
+		&--instagram a {
+			background-color: $instagram-clr;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($instagram-clr, 20%);
+			}
+
+			&::before {
+				content: '\f16d';
+			}
+		}
+
+		&--linkedin a {
+			background-color: $instagram-clr;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($linkedinclr, 20%);
+			}
+
+			&::before {
+				content: '\f08c';
+			}
+		}
+
+		&--pinterest a {
+			background-color: $pinterest-clr;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($pinterest-clr, 20%);
+			}
+
+			&::before {
+				content: '\f231';
+			}
+		}
+
+		&--youtube a {
+			background-color: $youtube-clr;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($youtube-clr, 20%);
+			}
+
+			&::before {
+				content: '\f167';
+			}
+		}
+
+		&--snapchat a {
+			background-color: $snapchat-clr;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($snapchat-clr, 20%);
+			}
+
+			&::before {
+				content: '\f2ab';
+			}
+		}
+
+		&--email a {
+			background-color: $color-secondary;
+			color: $white;
+
+			&:hover {
+				background-color: lighten($color-secondary, 20%);
+			}
+
+			&::before {
+				content: '\f0e0';
+			}
+		}
+	}
+}
+
+// Blog home page styles. //
+.socialmedia {
+	&__menu {
+		&--blog {
+			.socialmedia__menu--twitter a,
+			.socialmedia__menu--googleplus a,
+			.socialmedia__menu--facebook a,
+			.socialmedia__menu--linkedin a {
+				background-color: transparent;
+				color: $grey;
+				
+				&:hover {
+					background-color: transparent;
+					color: $black;
+				}
+			}
+		}
+	}
+}
+
+
+
+// Footer social media styles. //
+
+.socialmedia {
+	&__menu {
+		&--footer {
+			.socialmedia__menu--twitter a,
+			.socialmedia__menu--googleplus a,
+			.socialmedia__menu--facebook a,
+			.socialmedia__menu--instagram a,
+			.socialmedia__menu--linkedin a,
+			.socialmedia__menu--pinterest a,
+			.socialmedia__menu--youtube a,
+			.socialmedia__menu--snapchat a,
+			.socialmedia__menu--email a {
+				background-color: transparent;
+	
+				&:hover {
+					background-color: transparent;
+				}
+			}
+		}
+	}
+}
+

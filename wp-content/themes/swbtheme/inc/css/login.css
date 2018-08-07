@@ -1,0 +1,105 @@
+/*
+*
+* This is the css file for the login screen for the website.
+*
+* swbtheme - version 1.0.5
+* author - Switchback Creative Inc.
+*
+*/
+
+
+.login h1 a {
+	background-image: url('../../img/logo/swbthemelogin.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 200px;
+}
+
+.login .message {
+	border-color: #00556f;
+	border-left-width: 10px;
+	background-color: rgba(54, 187, 121, 0.75); /* switchback green */
+	color: #00556f;
+	text-transform: uppercase;
+}
+
+#loginform {
+	background-color: rgba(54, 187, 121, 0.75); /* switchback green */
+	border-radius: 7.5px;
+}
+
+#loginform p {
+	text-transform: uppercase;
+}
+
+.login label {
+	color: #00556f; /* switchback blue */
+}
+
+.button-primary.button-large {
+	text-transform: uppercase;
+	background-color: #f05022; /* switchback orange */
+	border-color: #f05022; /* switchback orange */
+	transition: all 0.3s;
+}
+
+.button-primary.button-large:hover {
+	background-color: #00556f; /* switchback blue */
+	border-color: #00556f; /* switchback blue */
+}
+
+.login #nav {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 2em;
+	margin-top: 2em;
+}
+
+.login #nav a {
+	background-color: rgba(54, 187, 121, 0.75); /* switchback green */
+	padding: 12px;
+	display: block;
+	color: #fff;
+	text-transform: uppercase;
+	border-radius: 3px;
+	transition: all 0.4s;
+}
+
+.login #nav a:hover {
+	background-color: rgba(240, 80, 34, 0.75); /* switchback green */
+	border-left: 10px solid #00556f;
+	color: #fff;
+}
+
+.login #backtoblog {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 2em;
+}
+
+.login #backtoblog a {
+	background-color: rgba(54, 187, 121, 0.75); /* switchback green */
+	padding: 12px;
+	display: block;
+	color: #fff;
+	text-transform: uppercase;
+	border-radius: 3px;
+	transition: all 0.4s;
+}
+
+.login #backtoblog a:hover {
+	background-color: rgba(240, 80, 34, 0.75); /* switchback green */
+	border-left: 10px solid #00556f;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+
+

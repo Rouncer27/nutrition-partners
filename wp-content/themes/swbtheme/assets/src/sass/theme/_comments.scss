@@ -1,0 +1,224 @@
+// ****** Layout for Comment Section ****** //
+.swb-comments {
+	padding: 5rem 0;
+	background-color: rgba($black, 0.05);
+
+	.flex-containers {
+		justify-content: flex-start;
+	}
+}
+// ****** Comment Entry Form Section ****** //
+.swb-comments {
+
+	// The continaer <div> element for this form & input fields area. //
+	.comment-respond {
+
+		// The title just before the form section. "What did you think?" // 
+		.comment-reply-title {
+			font-size: 2rem;
+			@include bp(bp-m) {
+				font-size: 2.4rem;
+			}
+		}
+
+		form {
+			width: 100%;
+			@include bp(bp-l) {
+				width: 50%;
+			}
+
+			// The <p> element that contains the form fields. //
+			p {
+				max-width: 900%;
+				margin: 1.5rem auto;
+
+				@include bp(bp-m) {
+					max-width: 100%;
+					margin: 1.5rem 0;
+				}
+
+				label {
+					@include label-prim();
+				}
+
+				input,
+				textarea {
+					@include input-prim();
+				}
+
+				textarea {
+					height: 15rem;
+				}
+			}
+
+			.comment-form-comment {
+				@include bp(bp-m) {
+					margin-bottom: 0;
+				}
+			}
+
+			.comment-notes {
+				font-size: 1.2rem;
+
+				@include bp(bp-m) {
+					font-size: 1.4rem;
+				}
+			}
+
+			// The submit input field. //
+			p.form-submit {
+				display: inline-block;
+
+				.submit {
+					@include swbbtn();
+					@include btn-default();
+					margin-top: .9rem;
+					border-bottom: 0 solid transparent;
+				}
+			}
+		}
+	}
+}
+
+
+// ******** Comments threads and Reply Section ******** //
+.swb-comments {
+	// The title just above the comments thread section. //
+	.comments-title {
+		font-size: 1.8rem;
+
+		@include bp(bp-m) {
+			font-size: 1.8rem;
+		}
+
+		@include bp(bp-l) {
+			font-size: 2rem;
+		}
+	}
+
+	// This is the <ol> element that contains all the comments and the replies to the comments. //
+	.comment-list {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		margin: .5rem;
+		padding-left: 0;
+
+		@include bp(bp-l) {
+			width: 70%;
+			margin: 3rem .5rem;
+		}
+		// Comment thread head in the <li> element. //
+		.comment {
+			padding: 1rem;
+			font-size: 0.7rem;
+
+			@include bp(bp-m) {
+				font-size: 0.8rem;
+			}
+		}
+		// all the .comment <li class="comment"> elements at different depth. //
+		.depth-2,
+		.depth-3,
+		.depth-4,
+		.depth-5 {
+			padding-left: 1.5rem;
+
+			@include bp(bp-m) {
+				margin-top: 1.5rem;
+				margin-bottom: 1.5rem;
+				padding-left: 1.5rem;
+			}
+		}
+
+		.depth-1 {
+			font-size: .85rem;
+
+			@include bp(bp-l) {
+				font-size: 1.4rem;
+				line-height: 1.5;
+			}
+		}
+
+		.depth-2 {
+			border-left: 3px solid rgba($color-primary, 0.55);
+		}
+
+		.depth-3 {
+			border-left: 3px solid rgba($black, 0.55);
+		}
+
+		.depth-4 {
+			border-left: 3px solid rgba($black, 0.35);
+		}
+
+		.depth-5 {
+			border-left: 3px solid rgba($black, 0.15);
+		}
+
+		// Comment thread by author. //
+		.bypostauthor.depth-1 {
+			background-color: rgba($color-accent, 0.1);
+		}
+
+		// If there are any replies to the first comment, the will be children of that comment. //
+
+		.comment {
+			.children {
+				padding-left: .9rem;
+
+				@include bp(bp-m) {
+					padding-left: 1em;
+				}
+			}
+		}
+	}
+
+	// The comment body within the <srticle> element. //
+	.comment-body {
+		// The footer of the comment inside the <Footer> element. //
+		.comment-meta {
+			// Comment author and avatar
+			.comment-author.vcard {
+				img.avatar {
+					width: 4.2rem;
+					margin: 1.5rem 0;
+					border-radius: 50%;
+				}
+
+				.fn {
+					font-size: 1.6rem;
+				}
+			}
+			// Comment time and date. //
+			.comment-metadata {
+				a {
+					transition: all .3s ease;
+					color: $black;
+					font-style: normal;
+
+					&:hover {
+						color: $color-accent;
+					}
+				}
+			}
+		}
+
+		// This is where the comment text is shown, inside the <div>
+		.comment-content {
+			padding: 2rem 0 1rem;
+
+			p {
+				font-size: 1.6rem;
+			}
+		}
+		// This is the reply button for this comment. //
+		.reply {
+			.comment-reply-link {
+				@include swbbtn();
+				@include btn-default($color-primary);
+				margin-top: .9rem;
+			}
+		}
+	}
+}

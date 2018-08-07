@@ -1,0 +1,20 @@
+@mixin input-prim {
+    padding: .5rem .75rem;
+    transition: all .5s ease;
+    border-bottom: .4rem solid $black;
+    background-color: rgba($black, 0.05);
+    color: $black;
+    font-size: 1.6rem;
+    text-align: left;
+
+    &:focus {
+        border-bottom: .4rem solid $color-primary;
+    }
+}
+
+@mixin label-prim {
+    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: $font-weight--Ultrabold;
+}
+

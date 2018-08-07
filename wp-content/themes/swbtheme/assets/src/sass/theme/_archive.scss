@@ -1,0 +1,127 @@
+.archivepage {
+		&__header {
+			h1 {
+				margin-top: 2em;
+				margin-bottom: 2em;
+				color: rgba($black, 0.75);
+				font-size: 2rem;
+				
+	
+				@include bp(bp-m) {
+					font-size: 2.6rem;
+				}
+	
+				@include bp(bp-m) {
+					font-size: 3rem;
+				}
+	
+				span {
+					border-bottom: .2rem solid $black;
+					color: rgba($black, 1);
+					font-style: normal;
+					font-style: italic;
+					font-weight: $font-weight--bold;
+				}
+			}
+		}
+	
+		&__wrapper {
+			display: flex;
+			flex-wrap: wrap;
+	
+			@include bp(bp-m) {
+				justify-content: center;
+			}
+	
+			&--items {
+				@include bp(bp-m) {
+					width: 65%;
+				}
+	
+				@include bp(bp-l) {
+					width: 70%;
+				}
+			}
+		}
+	
+		&__excerpt {
+			margin-bottom: 1rem;
+			padding-top: 25px;
+			padding-bottom: 5rem;
+			box-shadow: 0 .5rem 0 0 $color-primary;
+	
+			h2 {
+				margin-bottom: 0;
+				font-size: 1.8rem;
+	
+				@include bp(bp-m) {
+					font-size: 2.2rem;
+				}
+	
+				@include bp(bp-m) {
+					font-size: 2.6rem;
+				}
+			}
+	
+			p {
+				font-size: 1.6rem;
+	
+				@include bp(bp-m) {
+					font-size: 1.6rem;
+				}
+	
+				@include bp(bp-m) {
+					font-size: 1.6rem;
+				}
+			}
+	
+			p:last-of-type {
+				margin-bottom: 0.75em;
+			}
+	
+			.arch-date {
+				font-style: italic;
+				font-weight: $font-weight--light;
+			}
+	
+			a {
+				transition: all $trns-duration linear;
+				color: $black;
+	
+				&:hover {
+					color: $color-primary;
+				}
+			}
+	
+			.arch-readmore {
+				@include swbbtn();
+				@include btn-default-2();
+				padding-bottom: .5rem;
+				font-size: 1.4rem;
+			}
+		}
+	
+		&__sidebar {
+			padding-top: 25px;
+			padding-bottom: 25px;
+	
+			@include bp(bp-m) {
+				width: calc(35% - 75px);
+				margin-left: 75px;
+			}
+	
+			@include bp(bp-l) {
+				width: calc(30% - 75px);
+				margin-left: 75px;
+			}
+	
+			.flex-containers {
+				display: block;
+				padding: 0;
+			}
+		}
+	}
+
+
+
+

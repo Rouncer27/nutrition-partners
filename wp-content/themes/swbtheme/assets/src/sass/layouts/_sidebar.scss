@@ -1,0 +1,76 @@
+.swbsidebar {
+	padding: 2.5rem 0;
+
+	&__container {
+		@include container-base(flex, small);
+	}
+
+	&__item {
+		width: 100%;
+		padding: 0 1rem 2.5rem;
+
+		@include bp(bp-m) {
+			width: 33%;
+			padding: 0 2.5rem 2.5rem;
+
+			&:nth-of-type(3n + 1) {
+				padding-right: 5rem;
+				padding-left: 0;
+			}
+
+			&:nth-of-type(3n + 3) {
+				padding-right: 0;
+				padding-left: 5rem;
+			}
+		}
+	}
+
+	h3 {
+		font-size: 1.8rem;
+		font-weight: $font-weight--Ultrabold;
+
+		@include bp(bp-m) {
+			margin-bottom: 0.9rem;
+			font-size: 2rem;
+		}
+	}
+
+	ul {
+		li {
+			margin-bottom: 1rem;
+			font-size: 1.4rem;
+
+			@include bp(bp-m) {
+				font-size: 1.4rem;
+			}
+
+			a {
+				transition: all .5s;
+				color: $black;
+
+				&:hover {
+					color: $color-primary;
+				}
+			}
+		}
+	}
+}
+
+
+.search-form {
+	label {
+		@include label-prim();
+	}
+
+	.search-input {
+		@include input-prim();
+	}
+
+	.search-submit {
+		@include swbbtn();
+		@include btn-default();
+		margin-top: .9rem;
+	}
+}
+
+

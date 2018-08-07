@@ -1,0 +1,301 @@
+.swbmainnav {
+  &__button,
+  &__checkbox,
+  &__background {
+    display: none;
+  }
+
+  &__container {
+    .mainlogo {
+      display: none;
+    }
+  }
+}
+
+@include bp(bp-s-o) {
+  .swbmainnav {
+    &__checkbox {
+      display: none;
+    }
+
+    &__button {
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0%;
+      width: 7rem;
+      height: 7rem;
+      background-color: $color-secondary;
+      text-align: center;
+      box-shadow: 0 1rem 3rem rgba($black, 0.1);
+      cursor: pointer;
+      z-index: 9999999;
+
+      &--icon {
+        position: relative;
+        margin-top: 3.5rem;
+
+        &,
+        &::before,
+        &::after {
+          display: inline-block;
+          width: 3rem;
+          height: 0.2rem;
+          transition: all 0.2s;
+          background-color: $white;
+        }
+
+        &::before,
+        &::after {
+          position: absolute;
+          left: 0;
+          content: "";
+        }
+
+        &::before {
+          top: -0.8rem;
+        }
+
+        &::after {
+          top: 0.8rem;
+        }
+      }
+
+      &:hover &--icon::before {
+        top: -1rem;
+      }
+
+      &:hover &--icon::after {
+        top: 1rem;
+      }
+    }
+
+    &__container {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateX(100%);
+      transition: all 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+      opacity: 0;
+      overflow: scroll;
+      visibility: hidden;
+      z-index: 1500;
+
+      .menu-main-menu-container {
+        position: relative;
+        // min-height: 50rem;
+        z-index: 1500;
+      }
+
+      .mainlogo {
+        display: block;
+        position: relative;
+        max-width: 35rem;
+        margin: 5rem auto;
+        z-index: 1500;
+      }
+
+      .mobile-background {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 150vh;
+        background-color: rgba($black, 0.95);
+        z-index: 1000;
+      }
+    }
+
+    // <ul> main navigation </ul>
+    &__wrap {
+      width: 100%;
+      list-style: none;
+      text-align: center;
+
+      li.menu-item {
+        padding: 0.75rem;
+        border-bottom: 0.1rem solid rgba($white, 0.75);
+
+        a {
+          display: block;
+          padding: 1rem 2rem;
+          transition: all 0.5s;
+          color: $white;
+          font-size: 1.8rem;
+          font-weight: 300;
+          text-decoration: none;
+          text-transform: uppercase;
+
+          &:hover {
+            background-color: $color-primary;
+          }
+        }
+      }
+
+      li.menu-item-has-children {
+        position: relative;
+        padding: 0.75rem;
+
+        .sub-icon {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 5.75rem;
+          height: 5.75rem;
+          transition: all $trns-duration;
+          background-color: rgba($white, 1);
+          color: $black;
+
+          &::after {
+            @include fontAwesome();
+            position: absolute;
+            top: 50%;
+            right: 0;
+            left: 0;
+            transform: translateY(-50%);
+            transition: all $trns-duration;
+            content: "\f078";
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        ul.sub-menu {
+          height: auto;
+          margin-top: 0.75rem;
+          transition: all 0.5s ease;
+          opacity: 1;
+
+          li {
+            border-bottom: 0 solid rgba($white, 0.75);
+
+            a {
+              font-size: 1.4rem;
+              font-style: italic;
+              font-weight: bold;
+            }
+          }
+        }
+
+        ul.collapse {
+          max-height: 0;
+          margin-top: 0;
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        ul.sub-open {
+          max-height: 200px;
+          margin-top: 0.75rem;
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
+      // This is the hover effect. //
+      //li.menu-item-has-children:hover ul.sub-menu,
+      li.menu-item-has-children:focus ul.sub-menu {
+        max-height: 200px;
+        margin-top: 0.75rem;
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    &__checkbox:checked ~ &__container {
+      transform: translateX(0%);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &__icon {
+      position: relative;
+      margin-top: 3.5rem;
+
+      &,
+      &::before,
+      &::after {
+        display: inline-block;
+        width: 3rem;
+        height: 0.2rem;
+        transition: all 0.2s;
+        background-color: $white;
+      }
+
+      &::before,
+      &::after {
+        position: absolute;
+        left: 0;
+        content: "";
+      }
+
+      &::before {
+        top: -0.8rem;
+      }
+
+      &::after {
+        top: 0.8rem;
+      }
+    }
+
+    &__button:hover &__icon::before {
+      top: -1rem;
+    }
+
+    &__button:hover &__icon::after {
+      top: 1rem;
+    }
+
+    &__checkbox:checked ~ &__button &__icon {
+      background-color: transparent;
+    }
+
+    &__checkbox:checked ~ &__button &__icon::before {
+      top: 0;
+      transform: rotate(135deg);
+      background-color: $black;
+    }
+    &__checkbox:checked ~ &__button &__icon::after {
+      top: 0;
+      transform: rotate(-135deg);
+      background-color: $black;
+    }
+
+    &__checkbox:checked ~ &__button {
+      background-color: $white;
+    }
+  }
+
+  .swbmainnav__wrap li.menu-item-has-children .sub-icon.icon-open {
+    background-color: $color-primary;
+
+    &::after {
+      display: block;
+      transform: translateY(-50%) rotate(180deg);
+    }
+  }
+
+  .menu-main-menu-container {
+    .swbmainnav__wrap {
+      .current_page_item a {
+        background-color: $color-primary;
+      }
+
+      .current_page_item.menu-item-has-children {
+        ul {
+          li {
+            a {
+              background-color: transparent;
+            }
+          }
+        }
+      }
+    }
+  }
+}

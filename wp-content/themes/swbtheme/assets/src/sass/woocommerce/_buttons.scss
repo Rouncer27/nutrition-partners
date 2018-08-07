@@ -1,0 +1,38 @@
+// These are the styles for the WooCommerce plugin buttons. //
+a.button,
+button.button,
+input.button,
+.button,
+.showcoupon,
+.showlogin,
+.added_to_cart,
+.shipping-calculator-button,
+.add_to_cart_button,
+.added_to_cart,
+.edit,
+.about_paypal,
+.reset_variations,
+.lost_password a,
+#respond input#submit {
+	@include swbbtn();
+	@include btn-default();
+	margin: 1rem 0;
+}
+// This is to have the button placed on top of the add to cart button of the purchase has been made. //
+.added_to_cart {
+	@include btn-default($color-accent);
+}
+
+
+.outofstock,
+.product-type-variable {
+	.button {
+		border-color: $color-secondary;
+		background-color: $color-secondary;
+
+		&:hover {
+			background-color: transparent;
+			color: $color-secondary;
+		}
+	}
+}

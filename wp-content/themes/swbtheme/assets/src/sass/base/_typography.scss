@@ -1,0 +1,121 @@
+body {
+	color: $black;
+	font-family: $font-family--primary;
+	font-weight: $font-weight--normal;
+	letter-spacing: $letter-space;
+	line-height: $base__line;
+}
+// Headlines Base Styles --- Font Setup ---- _base.scss
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	font-weight: $font-weight--normal;
+	line-height: $base__line;
+}
+// Headlines Base Styles --- H1 ---- _base.scss
+h1 {
+	font-size: 3.2rem;
+	@include bp(bp-m) { font-size: 4rem; }
+	@include bp(bp-l) { font-size: 4.8rem; }
+	@include bp(bp-xl) { font-size: 5.2rem; }
+}
+// Headlines Base Styles --- H2 ---- _base.scss
+h2 {
+	font-size: 2.6rem;
+	@include bp(bp-m) { font-size: 3.2rem; }
+	@include bp(bp-l) { font-size: 3.6rem; }
+	@include bp(bp-xl) { font-size: 4rem; }
+}
+// Headlines Base Styles --- H3 ---- _base.scss
+h3 {
+	font-size: 2.2rem;
+	@include bp(bp-m) { font-size: 2.4rem; }
+	@include bp(bp-l) { font-size: 2.8rem; }
+	@include bp(bp-xl) { font-size: 3rem; }
+}
+// Headlines Base Styles --- H4 ---- _base.scss
+h4 {
+	font-size: 1.8rem;
+	@include bp(bp-m) { font-size: 2rem; }
+	@include bp(bp-l) { font-size: 2.2rem; }
+	@include bp(bp-xl) { font-size: 2.4rem; }
+}
+// Headlines Base Styles --- H5 ---- _base.scss
+h5 { font-size: 1.8rem; }
+// Headlines Base Styles --- H6 ---- _base.scss
+h6 { font-size: 1.8rem; }
+// Base Styles --- PARAGRAPH ELEMENTS ---- _base.scss
+p {
+	margin: 0;
+	margin-bottom: 1.5em;
+	font-size: 1.8rem;
+	line-height: 1.4;
+}
+// Base Styles --- ANCHOR ELEMENTS ---- _base.scss
+a {
+	color: $color-accent;
+	font-size: 1.6rem;
+	font-weight: $font-weight--normal;
+	text-decoration: none;
+
+	&:hover {
+		color: $color-primary;
+	}
+}
+// Base Styles --- SPAN ELEMNETS ---- _base.scss
+span { font-size: 1em; }
+// Base Styles --- BLOCKQUOTES ELEMNETS ---- _base.scss
+blockquote {
+	@include bp(bp-m) {
+		margin: 3.2rem 2.4rem 0;
+		padding: 0 0 0 5%;
+		border-left: 0.8rem solid $black;
+		font-size: 2.4rem;
+	}
+
+	font-size: 2rem;
+	font-style: italic;
+	font-weight: $font-weight--light;
+}
+// Base Styles --- UNORDERED LISTS AND ORDERED LISTS ---- _base.scss
+ul,
+li {
+	margin: 0;
+	padding: 0;
+	font-size: 1.6rem;
+	line-height: 1.25;
+	list-style-type: none;
+}
+// Base Styles --- IMAGES ---- _base.scss
+img {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto;
+}
+// Base Styles --- FORM ELEMENTS ---- _base.scss
+input, 
+textarea {
+	display: block;
+	width: 100%; 
+	padding: 1.5rem;
+	border: 0;
+	outline: 0;
+	font-size: 1.6rem;
+}
+input:focus, 
+textarea:focus {
+	transition: $trns_duration;
+}
+// Base Styles --- BUTTONS ---- _base.scss
+button {
+	outline: 0;
+	font-size: 1.6rem;
+}

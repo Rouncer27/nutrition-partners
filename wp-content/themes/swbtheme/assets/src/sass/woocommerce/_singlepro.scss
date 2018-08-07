@@ -1,0 +1,706 @@
+.singlepro {
+	padding-top: 50px;
+	&__container {
+		@include container-base();
+	}
+}
+
+.woocommerce {
+	div.product {
+		// This is the container that holds the 2 halfs of the product details. //
+		// Inside this container is 3 possible items. //
+		// The image side the product summary side and if it is on sale, the sale flag <span>. // 
+		.container {
+			display: flex;
+			position: relative;
+			flex-wrap: wrap;
+			justify-content: center;
+			padding: 0;	
+
+			// This is the on sale flage that will be on top of the image. //
+			.onsale {
+				@include onsale();
+				left: 0 !important;
+			}
+			// This is the image container on the left side of the product description. //
+			.images {
+				width: 100%;
+				margin-bottom: 5rem;
+	
+				@include bp(bp-m) {
+					width: calc(50% - 1rem);
+					margin-right: 1rem;
+					margin-bottom: 0;
+					margin-left: 0;
+				}
+	
+				@include bp(bp-l) {
+					width: calc(50% - 5rem);
+					margin-right: 5rem;
+					margin-left: 0;
+				}
+	
+				.woocommerce-product-gallery__wrapper {
+					margin: 0;
+				}
+			}
+			// This is the summary of the product section. //
+			.summary {
+				width: 100%;
+	
+				@include bp(bp-m) {
+					width: calc(50% - 1rem);
+					margin-right: 0;
+					margin-left: 1rem;
+				}
+	
+				@include bp(bp-l) {
+					width: calc(50% - 5rem);
+					margin-right: 1rem;
+					margin-left: 4rem;
+				}
+				// The main product title styles. //
+				h1.product_title {
+					position: relative;
+					margin-top: 0;
+					margin-bottom: 1rem;
+					font-size: 2.4rem;
+					
+					@include bp(bp-m) {
+						font-size: 2.6rem;
+					}
+	
+					@include bp(bp-l) {
+						font-size: 3.6rem;
+					}
+				}
+				// This is the star rating for this product. //
+				.woocommerce-product-rating {
+					padding-bottom: 2rem;
+
+					.star-rating {
+						@include starRatings();
+						margin-right: 15rem;
+					}
+	
+					.woocommerce-review-link {
+						transition: all $trns-duration linear;
+						color: $black;
+						font-size: 1.4rem;
+						font-style: italic;
+	
+						&:hover {
+							color: $color-accent;
+						}
+					}
+				}
+				// This is the price of the product. //
+				.price {
+					display: block;
+					margin-bottom: .5rem;
+					color: $black;
+					font-size: 1.6rem;
+					text-decoration: none;
+	
+					del {
+						position: relative;
+						margin-right: .9rem;
+						font-weight: bold;
+						text-decoration: none;
+
+						span {
+							color: rgba($color-primary, 0.75);
+							font-size: 1.8rem;
+						}
+
+						&::after {
+							display: block;
+							position: absolute;
+							top: 50%;
+							left: 0;
+							width: 100%;
+							height: .3rem;
+							transform: translateY(-50%) rotate(10deg);
+							background-color: $black;
+							content: '';
+						}
+					}
+	
+					ins {
+						margin-left: 1em;
+						font-weight: bold;
+						text-decoration: none;
+						
+						span {
+							color: $color-accent;
+							font-size: 1.8rem;
+							font-weight: $font-weight--bold;
+							text-decoration: none;
+						}
+					}
+	
+					.subscription-details {
+						display: block;
+						color: $color-primary;
+						font-size: 1.6rem;
+						font-weight: bold;
+					}
+				}
+	
+				.woocommerce-product-details__short-description {
+					// I hooked on my own class for wysiwyg editor styles. // 
+				}
+				
+				// This is the variations section. It is a table element that holds all the options. //
+				table.variations {
+					tr {
+						display: flex;
+						flex-wrap: wrap;
+						justify-content: flex-start;
+						margin-bottom: 3rem;
+						border-bottom: 3px solid $color-primary;
+
+						&:last-child {
+							margin-bottom: 0;
+						}
+
+						td.label {
+							display: inline-block;
+							width: 50%;			
+							margin: 0;
+							font-size: 1.8rem;
+							text-transform: capitalize;
+						}
+
+						td.value {
+							display: flex;
+							flex-wrap: wrap;
+							justify-content: center;
+							width: 50%;		
+							padding-bottom: 1.5em;
+		
+							select {
+								border-radius: 0 !important;
+		
+								&:focus {
+									outline: none;
+								}
+							}
+
+							.reset_variations {
+								margin-bottom: 0;
+								visibility: visible !important;
+							}
+						}
+					}
+				}
+				// This is the quantity section of the single product page. //
+				.quantity-input-container {
+					padding: 2rem 0;
+
+					.quantity-text {
+						margin: 0;
+						margin-bottom: 2rem;
+					}
+	
+					.quantity {
+						.input-text {
+							@include input-prim();
+							max-width: 15rem;
+						}
+					}
+	
+					.woocommerce-variation-price {
+						.price {
+							margin-bottom: 2rem;
+							color: $color-primary;
+							font-weight: bold;
+						}
+					}
+	
+					.woocommerce-variation-availability {
+						margin-bottom: 5px;
+					}
+	
+					.stock {
+						margin: 0;
+						font-size: 1.4rem;
+						font-style: italic;
+					}
+	
+					.in-stock {
+						color: $color-primary;
+					}
+	
+					.out-of-stock {
+						color: $strongred;
+						font-size: 1.6rem;
+						font-style: normal;
+						font-weight: $font-weight--bold;
+					}
+	
+					.single_add_to_cart_button {
+						@include swbbtn();
+						@include btn-default();
+						border: 0;
+					}
+				}
+				
+				// This is the meta data at the end of the product desription section. //
+				.product_meta {
+					span,
+					a {
+						font-size: 1.4rem;
+						line-height: 1.25;
+					}
+
+					.sku_wrapper {
+						display: block;
+					}
+	
+					.posted_in {
+						font-style: italic;
+	
+						a {
+							transition: all $trns-duration linear;
+							color: $color-primary;
+	
+							&:hover {
+								color: $color-accent;
+							}
+						}
+					}
+				}
+			}
+		}	
+	}
+}
+
+
+
+
+/* WooCommerce 3.0 Gallery */
+
+.woocommerce-product-gallery {
+	position: relative;
+	margin-bottom: 3em;
+}
+
+.woocommerce-product-gallery figure {
+	margin: 0;
+}
+
+.woocommerce-product-gallery .woocommerce-product-gallery__image:nth-child(n+2) {
+	display: inline-block;
+	width: 25%;
+}
+
+.woocommerce-product-gallery .flex-control-thumbs li {
+	float: left;
+	list-style: none;
+	cursor: pointer;
+}
+
+.woocommerce-product-gallery .flex-control-thumbs img {
+	opacity: .5;
+}
+
+.woocommerce-product-gallery .flex-control-thumbs img.flex-active,
+.woocommerce-product-gallery .flex-control-thumbs img:hover {
+	opacity: 1;
+}
+
+.woocommerce-product-gallery img {
+	display: block;
+}
+
+.woocommerce-product-gallery--columns-3 .flex-control-thumbs li {
+	width: 33.3333%;
+}
+
+.woocommerce-product-gallery--columns-4 .flex-control-thumbs li {
+	width: 25%;
+}
+
+.woocommerce-product-gallery--columns-5 .flex-control-thumbs li {
+	width: 20%;
+}
+
+.woocommerce-product-gallery__trigger {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	z-index: 99;
+}
+
+a.woocommerce-product-gallery__trigger {
+	text-decoration: none;
+}
+
+.single-product div.product .woocommerce-product-gallery .woocommerce-product-gallery__trigger {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 2em;
+	height: 2em;
+	text-align: center;
+	text-indent: -999px;
+	overflow: hidden;
+	z-index: 99;
+}
+
+.single-product div.product .woocommerce-product-gallery .woocommerce-product-gallery__trigger {
+	transition: all $trns-duration linear;
+	background-color: $color-primary;
+	color: $white;
+}
+
+.single-product div.product .woocommerce-product-gallery .woocommerce-product-gallery__trigger:hover {
+	background-color: $color-accent;
+	color: $white;
+}
+
+.single-product div.product .woocommerce-product-gallery .woocommerce-product-gallery__trigger::before {
+	@include fontAwesome();
+	display: block;
+	line-height: 2;
+	text-indent: 0;
+	content: '\f00e';
+}
+
+
+
+
+
+
+
+
+// Tabs section. //
+.woocommerce {
+	// The tabs container <div> This will appear right after the product section. //
+	.woocommerce-tabs.wc-tabs-wrapper {
+		margin-top: 10rem;
+		// This is the top tabs section where you can choose what item to view in the tabs section. //
+		ul.tabs {
+			display: flex;
+			flex-wrap: wrap;
+			// This is the styles all all the list items <li> In the tabs section. //
+			li {
+				a {
+					display: block;
+					position: relative;
+					margin: 0 1.5rem;
+					padding: 5rem 4.5rem;
+					color: $grey;
+					// The lines between options on the tab section. //
+					&::before,
+					&::after {
+						position: absolute;
+						top: 20%;
+						bottom: 20%;
+						width: .3rem;
+						background-color: rgba($grey, .5);
+						content: '';
+					}
+
+					&::before {
+						left: 0;
+					}
+
+					&::after {
+						right: 0;
+					}
+				}
+			}
+
+			// The active tab. //
+			.active {
+				position: relative;
+
+				&::after {
+					display: block;
+					position: absolute;
+					right: 0;
+					bottom: -1.25rem;
+					left: 0;
+					width: 2.5rem;
+					height: 2.5rem;
+					margin-right: auto;
+					margin-left: auto;
+					transform: rotate(45deg);
+					background-color: #e4e4e4;
+					content: '';
+				}
+
+				a {
+					background-color: #e4e4e4;
+					color: $color-secondary;
+					font-style: normal;
+					font-weight: $font-weight--bold;
+
+					&::before,
+					&::after {
+						background-color: #e4e4e4;
+					}
+				}
+			}
+		}
+		// The information displayed below. //
+		.woocommerce-Tabs-panel {
+			padding: 1.5rem;
+		}
+		// The description section. //
+		.woocommerce-Tabs-panel--description {
+			h2:first-of-type {
+				font-size: 2.2rem;
+
+				@include bp(bp-m) {
+					font-size:  2.6rem;
+				}
+
+				@include bp(bp-l) {
+					font-size: 2.8rem;
+				}
+			}
+
+			p {
+				font-size: 1.8rem;
+				
+				@include bp(bp-m) {
+					font-size:  1.6rem;
+				}
+
+				@include bp(bp-l) {
+					font-size: 1.6rem;
+				}
+			}
+		}
+		// the reviews section .//
+		.woocommerce-Tabs-panel--reviews {
+			#comments {
+				.woocommerce-Reviews-title {
+					font-size: 2.2rem;
+					
+					@include bp(bp-m) {
+						font-size:  2.6rem;
+					}
+	
+					@include bp(bp-l) {
+						font-size: 2.8rem;
+					}
+
+					span {
+						color: $color-primary;
+						font-size: 1em;
+					}
+				}
+
+				.commentlist {
+					display: flex;
+					flex-wrap: wrap;
+					width: 100%;
+					margin: .5rem;
+					padding-left: 0;
+
+					@include bp(bp-l) {
+						width: 100%;
+						margin: 1.5rem .5rem;
+					}
+
+					li {
+						width: 100%;
+						padding: 1rem;
+						font-size: 0.7rem;
+
+						@include bp(bp-m) {
+							font-size: 1rem;
+						}
+
+						img.avatar {
+							width: 4.2rem;
+							height: 4.2rem;
+							margin: 1em 0;
+							border-radius: 50%;
+						}
+
+						.star-rating {
+							@include starRatings();
+						}
+
+						.meta {
+							margin-bottom: 1rem;
+
+							.woocommerce-review__published-date {
+								font-style: italic;
+							}
+						}
+
+						.description {
+							width: 60%;
+
+							p {
+								margin-bottom: .5rem;
+								font-size: 1.6rem;
+							}
+						}
+					}
+
+					.even {
+						background-color: rgba($grey, 0.025);
+					}
+
+					.odd {
+						border-top: 3px solid $grey;
+						border-bottom: 3px solid $grey;
+						background-color: rgba($grey, 0.1);
+					}
+				}
+			}
+
+			#review_form_wrapper {
+				.comment-respond {
+					.comment-reply-title {
+						font-size: 1.6rem;
+
+						@include bp(bp-m) {
+							font-size: 1.8rem;
+						}
+
+						@include bp(bp-l) {
+							font-size: 2rem;
+						}
+					}
+
+					.comment-form {
+						.comment-form-rating {
+							label {
+								font-size: 1.6rem;
+								line-height: 1.25;
+
+								@include bp(bp-m) {
+									font-size: 1.4rem;
+								}
+
+								@include bp(bp-l) {
+									font-size: 1.2rem;
+								}
+							}
+
+							.stars {
+								// @include starRatings();
+								span {
+									display: flex;
+									flex-wrap: wrap;
+
+									a {
+										flex: 1 1 auto;
+										transition: all $trns-duration linear;
+										border: 1px solid $black;
+										color: $black;
+										text-align: center;
+									}
+
+									.swb-star-fill-activate {
+										background-color: $color-secondary;
+										color: $white;
+									}
+
+									.swb-star-fill {
+										background-color: $color-secondary;
+										color: $white;
+									}
+
+									.active {
+										background-color: $color-primary;
+										color: $white;
+									}
+								}
+							}
+						}
+
+						.comment-form-comment {
+							textarea {
+								@include input-prim();
+							}
+						}
+
+						.form-submit {
+							width: 15rem;
+
+							.submit {
+								@include swbbtn();
+								@include btn-default();
+								padding: 1rem 2rem;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+}
+
+
+// Reviews section title. //
+.woocommerce-Reviews-title {
+	font-family: $font-family--primary;
+}
+// There are no reviews yet message. //
+.woocommerce-noreviews {
+	font-size: 1.4rem;
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+}
+
+
+
+// Related Porducts // 
+.woocommerce {
+	.products.related {
+		padding-bottom: 5rem;
+
+		h2 {
+			// This would be the main section title for related products. "Realated Products"
+			&:first-child {
+				margin-bottom: 0;
+				font-family: $font-family--primary;
+				font-size: 2.4rem;
+				font-weight: bold;
+				text-transform: initial;
+			}
+		}
+
+		ul.products {
+			li.product {
+				margin-top: 2.5rem;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

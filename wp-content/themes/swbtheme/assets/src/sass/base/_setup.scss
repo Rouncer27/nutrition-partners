@@ -1,0 +1,33 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    position: relative;
+    font-size: 62.5%;
+    overflow-x: hidden !important;
+}
+
+body {
+    position: relative;
+    font-size: $base__font-size;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+}
+
+main {
+	width: 100%;
+	margin-right: 0;
+	margin-left: 0;
+	float: left;
+}
+// Main website wrapper setup. //
+.swbwrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}

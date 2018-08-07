@@ -1,0 +1,215 @@
+.woocommerce-order {
+	.woocommerce-thankyou-order-received {
+		margin: 1rem 0;
+		color: $black;
+		font-size: 1.8rem;
+
+		@include bp(bp-m) {
+			font-size: 2.2rem;
+		}
+
+		@include bp(bp-l) {
+			font-size: 2.4rem;
+		}
+	}
+}
+
+.woocommerce-thankyou-order-details {
+	li {
+		margin-bottom: .5rem;
+		//font-size: 1.6rem;
+
+		strong {
+			color: $color-secondary;
+			font-style: normal;
+		}
+	}
+}
+
+.woocommerce-order-details {
+	margin: 4rem 0;
+	h2 {
+		font-size: 1.8rem;
+
+		@include bp(bp-m) {
+			font-size: 2.2rem;
+		}
+
+		@include bp(bp-l) {
+			font-size: 2.4rem;
+		}
+	}
+}
+
+.shop_table.order_details {
+	width: 100%;
+	max-width: 50rem;
+	border: .1rem solid $black;
+
+	thead {
+		background-color: rgba($color-primary, 0.8);
+
+		th {
+			padding: 1rem .5rem;
+			color: $white;
+			text-transform: uppercase;
+		}
+	}
+
+	tbody {
+		tr {
+			td {
+				padding: 1em;
+				border: .1rem solid $black;
+				font-size: 1.4rem;
+
+				a {
+					color: $black;
+					font-size: 1.4rem;
+
+					&:hover {
+						color: $color-accent;
+					}
+				}
+			}
+		}
+	}
+
+	tfoot {
+		tr {
+			border: 1px solid $black;
+
+			th,
+			td {
+				padding: 1em;
+				border: .1rem solid $black;
+				font-size: 1.4rem;
+				text-align: left;
+			}
+
+			&:last-of-type {
+				border-top: .5rem solid rgba($color-primary, 0.8);
+				font-size: 2rem;
+			}
+		}
+	}
+}
+
+.woocommerce-customer-details {
+	h2 {
+		font-size: 1.8rem;
+		
+		@include bp(bp-m) {
+			font-size: 2.2rem;
+		}
+
+		@include bp(bp-l) {
+			font-size: 2.4rem;
+		}
+	}
+
+	address {
+		font-size: 1.6rem;
+		line-height: 1.5;
+
+		p {
+			margin: 0;
+			font-size: 1.6rem;
+		}
+	}
+}
+
+.print-button-section {
+	margin-top: 5rem;
+
+	h4 {
+		font-size: 1.8rem;
+		
+		@include bp(bp-m) {
+			font-size: 2.2rem;
+		}
+
+		@include bp(bp-l) {
+			font-size: 2.4rem;
+		}
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.button {
+		max-width: 35rem;
+		margin-top: 2.5rem;
+
+		a {
+			color: $white;
+		}
+	}
+}
+
+.thankyou-message {
+	padding: 2.5rem 0;
+
+	h4 {
+		font-size: 1.8rem;
+		
+		@include bp(bp-m) {
+			font-size: 2.2rem;
+		}
+
+		@include bp(bp-l) {
+			font-size: 2.4rem;
+		}
+	}
+}
+
+
+// Styles for printing the thank you and the invoice. //
+
+@media print {
+	body { 
+		background-image: none;
+	}
+
+	.mainlogo {
+		max-width: 150px;
+		margin-bottom: 0;
+		margin-left: 0;
+	}
+
+	.woocommerce-order-details {
+		margin-top: 0;
+	}
+
+	.woocommerce-order-overview {
+		li {
+			line-height: 1;
+			margin: 0;
+		}
+	}
+
+	address {
+		line-height: 1.25;
+	}
+
+	.shop_table.order_details {
+		thead {
+			background-color: $white;
+
+			th {
+				border: 1px solid $black;
+				color: $black;
+			}
+		}
+	}
+
+	.thankyou-message,
+	.print-button-section,
+	.sfm-navicon-button,
+	.swbmainnav,
+	.mainfooter {
+		display: none;
+	}
+}
+

@@ -1,0 +1,23 @@
+.siteheader {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  & > div {
+    width: 100%;
+  }
+
+  &__top {
+    @include container-base(flex);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    @include bp(bp-m) {
+      justify-content: space-between;
+      padding: 6rem 0;
+    }
+  }
+}

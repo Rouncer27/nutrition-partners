@@ -1,0 +1,22 @@
+.mainlogo {
+  width: 100%;
+  max-width: 40rem;
+  margin: 1.5rem auto;
+  padding: 0.5rem;
+  text-align: center;
+
+  @include bp(bp-m) {
+    max-width: 30rem;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  h1,
+  p {
+    margin: 0;
+
+    span {
+      @include hideText();
+    }
+  }
+}

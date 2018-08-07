@@ -1,0 +1,93 @@
+.product-nav {
+	background-color: $color-primary;
+	ul {
+		text-align: center;
+
+		li.current {
+			a {
+				border: 2px solid $white;
+			}
+		}
+
+		li {
+			display: block;
+			font-size: 1.8rem;;
+
+			@include bp(bp-m) {
+				display: inline-block;
+				font-size: 1.6rem;;
+			}
+
+			@include bp(bp-l) {
+				font-size: 1.8rem;;
+			}
+
+			a {
+				display: block;
+				padding: 0.5em 1.5em;	
+				transition: all $trns-duration;
+				color: $white;
+				text-transform: uppercase;
+
+				&:hover {
+					color: $color-shadow2;
+				}
+			}
+		}
+	}
+}
+
+
+// 7) Navigation Styles. //
+.woocommerce {
+	nav.woocommerce-pagination {
+		padding: 2.5rem 0;
+
+		ul.page-numbers {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			justify-content: center;
+
+			@include bp(bp-m) {
+				flex-direction: row;
+			}		
+
+			li {
+				width: 100%;
+				max-width: 40%;
+				margin: 1.5rem auto;
+
+				@include bp(bp-m) {
+					width: auto;
+					margin: 0 .5rem;
+				}
+				
+				.page-numbers {
+					display: block;
+					padding: .5rem 1rem;
+					transition: all $trns-duration linear;
+					border: .1rem solid $black;
+					color: $black;
+					font-size: 1.6rem;
+					line-height: 1.25;
+					text-align: center;
+				}
+
+				.current {
+					border-color: $color-accent;
+					background-color: $color-accent;
+					color: $white;
+				}
+
+				a {
+					&:hover {
+						border-color: $color-secondary;
+						background-color: $color-secondary;
+						color: $white;
+					}
+				}
+			}
+		}
+	}
+}

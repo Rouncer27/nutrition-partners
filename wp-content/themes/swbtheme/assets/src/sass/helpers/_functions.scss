@@ -1,0 +1,44 @@
+// Breakpoints for the theme. _mixin.scss
+@mixin bp($break) {
+	@if $break == bp-max {
+		@media (min-width: $maxlarge) {
+			@content;
+		}
+	}
+
+	@if $break == bp-xxl {
+		@media (min-width: $extralarge) {
+			@content;
+		}
+	}
+
+	@if $break == bp-xl {
+		@media (min-width: $large) {
+			@content;
+		}
+	}
+
+	@if $break == bp-l {
+		@media (min-width: $medium) {
+			@content;
+		}
+	}
+
+	@if $break == bp-m-o {
+		@media (min-width: $small) and (max-width: $medium - 1) {
+			@content;
+		}
+	}
+
+	@if $break == bp-m {
+		@media (min-width: $small) {
+			@content;
+		}
+	}
+
+	@if $break == bp-s-o {
+		@media (min-width: 1px) and (max-width: $small - 1) {
+			@content;
+		}
+	}
+}

@@ -1,0 +1,110 @@
+.swbsearch {
+	padding-bottom: 25px;
+
+	header {
+		h2 {
+			margin-top: 2em;
+			margin-bottom: 2em;
+			color: rgba($black, 0.75);
+			font-size: 2rem;
+			text-align: center;
+
+			@include bp(bp-m) {
+				font-size: 2.4rem;
+			}
+
+			@include bp(bp-l) {
+				font-size: 2.6rem;
+			}
+
+			span {
+				border-bottom: 2px solid $black;
+				color: rgba($black, 1);
+				font-weight: $font-weight--bold;
+			}
+		}
+	}
+
+	&__wrapper {
+		@include bp(bp-m) {
+			width: 80%;
+			margin-right: auto;
+			margin-left: auto;
+		}
+	}
+
+	section {
+		padding-top: 25px;
+		padding-bottom: 25px;
+
+		h3 {
+			font-size: 2.2rem;
+
+			a {
+				transition: all 0.35s;
+				color: $black;
+
+				&:hover {
+					color: $color-accent;
+				}
+			}
+
+			&::before {
+				@include fontAwesome();
+				padding-right: 0.5em;
+				color: $color-secondary;
+				font-size: 1em;
+				content: '\f002';
+			}
+		}
+	}
+
+	footer {
+		padding-top: 50px;
+
+		@include bp(bp-m) {
+			width: 100%;
+			max-width: 500px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+
+		p {
+			font-size: 1.6rem;
+			font-style: italic;
+
+			@include bp(bp-m) {
+				font-size: 1.6rem;
+			}
+
+			@include bp(bp-l) {
+				font-size: 1.6rem;
+			}
+		}
+	}
+
+	&__found {
+		p {
+			font-size: 1.6rem;
+
+			@include bp(bp-m) {
+				font-size: 1.6rem;
+			}
+
+			@include bp(bp-l) {
+				font-size: 1.6rem;
+			}
+		}
+
+		.search-readmore {
+			@include swbbtn();
+			@include btn-default-2();
+			padding-bottom: .5rem;
+			font-size: 1.4rem;
+		}
+	}
+
+	&__notfound {
+		text-align: center;
+	}
+}

@@ -1,0 +1,68 @@
+.woocommerce {
+	.woocommerce-message {
+		@include wooMessages();
+		
+		a {
+			@include swbbtn();
+			@include btn-default();
+			display: block;
+			max-width: 15rem;
+			margin: 1rem auto;
+		}
+	}
+
+	.woocommerce-error {
+		@include wooMessages();
+		position: relative;
+		background-color: $strongred;
+		color: $white;
+
+
+		&::before,
+		&::after {
+			@include fontAwesome();
+			display: block;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			content: '\f071';
+		}
+
+		&::before {
+			left: 1.75rem;
+		}
+
+		&::after {
+			right: 1.75rem;
+		}
+
+		strong {
+			color: $white;
+			font-style: normal;
+			font-weight: bold;
+		}
+	}
+
+	.woocommerce-NoticeGroup-checkout {
+		.woocommerce-error {
+			&::before,
+			&::after {
+				content: '';
+			}
+		}
+	}
+
+	.woocommerce-info {
+		@include wooMessages();
+		
+		a {
+			@include swbbtn();
+			@include btn-default();
+		}
+	}
+
+	.cart-empty {
+		@include wooMessages();
+	}
+}
+

@@ -1,0 +1,211 @@
+.swb-blog-title {
+	font-size: 2.4rem;
+	text-align: center;
+
+	@include bp(bp-m) {
+		font-size: 3.8rem;
+	}
+
+	@include bp(bp-l) {
+		font-size: 4.2rem;
+	}
+}
+
+.blogpage__articles--wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 5rem 0;
+}
+
+.blogitem {
+	margin: .1rem auto 5rem;
+	padding: 2rem 5rem;
+	border: 2px solid $black;
+
+	@include bp(bp-m) {
+		width: 80%;
+	}
+
+	@include bp(bp-l) {
+		width: 80%;
+	}
+}
+
+.blogitem__header {
+	h2 {
+		font-size: 2.4rem;
+		text-align: center;
+
+		@include bp(bp-m) {
+			font-size: 2.8rem;
+			text-align: left;
+		}
+
+		@include bp(bp-l) {
+			font-size: 3rem;
+		}
+
+		a {
+			color: $black;
+			font-size: 1em;
+
+			&:hover {
+				color: $color-primary;
+			}
+
+			span {
+				font-size: 1em;
+			}
+		}
+	}
+
+	p {
+		.swb-pub,
+		.swb-meta,
+		.swb-author {
+			display: block;
+		}
+
+		.swb-meta,
+		.swb-author {
+			font-size: 1.2rem;
+
+			span,
+			a {
+				font-size: 1em;
+			}
+
+			.swb-comments-count,
+			a {
+				color: $black;
+				font-weight: $font-weight--bold;
+			}
+
+			a:hover {
+				color: $color-primary;
+			}
+		}
+
+		.swb-pub {
+			display: none;
+		}
+	}
+}
+
+.blogitem__content {
+	position: relative;
+	padding-bottom: 25px;
+
+	p {
+		font-size: 1.6rem;
+		text-align: center;
+
+		@include bp(bp-m) {
+			font-size: 1.6rem;
+			text-align: left;
+		}
+
+		@include bp(bp-l) {
+			font-size: 1.4rem;
+		}
+	}
+
+	.moretag {
+		text-align: center;
+
+		@include bp(bp-m) {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+		}
+
+		a {
+			@include swbbtn();
+			@include btn-default-2();
+			padding: 0;
+			font-size: 1em;
+		}
+	}
+}
+
+.blogitem__footer {
+	.socialmedia {
+		display: flex;
+		flex-wrap: wrap;
+
+		p {
+			margin: 0;
+			padding-right: 1.5rem;
+		}
+
+		ul {
+			li {
+				margin: 0;
+			}
+		}
+	}
+}
+
+
+
+
+// Navigation for the blog page posts. //
+
+.postnav {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100%;
+	margin: 2.5rem 0;
+	text-align: center;
+
+	@include bp(bp-m) {
+		flex-direction: row;
+	}
+
+	.page-numbers {
+		flex: 1 1 auto;
+		width: 100%;
+		max-width: 40%;
+		margin: 1.5rem auto;
+		padding: .5rem 1rem;
+		border: .1rem solid $black;
+		font-size: 1.2rem;
+
+		@include bp(bp-m) {
+			max-width: 3rem;
+			margin: 0 .5rem;
+		}
+	}
+
+	.prev,
+	.next {
+		@include bp(bp-m) {
+			flex: 1 1 11rem;
+			max-width: 11.5rem;
+		}
+	}
+
+
+
+	.current {
+		background-color: rgba($color-secondary, 0.75);
+		color: $white;
+		font-weight: $font-weight--bold;
+	}
+
+	a {
+		transition: all $trns-duration linear;
+		color: $black;
+
+		&:hover {
+			background-color: rgba($color-secondary, 0.35);
+			color: $white;
+		}
+	}
+}
+
+
+

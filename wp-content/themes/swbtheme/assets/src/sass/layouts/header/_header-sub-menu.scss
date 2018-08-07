@@ -1,0 +1,123 @@
+@include bp(bp-m) {
+  // Main Sub-menu styles. //
+  // These are all te styles for the sub-menu and the list items. //
+  // The list item that holds the sub-menu items. //
+  .menu-item-has-children {
+    position: relative;
+
+    // The sub-menu <ul> //
+    .sub-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+      min-width: 15rem;
+      margin: 0 auto;
+      padding: 2rem 0;
+      transition: all $trns-duration ease;
+      background-color: $color-secondary;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 500;
+
+      // This is the traingle that gives the effect for the sub-menu. //
+      &::before {
+        display: block;
+        position: absolute;
+        top: -7.5px;
+        right: 0;
+        left: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 0 auto;
+        transform: rotate(45deg);
+        background-color: $color-secondary;
+        content: "";
+      }
+      // This is the sub-menu <li>
+      li {
+        display: block;
+        position: relative;
+        margin: 1rem 0;
+        transition: all $trns-duration linear;
+        font-size: 1.4rem;
+        text-align: left;
+        z-index: 2;
+        // This is the sub-menu <a>
+        a {
+          display: block;
+          padding: 0.5rem 1rem;
+          background-color: transparent;
+          color: $white;
+          // This is the arrow that appears on hover next to the list items. //
+          span {
+            &::before {
+              @include fontAwesome();
+              display: block;
+              position: absolute;
+              top: 50%;
+              right: -2.5rem;
+              transform: translateY(-50%);
+              transition: all $trns-duration linear;
+              content: "\f177";
+              opacity: 0;
+            }
+          }
+
+          &::after {
+            background-color: transparent;
+          }
+        }
+        // Sub-menu hover effect //
+        &:hover {
+          background-color: $color-accent;
+        }
+      }
+
+      // Current <li> styles if you are on that page. //
+      .current-menu-item {
+        a {
+          background-color: $color-accent;
+        }
+      }
+    }
+  }
+
+  // Submenu hover effects JavaScript will add the class .active the the li //
+  .menu-item-has-children.active,
+  .menu-item-has-children:hover {
+    .sub-menu {
+      li {
+      }
+      li.active {
+        a {
+          background-color: $color-accent;
+
+          span {
+            &::before {
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      li.active.current-menu-item {
+        a {
+          span {
+            &::before {
+              opacity: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .menu-item-has-children.active,
+  .menu-item-has-children:hover {
+    .sub-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

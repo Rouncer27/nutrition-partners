@@ -1,0 +1,111 @@
+/* Font Awesome! */
+@font-face {
+  font-family: 'FontAwesome';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../../fonts/font-awesome/fontawesome-webfont.eot}');
+  src: url('../../fonts/font-awesome/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../../fonts/font-awesome/fontawesome-webfont.woff2') format('woff2'),
+    url('../../fonts/font-awesome/fontawesome-webfont.woff') format('woff'),
+    url('../../fonts/font-awesome/fontawesome-webfont.ttf') format('truetype'),
+    url('../../fonts/font-awesome/fontawesome-webfont.svg#fontawesomeregular') format('svg');
+}
+
+.wp-editor {
+	padding-top: 10px;
+	padding-right: 25px;
+	padding-bottom: 10px;
+	padding-left: 25px;
+}
+
+.wp-editor img {
+	margin-bottom: 5px;
+}
+
+.wp-editor h3 {
+	padding-top: 25px;
+	padding-bottom: 25px;
+	color: #ef6a2c;
+	font-size: 26px;
+	font-weight: $font-weight--bold;
+}
+
+.wp-editor p {
+	color: #000;
+	font-size: 22px;
+}
+
+.wp-editor ul {
+	margin-bottom: 1em;
+	padding-left: 75px;
+}
+
+.wp-editor blockquote p {
+	color: #00556f;
+}
+
+.wp-editor blockquote p::before {
+	font-family: 'FontAwesome';
+	font-size: inherit;
+	font-style: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	padding-right: 0.25em;
+	color: rgba(#ef6a2c, 0.4);
+	font-size: 0.75em;
+	content: '\f10d';
+}
+
+.wp-editor blockquote p::after {
+	font-family: 'FontAwesome';
+	font-size: inherit;
+	font-style: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	padding-left: 0.25em;
+	color: rgba(#ef6a2c, 0.4);
+	font-size: 0.75em;
+	content: '\f10e';
+}
+
+.wp-editor blockquote {
+	color: #ef6a2c;
+}
+
+.wp-editor ul li {
+	font-size: 20px;
+	list-style-position: outside;
+}
+
+.wp-editor strong {
+	font-weight: $font-weight--bold;
+}
+
+
+.wp-editor em {
+	font-size: 0.8em;
+	font-style: $italic;
+}
+
+.wp-editor p a {
+	transition: all $trns-duration;
+	color: #ef6a2c;
+	font-weight: 700;
+}
+
+.wp-editor p a:hover {
+	color: #58585b;
+}
+
+.wp-editor hr {
+	display: block;
+	height: 1px;
+	background-color: rgba($grey, 0.5);
+}
+
+
+
+
+

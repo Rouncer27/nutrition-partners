@@ -1,0 +1,86 @@
+@include bp(bp-m) {
+  // Main Menu Styles. //
+  .swbmainnav {
+    // The main <nav> element. //
+    width: 100%;
+    background-color: $white;
+    // The main menu <ul> element that will contain the main navigation. //
+    &__wrap {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      // The main menu list items. //
+      & > li {
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        font-size: 1.4rem;
+        text-align: center;
+
+        // The anchor tags inisde the list items. //
+        a {
+          display: block;
+          padding: 1rem;
+          transition: all $trns-duration linear;
+          color: $black;
+          font-family: $font-family--primary;
+          font-weight: bold;
+          text-transform: uppercase;
+
+          &::after {
+            display: block;
+            width: 4rem;
+            height: 0.2rem;
+            margin: 0 auto;
+            transform: scale(0);
+            transition: all 0.25s ease-out;
+            background-color: $color-primary;
+            content: "";
+          }
+        }
+      }
+      // The current page we are on. //
+      .current-menu-item {
+        a {
+          &::after {
+            transform: scale(1);
+          }
+        }
+      }
+      // This will add the icon indicating that there is a sub-menu. //
+      .menu-item-has-children {
+        a {
+          span {
+            position: relative;
+            &::before {
+              @include fontAwesome();
+              display: block;
+              position: absolute;
+              top: 50%;
+              right: -1.5em;
+              transform: translateY(-50%);
+              transition: all $trns-duration;
+              content: "\f078";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Hover effects. Javascript will add the class .active to the li //
+  .swbmainnav {
+    &__wrap {
+      li.active,
+      li:hover {
+        a {
+          &::after {
+            transform: scale(1);
+          }
+        }
+      }
+    }
+  }
+}
