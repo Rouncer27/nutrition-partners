@@ -25,5 +25,8 @@ get_header(); ?>
     <section class="lang-test">
       <div id="root"></div>
     </section>
+    <div id="demo">
+
+    </div>
   </main>
 <?php get_footer(); ?>
