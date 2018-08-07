@@ -11039,10 +11039,13 @@ function showPosition(position) {
 }
 
 function getProvince(lat, lng) {
+  console.log("hello 4");
   var locationURL = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lng;
   _axios2.default.get("" + locationURL).then(function (result) {
     console.log(result.data);
     x.innerHTML = "You are from " + result.data.results[0].address_components[4].long_name;
+  }).catch(function (err) {
+    return console.log(err);
   });
 }
 
