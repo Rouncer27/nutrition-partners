@@ -2,15 +2,15 @@
   // Main Menu Styles. //
   .swbmainnav {
     // The main <nav> element. //
+    align-self: center;
     width: 100%;
-    background-color: $white;
     // The main menu <ul> element that will contain the main navigation. //
     &__wrap {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-between;
       width: 100%;
-      max-width: 1000px;
+      max-width: 100rem;
       margin: 0 auto;
       // The main menu list items. //
       & > li {
@@ -24,9 +24,8 @@
           display: block;
           padding: 1rem;
           transition: all $trns-duration linear;
-          color: $black;
-          font-family: $font-family--primary;
-          font-weight: bold;
+          color: $white;
+          font-family: $font-family--accent;
           text-transform: uppercase;
 
           &::after {
@@ -44,6 +43,8 @@
       // The current page we are on. //
       .current-menu-item {
         a {
+          color: $color-primary;
+
           &::after {
             transform: scale(1);
           }

@@ -6,59 +6,64 @@
 * author - Switchback Creative Inc.
 * 
 */
-// Helpers 
-@import 'helpers/variables';
-@import 'helpers/functions';
-@import 'helpers/mixins';
-@import 'helpers/mixins.buttons';
-@import 'helpers/mixins.forms';
+// Helpers
+@import "helpers/variables";
+@import "helpers/functions";
+@import "helpers/mixins";
+@import "helpers/mixins.buttons";
+@import "helpers/mixins.forms";
 
 // Base
-@import 'base/reset';
-@import 'base/setup';
-@import 'base/fonts';
-@import 'base/typography';
+@import "base/reset";
+@import "base/setup";
+@import "base/fonts";
+@import "base/typography";
 
 // Utilities
-@import 'utilities/extends';
-@import 'utilities/mixins';
-@import 'utilities/sitewide-class';
+@import "utilities/extends";
+@import "utilities/mixins";
+@import "utilities/sitewide-class";
 
 // Layout
-@import 'layouts/grid';
-@import 'layouts/header';
-@import 'layouts/footer';
-@import 'layouts/sidebar';
+@import "layouts/grid";
+@import "layouts/header";
+@import "layouts/footer";
+@import "layouts/sidebar";
 
 // SwbTheme Styles
-@import 'theme/wysiwyg';
-@import 'theme/single';
-@import 'theme/comments';
-@import 'theme/swbindex';
-@import 'theme/page';
-@import 'theme/archive';
-@import 'theme/search';
-@import 'theme/404';
+@import "theme/wysiwyg";
+@import "theme/single";
+@import "theme/comments";
+@import "theme/swbindex";
+@import "theme/page";
+@import "theme/archive";
+@import "theme/search";
+@import "theme/404";
 
 // Components
-@import 'components/social';
+@import "components/social";
+
+@import "components/buttons/toggle";
+
+@import "components/featured-image";
+@import "components/our-mission";
 
 // Pages
-@import 'pages/blog';
-@import 'pages/policy';
+@import "pages/blog";
+@import "pages/policy";
 
 // WooCommerce Styles
-@import 'woocommerce/helpers/mixins';
-@import 'woocommerce/main';
-@import 'woocommerce/buttons';
-@import 'woocommerce/singlepro';
-@import 'woocommerce/messages';
-@import 'woocommerce/shopnav';
-@import 'woocommerce/cart';
-@import 'woocommerce/checkout';
-@import 'woocommerce/thankyou';
-@import 'woocommerce/account';
-@import 'woocommerce/productcat';
-@import 'woocommerce/woorelated';
+@import "woocommerce/helpers/mixins";
+@import "woocommerce/main";
+@import "woocommerce/buttons";
+@import "woocommerce/singlepro";
+@import "woocommerce/messages";
+@import "woocommerce/shopnav";
+@import "woocommerce/cart";
+@import "woocommerce/checkout";
+@import "woocommerce/thankyou";
+@import "woocommerce/account";
+@import "woocommerce/productcat";
+@import "woocommerce/woorelated";
 
 // Vender

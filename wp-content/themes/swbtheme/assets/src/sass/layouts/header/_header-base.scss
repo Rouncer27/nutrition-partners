@@ -2,22 +2,26 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  padding: 3rem 0;
+  background-color: $color-secondary;
 
-  & > div {
-    width: 100%;
+  &__container {
+    @include container-base(flex, large);
+    align-items: center;
+    justify-content: space-between;
   }
 
-  &__top {
-    @include container-base(flex);
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0;
-    padding-bottom: 0;
-
+  &__meta {
+    width: 100%;
     @include bp(bp-m) {
-      justify-content: space-between;
-      padding: 6rem 0;
+      width: 40%;
+    }
+  }
+
+  .swbmainnav {
+    width: 100%;
+    @include bp(bp-m) {
+      width: 50%;
     }
   }
 }

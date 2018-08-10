@@ -32,21 +32,22 @@
 			$languages = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
 			foreach( $languages as $lang ) {
 				$langSet = substr($lang, 0, 2);
-				echo $langSet;
 				break;
 			}
 		?>
 		<div data-browserlang="<?php echo esc_attr( $langSet ); ?>" class="swbwrapper"><!-- Website Wrapper -->
 			<header class="siteheader" itemscope itemtype="http://schema.org/WPHeader">
-				<div class="siteheader__meta" itemscope itemtype="http://schema.org/LocalBusiness">
-					<?php get_template_part( 'content/components/logos/logo', 'main'); ?>
-					<?php get_template_part( 'content/components/meta/meta', 'main'); ?>
-				</div>
+				<div class="siteheader__container">
 
-				<nav class="swbmainnav" itemscope itemtype="http://schema.org/SiteNavigationElement">
+					<div class="siteheader__meta" itemscope itemtype="http://schema.org/LocalBusiness">
+						<?php get_template_part( 'content/components/logos/logo', 'main'); ?>
+						<?php get_template_part( 'content/components/meta/meta', 'main'); ?>
+					</div>
+					
+					<nav class="swbmainnav" itemscope itemtype="http://schema.org/SiteNavigationElement">
 					<input type="checkbox" class="swbmainnav__checkbox" id="navi-toggle">
 					<label for="navi-toggle" class="swbmainnav__button">
-										<span class="swbmainnav__icon">&nbsp;</span>
+						<span class="swbmainnav__icon">&nbsp;</span>
 					</label>
 					<div class="swbmainnav__container">
 						<?php get_template_part( 'content/components/logos/logo', 'main'); ?>
@@ -54,8 +55,8 @@
 						<div class="mobile-background"></div>
 					</div>
 				</nav>
-				<div id="lang-btn">
-				</div>
-			</header>
+
+			</div>
+		</header>
 
 			

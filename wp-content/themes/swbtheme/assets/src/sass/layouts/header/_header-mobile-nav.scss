@@ -104,8 +104,8 @@
         top: 0;
         left: 0;
         width: 100%;
-        min-height: 150vh;
-        background-color: rgba($black, 0.95);
+        height: 125%;
+        background-color: rgba($color-secondary, 0.95);
         z-index: 1000;
       }
     }
@@ -131,7 +131,7 @@
           text-transform: uppercase;
 
           &:hover {
-            background-color: $color-primary;
+            color: $strongred;
           }
         }
       }
@@ -147,7 +147,7 @@
           width: 5.75rem;
           height: 5.75rem;
           transition: all $trns-duration;
-          background-color: rgba($white, 1);
+          background-color: rgba($white, 0.75);
           color: $black;
 
           &::after {
@@ -199,7 +199,7 @@
       }
 
       // This is the hover effect. //
-      //li.menu-item-has-children:hover ul.sub-menu,
+      li.menu-item-has-children:hover ul.sub-menu,
       li.menu-item-has-children:focus ul.sub-menu {
         max-height: 200px;
         margin-top: 0.75rem;
@@ -269,33 +269,6 @@
 
     &__checkbox:checked ~ &__button {
       background-color: $white;
-    }
-  }
-
-  .swbmainnav__wrap li.menu-item-has-children .sub-icon.icon-open {
-    background-color: $color-primary;
-
-    &::after {
-      display: block;
-      transform: translateY(-50%) rotate(180deg);
-    }
-  }
-
-  .menu-main-menu-container {
-    .swbmainnav__wrap {
-      .current_page_item a {
-        background-color: $color-primary;
-      }
-
-      .current_page_item.menu-item-has-children {
-        ul {
-          li {
-            a {
-              background-color: transparent;
-            }
-          }
-        }
-      }
     }
   }
 }

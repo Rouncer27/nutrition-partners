@@ -1,0 +1,30 @@
+.np-ourmiss {
+  padding: 2rem 0;
+  background-color: $color-secondary;
+
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__title {
+    width: 100%;
+    padding-bottom: 1rem;
+    text-align: center;
+
+    h2 {
+      margin: 0;
+      color: $silverRust;
+      font-family: $font-family--secondary;
+      font-size: 5rem;
+      font-weight: 500;
+    }
+  }
+
+  &__content {
+    text-align: center;
+
+    p {
+      color: $athensGray;
+    }
+  }
+}

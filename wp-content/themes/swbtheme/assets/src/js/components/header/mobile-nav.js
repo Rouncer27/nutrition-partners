@@ -6,7 +6,6 @@ let menuStartUp = false;
 
 const mobileNavInit = () => {
   if (!menuStartUp) {
-    // add a span element to menu items with a sub menu. //
     addSpanEventListener(parListItems);
     addMainButtonEventListener(navButton);
     menuStartUp = true;
@@ -26,9 +25,7 @@ const closeAllOpenSubMenus = () => {
 
 const openSubMenu = e => {
   e.preventDefault();
-  console.log(e.target);
   const currentActiveSubMenus = [...document.querySelectorAll(".sub-open")];
-  const allSpans = [...document.querySelectorAll(".sub-icon")];
   const currentSubMenu = e.target.offsetParent.querySelector(".sub-menu");
 
   if (!currentSubMenu.classList.contains("sub-open")) {
@@ -42,19 +39,6 @@ const openSubMenu = e => {
     currentSubMenu.classList.add("sub-open");
   } else {
     currentSubMenu.classList.remove("sub-open");
-  }
-
-  if (!e.target.classList.contains("icon-open")) {
-    if (allSpans.length > 0) {
-      allSpans.forEach(span => {
-        if (span.classList.contains("icon-open")) {
-          span.classList.remove("icon-open");
-        }
-      });
-    }
-    e.target.classList.add("icon-open");
-  } else {
-    e.target.classList.remove("icon-open");
   }
 };
 
@@ -87,31 +71,11 @@ const addMainButtonEventListener = navButton => {
   navButton.addEventListener("click", closeAllOpenSubMenus);
 };
 
-// claulate the mobile background colour height.
-const mainContainer = document.querySelector(".swbmainnav__container");
-const mainLogoContainer = document.querySelector(".mainlogo");
-const mainNavContainer = document.querySelector(".menu-main-menu-container");
-const mainBackground = document.querySelector(".mobile-background");
-
-const setTheHeight = () => {
-  const logoHeight = mainLogoContainer.offsetHeight;
-  const menuHeight = mainNavContainer.offsetHeight;
-  const backgroundHeight = menuHeight + logoHeight + 100 + "px";
-  mainBackground.style.height = backgroundHeight;
-};
-
-const removeTheHeight = () => {
-  mainBackground.style.height = "auto";
-};
-
 if (siteNav) {
   window.addEventListener("resize", () => {
     const mq = window.matchMedia("(max-width: 768px)").matches;
     if (mq) {
       mobileNavInit();
-      setTheHeight();
-    } else {
-      removeTheHeight();
     }
   });
 
@@ -119,9 +83,6 @@ if (siteNav) {
     const mq = window.matchMedia("(max-width: 768px)").matches;
     if (mq) {
       mobileNavInit();
-      setTheHeight();
-    } else {
-      removeTheHeight();
     }
   });
 }

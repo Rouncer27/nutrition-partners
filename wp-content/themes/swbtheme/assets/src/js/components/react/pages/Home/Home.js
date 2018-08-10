@@ -3,7 +3,9 @@ import ReactDOM from "react-dom";
 import "babel-polyfill";
 import axios from "axios";
 
-import Mission from "./components/Mission";
+import LauguageButton from "../../components/LauguageButton";
+import Featured from "../../components/Featured";
+import Mission from "../../components/Mission";
 
 export default class Home extends Component {
   constructor() {
@@ -11,21 +13,43 @@ export default class Home extends Component {
 
     this.switchTheLang = this.switchTheLang.bind(this);
     this.setUserLocation = this.setUserLocation.bind(this);
+    this.setPageAPIURL = this.setPageAPIURL.bind(this);
 
     this.state = {
       browserLang: "",
-      userLocation: ""
+      userLocation: "",
+      pageApiUrl: "",
+      pageID: ""
     };
   }
 
+  setPageAPIURL() {
+    const fullURL = [...window.location.href.split("/")];
+    let removedPageSlug;
+    var ENV = fullURL.some(function(v) {
+      return v.indexOf("localhost") >= 0;
+    });
+    if (ENV) {
+      removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
+    } else {
+      removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
+    }
+    const URL = removedPageSlug.join("/");
+    return URL;
+  }
+
   componentWillMount() {
+    const pageID = document.querySelector(".swb-page").dataset.pageid;
     let sessionStart = sessionStorage.getItem("npWebLang");
+    const apiBaseURL = this.setPageAPIURL();
     this.setUserLocation();
 
     this.setState(prevState => {
       return {
         ...prevState,
-        browserLang: sessionStart
+        browserLang: sessionStart,
+        pageApiUrl: apiBaseURL,
+        pageID: pageID
       };
     });
   }
@@ -35,7 +59,6 @@ export default class Home extends Component {
     const sessionLocation = sessionStorage.getItem("npWebLocation");
 
     if (sessionLocation === null) {
-      console.log("API Call!!");
       axios
         .get("https://api.ipgeolocation.io/getip")
         .then(result => {
@@ -49,7 +72,7 @@ export default class Home extends Component {
               this.setState(prevState => {
                 return {
                   ...prevState,
-                  userLocation: result.data.state_prov
+                  userLocation: result.data.state_prov.toLowerCase()
                 };
               });
             })
@@ -57,11 +80,10 @@ export default class Home extends Component {
         })
         .catch(err => console.log(err));
     } else {
-      console.log("NO API CALL!");
       this.setState(prevState => {
         return {
           ...prevState,
-          userLocation: sessionLocation
+          userLocation: sessionLocation.toLowerCase()
         };
       });
     }
@@ -78,17 +100,27 @@ export default class Home extends Component {
   }
 
   render() {
-    const { browserLang } = this.state;
     return (
       <div>
-        <p>The Lauguage for this person is {this.state.browserLang}</p>
-        <p>The Location for this person is {this.state.userLocation}</p>
-        {browserLang === "en" ? (
-          <button onClick={this.switchTheLang}>French</button>
-        ) : (
-          <button onClick={this.switchTheLang}>English</button>
-        )}
-        <Mission currentLang={this.state.browserLang} />
+        <LauguageButton
+          switchTheLang={this.switchTheLang}
+          browserLang={this.state.browserLang}
+        />
+        <Featured
+          browserLang={this.state.browserLang}
+          userLocation={this.state.userLocation}
+          baseApiUrl={this.state.pageApiUrl}
+          pageID={this.state.pageID}
+        />
+
+        <Mission
+          browserLang={this.state.browserLang}
+          baseApiUrl={this.state.pageApiUrl}
+          pageID={this.state.pageID}
+        />
+
+        {/* <p>The Lauguage for this person is {this.state.browserLang}</p>
+        <p>The Location for this person is {this.state.userLocation}</p> */}
       </div>
     );
   }
