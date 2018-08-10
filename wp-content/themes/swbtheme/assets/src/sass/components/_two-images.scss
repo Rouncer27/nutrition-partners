@@ -1,0 +1,26 @@
+.np-twoimg {
+  &__wrapper {
+    @include container-base(flex);
+    justify-content: space-between;
+  }
+
+  &__left {
+    width: 45%;
+    margin-bottom: 5rem;
+  }
+
+  &__right {
+    align-self: flex-end;
+    width: 45%;
+  }
+
+  &__title {
+    width: 50%;
+    padding: 2rem 2rem;
+  }
+
+  &__content {
+    width: 50%;
+    padding: 5rem 3rem;
+  }
+}

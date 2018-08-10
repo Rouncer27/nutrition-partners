@@ -6,6 +6,7 @@ import axios from "axios";
 import LauguageButton from "../../components/LauguageButton";
 import Featured from "../../components/Featured";
 import Mission from "../../components/Mission";
+import TwoImages from "../../components/TwoImages";
 
 export default class Home extends Component {
   constructor() {
@@ -119,8 +120,11 @@ export default class Home extends Component {
           pageID={this.state.pageID}
         />
 
-        {/* <p>The Lauguage for this person is {this.state.browserLang}</p>
-        <p>The Location for this person is {this.state.userLocation}</p> */}
+        <TwoImages
+          browserLang={this.state.browserLang}
+          baseApiUrl={this.state.pageApiUrl}
+          pageID={this.state.pageID}
+        />
       </div>
     );
   }
