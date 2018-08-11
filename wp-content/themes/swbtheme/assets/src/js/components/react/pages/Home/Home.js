@@ -7,6 +7,7 @@ import LauguageButton from "../../components/LauguageButton";
 import Featured from "../../components/Featured";
 import Mission from "../../components/Mission";
 import TwoImages from "../../components/TwoImages";
+import Process from "../../components/Process";
 
 export default class Home extends Component {
   constructor() {
@@ -40,7 +41,7 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    const pageID = document.querySelector(".swb-page").dataset.pageid;
+    const pageID = document.querySelector(".swb-home-page").dataset.pageid;
     let sessionStart = sessionStorage.getItem("npWebLang");
     const apiBaseURL = this.setPageAPIURL();
     this.setUserLocation();
@@ -121,6 +122,12 @@ export default class Home extends Component {
         />
 
         <TwoImages
+          browserLang={this.state.browserLang}
+          baseApiUrl={this.state.pageApiUrl}
+          pageID={this.state.pageID}
+        />
+
+        <Process
           browserLang={this.state.browserLang}
           baseApiUrl={this.state.pageApiUrl}
           pageID={this.state.pageID}

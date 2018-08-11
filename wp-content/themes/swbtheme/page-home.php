@@ -20,7 +20,7 @@ get_header(); ?>
       $pageId = get_the_ID();
   }
   ?>
-	<main data-pageid="<?php echo esc_attr($pageId); ?>" class="swb-page">
+	<main data-pageid="<?php echo esc_attr($pageId); ?>" class="swb-home-page">
 		<?php the_post(); ?>
     <section class="lang-test">
       <div id="root"></div>
