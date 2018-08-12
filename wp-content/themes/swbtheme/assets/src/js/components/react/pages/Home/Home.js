@@ -8,6 +8,7 @@ import Featured from "../../components/Featured";
 import Mission from "../../components/Mission";
 import TwoImages from "../../components/TwoImages";
 import Process from "../../components/Process";
+import RecentArticles from "../../components/RecentArticles";
 
 export default class Home extends Component {
   constructor() {
@@ -16,12 +17,15 @@ export default class Home extends Component {
     this.switchTheLang = this.switchTheLang.bind(this);
     this.setUserLocation = this.setUserLocation.bind(this);
     this.setPageAPIURL = this.setPageAPIURL.bind(this);
+    this.getPageData = this.getPageData.bind(this);
 
     this.state = {
       browserLang: "",
       userLocation: "",
       pageApiUrl: "",
-      pageID: ""
+      pageID: "",
+      pageData: {},
+      postsData: {}
     };
   }
 
@@ -46,14 +50,46 @@ export default class Home extends Component {
     const apiBaseURL = this.setPageAPIURL();
     this.setUserLocation();
 
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        browserLang: sessionStart,
-        pageApiUrl: apiBaseURL,
-        pageID: pageID
-      };
-    });
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          browserLang: sessionStart,
+          pageApiUrl: apiBaseURL,
+          pageID: pageID
+        };
+      },
+      () => {
+        this.getPageData();
+      }
+    );
+  }
+
+  getPageData() {
+    axios
+      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/pages/${this.state.pageID}`)
+      .then(result => {
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              pageData: result.data
+            };
+          },
+          () => {
+            axios
+              .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts?_embed`)
+              .then(result => {
+                this.setState(prevState => {
+                  return {
+                    ...prevState,
+                    postsData: result.data
+                  };
+                });
+              });
+          }
+        );
+      });
   }
 
   setUserLocation() {
@@ -113,24 +149,24 @@ export default class Home extends Component {
           userLocation={this.state.userLocation}
           baseApiUrl={this.state.pageApiUrl}
           pageID={this.state.pageID}
+          pageData={this.state.pageData}
         />
-
         <Mission
           browserLang={this.state.browserLang}
-          baseApiUrl={this.state.pageApiUrl}
-          pageID={this.state.pageID}
+          pageData={this.state.pageData}
         />
-
         <TwoImages
           browserLang={this.state.browserLang}
-          baseApiUrl={this.state.pageApiUrl}
-          pageID={this.state.pageID}
+          pageData={this.state.pageData}
         />
-
         <Process
           browserLang={this.state.browserLang}
-          baseApiUrl={this.state.pageApiUrl}
-          pageID={this.state.pageID}
+          pageData={this.state.pageData}
+        />
+        <RecentArticles
+          browserLang={this.state.browserLang}
+          pageData={this.state.pageData}
+          postsData={this.state.postsData}
         />
       </div>
     );

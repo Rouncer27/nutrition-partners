@@ -3,61 +3,46 @@ import "babel-polyfill";
 import axios from "axios";
 import classnames from "classnames";
 
-class Process extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stepsEn: [],
-      stepsFr: []
-    };
-  }
-  componentWillMount() {
-    axios
-      .get(`${this.props.baseApiUrl}/wp-json/wp/v2/pages/${this.props.pageID}`)
-      .then(result => {
-        this.setState(prevState => ({
-          ...prevState,
-          stepsEn: result.data.acf._np_en_steps,
-          stepsFr: result.data.acf._np_fr_steps
-        }));
-      });
-  }
+export default props => {
+  let acf = props.pageData.acf;
+  const enTitle = acf ? acf._np_en_our_process_title : false;
+  const frTitle = acf ? acf._np_fr_our_process_title : false;
+  const enSteps = acf ? acf._np_en_steps : false;
+  const frSteps = acf ? acf._np_fr_steps : false;
+  const ourProcessTitle = props.browserLang === "en" ? enTitle : frTitle;
+  const processDisplay = props.browserLang === "en" ? enSteps : frSteps;
 
-  render() {
-    const processDisplay =
-      this.props.browserLang === "en" ? this.state.stepsEn : this.state.stepsFr;
-
-    return (
-      <div className="np-process">
-        <div className="np-process__wrapper">
+  return (
+    <div className="np-process">
+      <div className="np-process__wrapper">
+        {ourProcessTitle !== undefined && (
           <div className="np-process__title">
-            <h2>Our Process</h2>
+            <h2>{ourProcessTitle}</h2>
           </div>
-
-          <div className="np-process__info">
-            {processDisplay.map((step, index) => {
+        )}
+        <div className="np-process__info">
+          {processDisplay.length > 0 &&
+            processDisplay.map((step, index) => {
               return (
                 <div key={index} className="np-process__info--step">
-                  <div className="np-process__info--number">
-                    <p>{`${index + 1}.`}</p>
-                  </div>
                   <div
                     className={`np-process__info--icon np-process__info--icon--${
                       step.icon
                     }`}
-                  />
-
+                  >
+                    <i />
+                  </div>
+                  <div className="np-process__info--number">
+                    <p>{`${index + 1}.`}</p>
+                  </div>
                   <div className="np-process__info--content">
                     <p>{step.content}</p>
                   </div>
                 </div>
               );
             })}
-          </div>
         </div>
       </div>
-    );
-  }
-}
-
-export default Process;
+    </div>
+  );
+};
