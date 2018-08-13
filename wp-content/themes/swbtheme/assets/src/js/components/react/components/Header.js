@@ -7,6 +7,7 @@ class Header extends Component {
   render() {
     const {
       siteMainEnglishMenu,
+      siteMainFrenchMenu,
       pageData,
       siteOptions,
       browserLang,
@@ -20,7 +21,8 @@ class Header extends Component {
     const headerLogoAlt = browserLang === "en" ? enLogoAlt : frLogoAlt;
 
     const enMenuItems = siteMainEnglishMenu.items;
-    const mainMenuItem = enMenuItems;
+    const frMenuItems = siteMainFrenchMenu.items;
+    const mainMenuItem = browserLang === "en" ? enMenuItems : frMenuItems;
 
     return (
       <header

@@ -1,6 +1,3 @@
-import "babel-polyfill";
-import axios from "axios";
-
 const SWBwebsiteWrapper = document.querySelector(".swbwrapper");
 const defaultBrowserLang = SWBwebsiteWrapper.dataset.browserlang;
 const sessionOption = sessionStorage.getItem("npWebLang");

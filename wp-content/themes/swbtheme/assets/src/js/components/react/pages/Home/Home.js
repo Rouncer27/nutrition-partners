@@ -25,8 +25,9 @@ export default class Home extends Component {
     this.setPageAPIURL = this.setPageAPIURL.bind(this);
     this.getPageData = this.getPageData.bind(this);
     this.getOptionsData = this.getOptionsData.bind(this);
-    this.getMenuItems = this.getMenuItems.bind(this);
     this.getPostsData = this.getPostsData.bind(this);
+    this.getEnglishMenuItems = this.getEnglishMenuItems.bind(this);
+    this.getFrenchMenuItems = this.getFrenchMenuItems.bind(this);
 
     this.state = {
       browserLang: "",
@@ -37,6 +38,7 @@ export default class Home extends Component {
       postsData: {},
       siteOptions: {},
       siteMainEnglishMenu: {},
+      siteMainFrenchMenu: {},
       slides: [],
       activeSlider: "",
       activeQuebecSlider: ""
@@ -76,14 +78,15 @@ export default class Home extends Component {
       () => {
         this.getPageData();
         this.getPostsData();
-        this.getMenuItems();
+        this.getEnglishMenuItems();
+        this.getFrenchMenuItems();
         this.getOptionsData();
       }
     );
   }
 
   // Get the english menu items. //
-  getMenuItems() {
+  getEnglishMenuItems() {
     axios
       .get(`${this.state.pageApiUrl}/wp-json/wp-api-menus/v2/menus/2`)
       .then(res => {
@@ -91,6 +94,19 @@ export default class Home extends Component {
           return {
             ...prevState,
             siteMainEnglishMenu: res.data
+          };
+        });
+      });
+  }
+
+  getFrenchMenuItems() {
+    axios
+      .get(`${this.state.pageApiUrl}/wp-json/wp-api-menus/v2/menus/3`)
+      .then(res => {
+        this.setState(prevState => {
+          return {
+            ...prevState,
+            siteMainFrenchMenu: res.data
           };
         });
       });
@@ -196,6 +212,7 @@ export default class Home extends Component {
       Object.keys(this.state.pageData).length > 0 &&
       Object.keys(this.state.siteOptions).length > 0 &&
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
+      Object.keys(this.state.siteMainFrenchMenu).length > 0 &&
       this.state.postsData.length > 0;
 
     return (
@@ -207,6 +224,7 @@ export default class Home extends Component {
               switchTheLang={this.switchTheLang}
               pageData={this.state.pageData}
               siteMainEnglishMenu={this.state.siteMainEnglishMenu}
+              siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
             />
             <Featured

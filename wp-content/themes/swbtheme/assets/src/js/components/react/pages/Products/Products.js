@@ -7,7 +7,7 @@ import PageLoad from "../../components/PageLoad";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
-export default class About extends Component {
+export default class Products extends Component {
   constructor() {
     super();
 
@@ -29,7 +29,7 @@ export default class About extends Component {
   }
 
   componentDidMount() {
-    const pageID = document.querySelector(".swb-about-page").dataset.pageid;
+    const pageID = document.querySelector(".swb-products-page").dataset.pageid;
     let sessionStart = sessionStorage.getItem("npWebLang");
     const apiBaseURL = this.setPageAPIURL();
 
@@ -152,7 +152,7 @@ export default class About extends Component {
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
             />
-            <h1>About Page</h1>
+            <h1>Products Page</h1>
             <Footer />
           </div>
         ) : (
@@ -163,4 +163,4 @@ export default class About extends Component {
   }
 }
 
-ReactDOM.render(<About />, document.getElementById("root"));
+ReactDOM.render(<Products />, document.getElementById("root"));

@@ -12,6 +12,10 @@ const aboutPage = document.querySelector(".swb-about-page");
 if (aboutPage !== null)
   require("../../src/js/components/react/pages/About/About.js");
 
+const productsPage = document.querySelector(".swb-products-page");
+if (productsPage !== null)
+  require("../../src/js/components/react/pages/Products/Products.js");
+
 // import { TweenMax } from "TweenMax";
 // import ScrollMagic from "scrollmagic";
 // import "animation.gsap";
