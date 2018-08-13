@@ -3,12 +3,18 @@ import ReactDOM from "react-dom";
 import "babel-polyfill";
 import axios from "axios";
 
-import LauguageButton from "../../components/LauguageButton";
+import PageLoad from "../../components/PageLoad";
+import Header from "../../components/Header";
 import Featured from "../../components/Featured";
 import Mission from "../../components/Mission";
 import TwoImages from "../../components/TwoImages";
 import Process from "../../components/Process";
 import RecentArticles from "../../components/RecentArticles";
+import Testimonials from "../../components/Testimonials";
+import Footer from "../../components/Footer";
+
+// http://localhost/nutritionpartners/wp-json/wp-api-menus/v2/menus/2
+// http://localhost/nutritionpartners/wp-json/acf/v3/options/options
 
 export default class Home extends Component {
   constructor() {
@@ -18,6 +24,9 @@ export default class Home extends Component {
     this.setUserLocation = this.setUserLocation.bind(this);
     this.setPageAPIURL = this.setPageAPIURL.bind(this);
     this.getPageData = this.getPageData.bind(this);
+    this.getOptionsData = this.getOptionsData.bind(this);
+    this.getMenuItems = this.getMenuItems.bind(this);
+    this.getPostsData = this.getPostsData.bind(this);
 
     this.state = {
       browserLang: "",
@@ -25,7 +34,12 @@ export default class Home extends Component {
       pageApiUrl: "",
       pageID: "",
       pageData: {},
-      postsData: {}
+      postsData: {},
+      siteOptions: {},
+      siteMainEnglishMenu: {},
+      slides: [],
+      activeSlider: "",
+      activeQuebecSlider: ""
     };
   }
 
@@ -44,7 +58,7 @@ export default class Home extends Component {
     return URL;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const pageID = document.querySelector(".swb-home-page").dataset.pageid;
     let sessionStart = sessionStorage.getItem("npWebLang");
     const apiBaseURL = this.setPageAPIURL();
@@ -61,37 +75,76 @@ export default class Home extends Component {
       },
       () => {
         this.getPageData();
+        this.getPostsData();
+        this.getMenuItems();
+        this.getOptionsData();
       }
     );
   }
 
+  // Get the english menu items. //
+  getMenuItems() {
+    axios
+      .get(`${this.state.pageApiUrl}/wp-json/wp-api-menus/v2/menus/2`)
+      .then(res => {
+        this.setState(prevState => {
+          return {
+            ...prevState,
+            siteMainEnglishMenu: res.data
+          };
+        });
+      });
+  }
+
+  // Get the options data. //
+  getOptionsData() {
+    axios
+      .get(`${this.state.pageApiUrl}/wp-json/acf/v3/options/options`)
+      .then(res => {
+        this.setState(prevState => {
+          return {
+            ...prevState,
+            siteOptions: res.data.acf
+          };
+        });
+      });
+  }
+
+  // Get the recent posts //
+  getPostsData() {
+    axios
+      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts?_embed`)
+      .then(result => {
+        this.setState(prevState => {
+          return {
+            ...prevState,
+            postsData: result.data
+          };
+        });
+      });
+  }
+
+  // Get this page data. //
   getPageData() {
     axios
       .get(`${this.state.pageApiUrl}/wp-json/wp/v2/pages/${this.state.pageID}`)
       .then(result => {
-        this.setState(
-          prevState => {
-            return {
-              ...prevState,
-              pageData: result.data
-            };
-          },
-          () => {
-            axios
-              .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts?_embed`)
-              .then(result => {
-                this.setState(prevState => {
-                  return {
-                    ...prevState,
-                    postsData: result.data
-                  };
-                });
-              });
-          }
-        );
+        this.setState(prevState => {
+          return {
+            ...prevState,
+            pageData: result.data,
+            slides: result.data.acf._np_featured_opening_slides,
+            activeQuebecSlider: result.data.acf._np_featured_opening_slides
+              .find(slide => {
+                return slide.opening_slide === "yes";
+              })
+              .en_title.toLowerCase()
+          };
+        });
       });
   }
 
+  // Get the users location. //
   setUserLocation() {
     const API_KEY = "8e2f5850676548cb8ad0de88a1813fe4";
     const sessionLocation = sessionStorage.getItem("npWebLocation");
@@ -127,6 +180,7 @@ export default class Home extends Component {
     }
   }
 
+  // Get the users language setting. //
   switchTheLang() {
     this.setState(prevState => {
       const newLang = prevState.browserLang === "en" ? "fr" : "en";
@@ -138,36 +192,57 @@ export default class Home extends Component {
   }
 
   render() {
+    const renderComponent =
+      Object.keys(this.state.pageData).length > 0 &&
+      Object.keys(this.state.siteOptions).length > 0 &&
+      Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
+      this.state.postsData.length > 0;
+
     return (
       <div>
-        <LauguageButton
-          switchTheLang={this.switchTheLang}
-          browserLang={this.state.browserLang}
-        />
-        <Featured
-          browserLang={this.state.browserLang}
-          userLocation={this.state.userLocation}
-          baseApiUrl={this.state.pageApiUrl}
-          pageID={this.state.pageID}
-          pageData={this.state.pageData}
-        />
-        <Mission
-          browserLang={this.state.browserLang}
-          pageData={this.state.pageData}
-        />
-        <TwoImages
-          browserLang={this.state.browserLang}
-          pageData={this.state.pageData}
-        />
-        <Process
-          browserLang={this.state.browserLang}
-          pageData={this.state.pageData}
-        />
-        <RecentArticles
-          browserLang={this.state.browserLang}
-          pageData={this.state.pageData}
-          postsData={this.state.postsData}
-        />
+        {renderComponent ? (
+          <div>
+            <Header
+              browserLang={this.state.browserLang}
+              switchTheLang={this.switchTheLang}
+              pageData={this.state.pageData}
+              siteMainEnglishMenu={this.state.siteMainEnglishMenu}
+              siteOptions={this.state.siteOptions}
+            />
+            <Featured
+              browserLang={this.state.browserLang}
+              userLocation={this.state.userLocation}
+              pageData={this.state.pageData}
+              activeQuebecSlide={this.state.activeQuebecSlider}
+              slides={this.state.slides}
+            />
+            <Mission
+              browserLang={this.state.browserLang}
+              pageData={this.state.pageData}
+            />
+            <TwoImages
+              browserLang={this.state.browserLang}
+              pageData={this.state.pageData}
+            />
+            <Process
+              browserLang={this.state.browserLang}
+              pageData={this.state.pageData}
+            />
+            <RecentArticles
+              browserLang={this.state.browserLang}
+              pageData={this.state.pageData}
+              postsData={this.state.postsData}
+            />
+            <Testimonials
+              browserLang={this.state.browserLang}
+              baseApiUrl={this.state.pageApiUrl}
+              pageData={this.state.pageData}
+            />
+            <Footer />
+          </div>
+        ) : (
+          <PageLoad />
+        )}
       </div>
     );
   }

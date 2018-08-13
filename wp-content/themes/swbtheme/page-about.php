@@ -12,18 +12,9 @@
  * @subpackage page template
  * @version 3.1
  */
-get_header(); ?>
-  <?php
-    if( is_home() ) {
-      $pageId = get_option( 'page_for_posts' );
-  } else {
-      $pageId = get_the_ID();
-  }
-  ?>
-	<main data-pageid="<?php echo esc_attr($pageId); ?>" class="swb-page">
-		<?php the_post(); ?>
-    <section class="lang-test">
-      <div id="root"></div>
-    </section>
-  </main>
-<?php get_footer(); ?>
+get_header('react'); ?>
+  <?php if( is_home() ) { $pageId = get_option( 'page_for_posts' ); } else { $pageId = get_the_ID(); } ?>
+	<div data-pageid="<?php echo esc_attr($pageId); ?>" class="swb-about-page">
+    <div id="root"></div>
+  </div>
+<?php get_footer('react'); ?>

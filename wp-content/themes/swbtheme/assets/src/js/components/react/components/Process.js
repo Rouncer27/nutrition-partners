@@ -3,7 +3,7 @@ import "babel-polyfill";
 import axios from "axios";
 import classnames from "classnames";
 
-export default props => {
+const Process = props => {
   let acf = props.pageData.acf;
   const enTitle = acf ? acf._np_en_our_process_title : false;
   const frTitle = acf ? acf._np_fr_our_process_title : false;
@@ -46,3 +46,5 @@ export default props => {
     </div>
   );
 };
+
+export default Process;

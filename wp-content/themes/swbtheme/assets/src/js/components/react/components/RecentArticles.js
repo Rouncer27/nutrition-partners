@@ -1,7 +1,7 @@
 import React from "react";
 import Article from "./recentArticles/Article";
 
-export default props => {
+const RecentArticles = props => {
   const acf = props.pageData.acf;
   const browserLang = props.browserLang;
   return (
@@ -23,3 +23,5 @@ export default props => {
     </div>
   );
 };
+
+export default RecentArticles;

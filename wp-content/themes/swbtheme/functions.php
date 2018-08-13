@@ -231,3 +231,22 @@ require_once(get_template_directory() . '/inc/swb-theme-woocommerce/woocommerce-
 
 /*require_once(get_template_directory() . '/inc/swb-theme-security/swb-theme-security.php');*/
 
+
+// Enable the option show in rest
+add_filter( 'acf/rest_api/field_settings/show_in_rest', '__return_true' );
+
+// Enable the option edit in rest
+// add_filter( 'acf/rest_api/field_settings/edit_in_rest', '__return_true' );
+
+
+// function swb_theme_get_menu() {
+// 	# Change 'menu' to your own navigation slug.
+// 	return wp_get_nav_menu_items('swb_np_menu');
+// }
+
+// add_action( 'rest_api_init', function () {
+// 			register_rest_route( 'myroutes', '/menu', array(
+// 			'methods' => 'GET',
+// 			'callback' => 'swb_theme_get_menu',
+// 	) );
+// } );

@@ -9,41 +9,20 @@ import FeaturedContent from "./featured/FeaturedContent";
 class Featured extends Component {
   constructor(props) {
     super(props);
-
     this.changeActiveSlide = this.changeActiveSlide.bind(this);
-
     this.state = {
-      slides: [],
-      activeQuebecSlider: "",
       activeSlider: ""
     };
   }
-  componentWillMount() {
-    axios
-      .get(`${this.props.baseApiUrl}/wp-json/wp/v2/pages/${this.props.pageID}`)
-      .then(result => {
-        this.setState(
-          prevState => ({
-            ...prevState,
-            slides: result.data.acf._np_featured_opening_slides,
-            activeQuebecSlider: result.data.acf._np_featured_opening_slides
-              .find(slide => {
-                return slide.opening_slide === "yes";
-              })
-              .en_title.toLowerCase()
-          }),
-          () => {
-            const currentSlide =
-              this.props.userLocation === "quebec"
-                ? this.state.activeQuebecSlider
-                : this.state.slides[0].en_title.toLowerCase();
-            this.setState(prevState => ({
-              ...prevState,
-              activeSlider: currentSlide
-            }));
-          }
-        );
-      });
+  componentDidMount() {
+    const currentSlide =
+      this.props.userLocation === "quebec"
+        ? this.props.activeQuebecSlide
+        : this.props.slides[0].en_title.toLowerCase();
+    this.setState(prevState => ({
+      ...prevState,
+      activeSlider: currentSlide
+    }));
   }
 
   changeActiveSlide(e) {
@@ -54,12 +33,13 @@ class Featured extends Component {
       activeSlider: clickedItem
     }));
   }
+
   render() {
     return (
       <div className="np-featured">
         <div className="np-featured__wrapper">
           <div className="np-featured__images">
-            {this.state.slides.map((slide, index) => {
+            {this.props.slides.map((slide, index) => {
               return (
                 <FeaturedImage
                   key={index}
@@ -72,7 +52,7 @@ class Featured extends Component {
 
           <div className="np-featured__menu">
             <ul className="np-featured__menu--list">
-              {this.state.slides.map((slide, index) => {
+              {this.props.slides.map((slide, index) => {
                 return (
                   <li
                     onClick={this.changeActiveSlide}
@@ -94,7 +74,7 @@ class Featured extends Component {
           </div>
 
           <div className="np-featured__content">
-            {this.state.slides.map((slide, index) => {
+            {this.props.slides.map((slide, index) => {
               return (
                 <FeaturedContent
                   key={index}

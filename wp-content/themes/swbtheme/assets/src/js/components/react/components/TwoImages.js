@@ -1,6 +1,6 @@
 import React from "react";
 
-export default props => {
+const TwoImages = props => {
   const acf = props.pageData.acf;
   const browserLang = props.browserLang;
 
@@ -42,3 +42,5 @@ export default props => {
     </div>
   );
 };
+
+export default TwoImages;

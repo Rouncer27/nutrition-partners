@@ -1,6 +1,6 @@
 import React from "react";
 
-export default props => {
+const Mission = props => {
   const acf = props.pageData.acf;
   const browserLang = props.browserLang;
   const enTitle = acf ? acf._np_en_our_mission_title : false;
@@ -26,3 +26,5 @@ export default props => {
     </div>
   );
 };
+
+export default Mission;
