@@ -11,6 +11,7 @@ import TwoImages from "../../components/TwoImages";
 import Process from "../../components/Process";
 import RecentArticles from "../../components/RecentArticles";
 import Testimonials from "../../components/Testimonials";
+import Partners from "../../components/Partners";
 import Footer from "../../components/Footer";
 
 // http://localhost/nutritionpartners/wp-json/wp-api-menus/v2/menus/2
@@ -254,6 +255,10 @@ export default class Home extends Component {
             <Testimonials
               browserLang={this.state.browserLang}
               baseApiUrl={this.state.pageApiUrl}
+              pageData={this.state.pageData}
+            />
+            <Partners
+              browserLang={this.state.browserLang}
               pageData={this.state.pageData}
             />
             <Footer />

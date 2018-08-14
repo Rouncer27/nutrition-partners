@@ -1,0 +1,38 @@
+.np-testimonials {
+  &__wrapper {
+    @include container-base(flex, large);
+  }
+
+  &__title {
+    @include bp(bp-m) {
+      align-self: center;
+      width: calc(50% - 5rem);
+      padding: 0 3rem;
+    }
+
+    h2 {
+      width: 100%;
+      color: $color-secondary;
+      font-family: $font-family--secondary;
+      font-weight: bold;
+
+      @include bp(bp-m) {
+        font-size: 5rem;
+      }
+    }
+  }
+
+  &__slider {
+    @include bp(bp-m) {
+      width: calc(50% - 5rem);
+    }
+  }
+
+  &__item {
+    width: 100%;
+
+    &--content {
+      color: $black;
+    }
+  }
+}

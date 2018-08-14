@@ -1,0 +1,38 @@
+.np-partners {
+  padding: 3rem 0;
+
+  &__wrapper {
+    @include container-base(flex, large);
+  }
+
+  &__title {
+    width: 100%;
+    margin-bottom: 2rem;
+    border-bottom: 0.5rem solid $color-shadow2;
+    text-align: center;
+
+    h2 {
+      color: $color-secondary;
+      font-family: $font-family--secondary;
+      font-weight: bold;
+
+      @include bp(bp-m) {
+        font-size: 5rem;
+      }
+    }
+  }
+
+  &__logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+
+    &--logo {
+      @include bp(bp-m) {
+        width: calc(20% - 5rem);
+        margin: 1rem 2.5rem;
+      }
+    }
+  }
+}

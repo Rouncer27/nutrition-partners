@@ -11,9 +11,9 @@ const Testimonial = props => {
     browserLang === "en" ? enTestimonial : frTestimonial;
 
   return (
-    <div>
-      <p>{testimonialContent}</p>
-      <p>{testName}</p>
+    <div className="np-testimonials__item">
+      <p className="np-testimonials__item--content">{testimonialContent}</p>
+      <p className="np-testimonials__item--name">{testName}</p>
     </div>
   );
 };

@@ -7,6 +7,9 @@
 * 
 */
 // Helpers
+
+@import "vender/slick";
+
 @import "helpers/variables";
 @import "helpers/functions";
 @import "helpers/mixins";
@@ -50,6 +53,8 @@
 @import "components/two-images";
 @import "components/process";
 @import "components/recent-articles";
+@import "components/testimonials";
+@import "components/our-partners";
 
 // Pages
 @import "pages/blog";
