@@ -62622,7 +62622,13 @@ var About = function (_Component) {
             null,
             "About Page"
           ),
-          _react2.default.createElement(_Footer2.default, null)
+          _react2.default.createElement(_Footer2.default, {
+            browserLang: this.state.browserLang,
+            pageData: this.state.pageData,
+            siteMainEnglishMenu: this.state.siteMainEnglishMenu,
+            siteMainFrenchMenu: this.state.siteMainFrenchMenu,
+            siteOptions: this.state.siteOptions
+          })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );
     }
@@ -62854,7 +62860,13 @@ var Products = function (_Component) {
             null,
             "Products Page"
           ),
-          _react2.default.createElement(_Footer2.default, null)
+          _react2.default.createElement(_Footer2.default, {
+            browserLang: this.state.browserLang,
+            pageData: this.state.pageData,
+            siteMainEnglishMenu: this.state.siteMainEnglishMenu,
+            siteMainFrenchMenu: this.state.siteMainFrenchMenu,
+            siteOptions: this.state.siteOptions
+          })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );
     }
@@ -63086,7 +63098,13 @@ var Contact = function (_Component) {
             null,
             "Contact Page"
           ),
-          _react2.default.createElement(_Footer2.default, null)
+          _react2.default.createElement(_Footer2.default, {
+            browserLang: this.state.browserLang,
+            pageData: this.state.pageData,
+            siteMainEnglishMenu: this.state.siteMainEnglishMenu,
+            siteMainFrenchMenu: this.state.siteMainFrenchMenu,
+            siteOptions: this.state.siteOptions
+          })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );
     }

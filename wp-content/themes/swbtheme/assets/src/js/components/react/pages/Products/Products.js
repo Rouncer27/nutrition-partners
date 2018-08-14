@@ -153,7 +153,13 @@ export default class Products extends Component {
               siteOptions={this.state.siteOptions}
             />
             <h1>Products Page</h1>
-            <Footer />
+            <Footer
+              browserLang={this.state.browserLang}
+              pageData={this.state.pageData}
+              siteMainEnglishMenu={this.state.siteMainEnglishMenu}
+              siteMainFrenchMenu={this.state.siteMainFrenchMenu}
+              siteOptions={this.state.siteOptions}
+            />
           </div>
         ) : (
           <PageLoad />
