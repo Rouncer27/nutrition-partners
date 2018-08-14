@@ -261,7 +261,13 @@ export default class Home extends Component {
               browserLang={this.state.browserLang}
               pageData={this.state.pageData}
             />
-            <Footer />
+            <Footer
+              browserLang={this.state.browserLang}
+              pageData={this.state.pageData}
+              siteMainEnglishMenu={this.state.siteMainEnglishMenu}
+              siteMainFrenchMenu={this.state.siteMainFrenchMenu}
+              siteOptions={this.state.siteOptions}
+            />
           </div>
         ) : (
           <PageLoad />

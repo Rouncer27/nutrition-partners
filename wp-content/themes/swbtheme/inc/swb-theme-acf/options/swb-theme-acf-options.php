@@ -18,8 +18,8 @@ if( function_exists('acf_add_options_page') ) {
   ));
 
   acf_add_options_sub_page(array(
-    'page_title'  => 'Social Media',
-    'menu_title'  => 'Social Media',
+    'page_title'  => 'Footer Content',
+    'menu_title'  => 'Footer Content',
     'parent_slug' => 'site-wide-settings',
   ));
 
