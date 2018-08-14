@@ -216,8 +216,10 @@ export default class Home extends Component {
       Object.keys(this.state.siteMainFrenchMenu).length > 0 &&
       this.state.postsData.length > 0;
 
+    // const renderComponent = false;
+
     return (
-      <div>
+      <div className="np-page-root">
         {renderComponent ? (
           <div>
             <Header

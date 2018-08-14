@@ -10,11 +10,6 @@ class Footer extends Component {
       siteMainFrenchMenu,
       siteOptions
     } = this.props;
-    console.log(browserLang);
-    console.log(pageData);
-    console.log(siteMainEnglishMenu);
-    console.log(siteMainFrenchMenu);
-    console.log(siteOptions);
 
     const heroImageSrc = pageData.acf._np_footer_image.sizes.fullbackground;
     const heroImageAlt = pageData.acf._np_footer_image.alt;
