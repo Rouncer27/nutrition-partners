@@ -140,7 +140,7 @@ export default class About extends Component {
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
       Object.keys(this.state.siteMainFrenchMenu).length > 0;
     return (
-      <div>
+      <div className="np-page-root">
         {renderComponent ? (
           <div>
             <Header

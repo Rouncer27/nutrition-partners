@@ -62607,7 +62607,7 @@ var About = function (_Component) {
       var renderComponent = Object.keys(this.state.pageData).length > 0 && Object.keys(this.state.siteOptions).length > 0 && Object.keys(this.state.siteMainEnglishMenu).length > 0 && Object.keys(this.state.siteMainFrenchMenu).length > 0;
       return _react2.default.createElement(
         "div",
-        null,
+        { className: "np-page-root" },
         renderComponent ? _react2.default.createElement(
           "div",
           null,
@@ -62839,7 +62839,7 @@ var Products = function (_Component) {
       var renderComponent = Object.keys(this.state.pageData).length > 0 && Object.keys(this.state.siteOptions).length > 0 && Object.keys(this.state.siteMainEnglishMenu).length > 0 && Object.keys(this.state.siteMainFrenchMenu).length > 0;
       return _react2.default.createElement(
         "div",
-        null,
+        { className: "np-page-root" },
         renderComponent ? _react2.default.createElement(
           "div",
           null,
@@ -63071,7 +63071,7 @@ var Contact = function (_Component) {
       var renderComponent = Object.keys(this.state.pageData).length > 0 && Object.keys(this.state.siteOptions).length > 0 && Object.keys(this.state.siteMainEnglishMenu).length > 0 && Object.keys(this.state.siteMainFrenchMenu).length > 0;
       return _react2.default.createElement(
         "div",
-        null,
+        { className: "np-page-root" },
         renderComponent ? _react2.default.createElement(
           "div",
           null,
