@@ -1,6 +1,12 @@
 .np-process {
   position: relative;
-  padding-bottom: 7.5rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+
+  @include bp(bp-m) {
+    padding-top: 7.5rem;
+    padding-bottom: 7.5rem;
+  }
 
   &__bgone,
   &__bgtwo {
@@ -12,19 +18,33 @@
   }
 
   &__bgone {
-    top: -10rem;
-    right: 0;
-    width: 40rem;
-    height: 25rem;
+    top: -5rem;
+    right: -12.5rem;
+    width: 25rem;
+    height: 17.3rem;
     background-image: url("#{$path--rel}/images/process/ntp-nutrition-food.jpg");
+
+    @include bp(bp-m) {
+      top: -5rem;
+      right: -15rem;
+      width: 40rem;
+      height: 27.7rem;
+    }
   }
 
   &__bgtwo {
-    bottom: 2rem;
-    left: -1rem;
+    bottom: 3rem;
+    left: -12.5rem;
     width: 30rem;
-    height: 19rem;
+    height: 18.8rem;
     background-image: url("#{$path--rel}/images/process/ntp-nutrition-pig-feed.jpg");
+
+    @include bp(bp-m) {
+      bottom: 2rem;
+      left: -17.5rem;
+      width: 40rem;
+      height: 25rem;
+    }
   }
 
   &__wrapper {
