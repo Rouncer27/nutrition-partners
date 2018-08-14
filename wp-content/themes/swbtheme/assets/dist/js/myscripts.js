@@ -53724,7 +53724,6 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Partner = function Partner(props) {
-  console.log(props);
   var logoDisplay = _react2.default.createElement("img", { src: props.logo.logo.sizes.contained, alt: props.logo.logo.alt });
   if (props.logo.url !== "") {
     logoDisplay = _react2.default.createElement(

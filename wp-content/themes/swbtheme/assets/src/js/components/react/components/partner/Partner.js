@@ -1,7 +1,6 @@
 import React from "react";
 
 const Partner = props => {
-  console.log(props);
   let logoDisplay = (
     <img src={props.logo.logo.sizes.contained} alt={props.logo.logo.alt} />
   );
