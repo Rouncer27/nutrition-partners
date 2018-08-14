@@ -37,8 +37,22 @@
           url("#{$path--rel}/images/recent/NTP-animal-cow-02.png");
 
         background-repeat: no-repeat, no-repeat, no-repeat;
-        background-position: 37.5% bottom, 45% bottom, 55% bottom;
+        background-position: 20% bottom, 45% bottom, 85% bottom;
         background-size: 5rem 6.1rem, 7.5rem 4.5rem, 12.5rem 8.2rem;
+      }
+
+      @include bp(bp-m) {
+        &::before {
+          background-position: 32.5% bottom, 45% bottom, 65% bottom;
+          background-size: 5rem 6.1rem, 7.5rem 4.5rem, 12.5rem 8.2rem;
+        }
+      }
+
+      @include bp(bp-l) {
+        &::before {
+          background-position: 37.5% bottom, 45% bottom, 55% bottom;
+          background-size: 5rem 6.1rem, 7.5rem 4.5rem, 12.5rem 8.2rem;
+        }
       }
     }
   }

@@ -23,6 +23,8 @@
   }
 
   &__slider {
+    width: 100%;
+
     @include bp(bp-m) {
       width: calc(50% - 5rem);
     }
