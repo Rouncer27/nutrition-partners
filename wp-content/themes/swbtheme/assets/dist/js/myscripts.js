@@ -58253,29 +58253,37 @@ var TwoImages = function TwoImages(props) {
       { className: "np-twoimg__wrapper" },
       _react2.default.createElement(
         "div",
-        { className: "np-twoimg__left" },
-        _react2.default.createElement("img", { src: twoImagesLeft, alt: "" })
-      ),
-      _react2.default.createElement(
-        "div",
-        { className: "np-twoimg__right" },
-        _react2.default.createElement("img", { src: twoImagesRight, alt: "" })
-      ),
-      _react2.default.createElement(
-        "div",
-        { className: "np-twoimg__title" },
+        { className: "np-twoimg__leftwrap" },
         _react2.default.createElement(
-          "h2",
-          null,
-          twoImageTitle
+          "div",
+          { className: "np-twoimg__left" },
+          _react2.default.createElement("img", { src: twoImagesLeft, alt: "" })
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "np-twoimg__title" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            twoImageTitle
+          )
         )
       ),
-      _react2.default.createElement("div", {
-        className: "np-twoimg__content",
-        dangerouslySetInnerHTML: {
-          __html: twoImageContent
-        }
-      })
+      _react2.default.createElement(
+        "div",
+        { className: "np-twoimg__rightwrap" },
+        _react2.default.createElement(
+          "div",
+          { className: "np-twoimg__right" },
+          _react2.default.createElement("img", { src: twoImagesRight, alt: "" })
+        ),
+        _react2.default.createElement("div", {
+          className: "np-twoimg__content",
+          dangerouslySetInnerHTML: {
+            __html: twoImageContent
+          }
+        })
+      )
     )
   );
 };

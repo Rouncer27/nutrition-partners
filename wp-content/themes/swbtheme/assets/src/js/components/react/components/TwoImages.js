@@ -23,21 +23,26 @@ const TwoImages = props => {
   return (
     <div className="np-twoimg">
       <div className="np-twoimg__wrapper">
-        <div className="np-twoimg__left">
-          <img src={twoImagesLeft} alt="" />
+        <div className="np-twoimg__leftwrap">
+          <div className="np-twoimg__left">
+            <img src={twoImagesLeft} alt="" />
+          </div>
+          <div className="np-twoimg__title">
+            <h2>{twoImageTitle}</h2>
+          </div>
         </div>
-        <div className="np-twoimg__right">
-          <img src={twoImagesRight} alt="" />
+
+        <div className="np-twoimg__rightwrap">
+          <div className="np-twoimg__right">
+            <img src={twoImagesRight} alt="" />
+          </div>
+          <div
+            className="np-twoimg__content"
+            dangerouslySetInnerHTML={{
+              __html: twoImageContent
+            }}
+          />
         </div>
-        <div className="np-twoimg__title">
-          <h2>{twoImageTitle}</h2>
-        </div>
-        <div
-          className="np-twoimg__content"
-          dangerouslySetInnerHTML={{
-            __html: twoImageContent
-          }}
-        />
       </div>
     </div>
   );

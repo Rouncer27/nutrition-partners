@@ -1,26 +1,91 @@
 .np-twoimg {
+  background: linear-gradient(
+    to bottom,
+    $color-secondary 0%,
+    $color-secondary 15rem,
+    transparent 15rem,
+    transparent 100%
+  );
+
   &__wrapper {
     @include container-base(flex);
     justify-content: space-between;
+    margin-top: 0;
+  }
+
+  &__rightwrap,
+  &__leftwrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+
+    @include bp(bp-m) {
+      width: calc(50% - 2rem);
+    }
   }
 
   &__left {
-    width: 45%;
-    margin-bottom: 5rem;
+    width: 100%;
+
+    @include bp(bp-m) {
+      margin-bottom: 5rem;
+    }
+  }
+
+  &__title {
+    width: 100%;
+    text-align: center;
+
+    @include bp(bp-m) {
+      padding: 2rem;
+      padding-bottom: 20rem;
+    }
+
+    h2 {
+      margin: 3rem auto;
+      color: $color-secondary;
+      font-family: $font-family--secondary;
+      font-size: 3.6rem;
+      font-weight: bold;
+
+      @include bp(bp-m) {
+        font-size: 3.8rem;
+      }
+    }
   }
 
   &__right {
     align-self: flex-end;
-    width: 45%;
-  }
+    width: 100%;
+    margin-bottom: 3rem;
 
-  &__title {
-    width: 50%;
-    padding: 2rem 2rem;
+    @include bp(bp-m) {
+      padding-top: 20rem;
+    }
   }
 
   &__content {
-    width: 50%;
-    padding: 5rem 3rem;
+    width: 100%;
+    text-align: center;
+
+    @include bp(bp-m) {
+      padding: 1rem;
+      text-align: left;
+    }
+
+    @include bp(bp-l) {
+      padding: 5rem 3rem;
+    }
+
+    p {
+      @include bp(bp-m) {
+        font-size: 1.6rem;
+      }
+
+      @include bp(bp-l) {
+        font-size: 1.8rem;
+      }
+    }
   }
 }

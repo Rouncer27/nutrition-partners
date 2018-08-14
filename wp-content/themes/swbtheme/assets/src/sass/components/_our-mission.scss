@@ -1,5 +1,5 @@
 .np-ourmiss {
-  padding: 2rem 0;
+  padding: 4rem 0 2rem;
   background-color: $color-secondary;
 
   &__wrapper {
@@ -15,8 +15,12 @@
       margin: 0;
       color: $silverRust;
       font-family: $font-family--secondary;
-      font-size: 5rem;
-      font-weight: 500;
+      font-size: 3.8rem;
+      font-weight: bold;
+
+      @include bp(bp-m) {
+        font-size: 5rem;
+      }
     }
   }
 
@@ -25,6 +29,10 @@
 
     p {
       color: $athensGray;
+
+      @include bp(bp-l) {
+        font-size: 1.8rem;
+      }
     }
   }
 }
