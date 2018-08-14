@@ -1,17 +1,29 @@
 .np-featured {
-  min-height: 100vh;
+  min-height: 50rem;
   margin: 0;
   padding: 0;
   background: linear-gradient(
     to bottom,
     $color-secondary 0%,
-    $color-secondary 40rem,
-    transparent 40rem,
+    $color-secondary 15rem,
+    transparent 15rem,
     transparent 100%
   );
 
+  @include bp(bp-m) {
+    min-height: 100vh;
+    background: linear-gradient(
+      to bottom,
+      $color-secondary 0%,
+      $color-secondary 40rem,
+      transparent 40rem,
+      transparent 100%
+    );
+  }
+
   &__wrapper {
     @include container-base(flex);
+    margin-top: 0;
   }
 
   &__images {
@@ -30,13 +42,19 @@
       li {
         display: inline-block;
         position: relative;
-        margin: 0.5rem 4rem;
-        padding: 6rem 1rem 0.25rem;
+        margin: 0.5rem 1.5rem;
+        padding: 3rem 1rem 0.25rem;
         color: $color-secondary;
         font-family: $font-family--primary;
-        font-size: 2rem;
+        font-size: 1.2rem;
         font-weight: 900;
         text-transform: uppercase;
+
+        @include bp(bp-m) {
+          margin: 0.5rem 4rem;
+          padding: 6rem 1rem 0.25rem;
+          font-size: 2rem;
+        }
 
         &:hover {
           cursor: pointer;
@@ -48,7 +66,7 @@
         position: absolute;
         top: 0;
         left: 1rem;
-        height: 6rem;
+        height: 3rem;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
@@ -56,16 +74,34 @@
       }
 
       .np-active-slide-menu-item.np-slide-menu-swine::before {
-        width: 10rem;
+        width: 5rem;
         background-image: url("#{$path--rel}/images/featured/NTP-animal-pig-01.png");
       }
       .np-active-slide-menu-item.np-slide-menu-dairy::before {
-        width: 9.2rem;
+        width: 4.6rem;
         background-image: url("#{$path--rel}/images/featured/NTP-animal-cow-01.png");
       }
       .np-active-slide-menu-item.np-slide-menu-poultry::before {
-        width: 4.9rem;
+        width: 2.45rem;
         background-image: url("#{$path--rel}/images/featured/NTP-animal-chicken-01.png");
+      }
+
+      @include bp(bp-m) {
+        .np-active-slide-menu-item::before {
+          height: 6rem;
+        }
+
+        .np-active-slide-menu-item.np-slide-menu-swine::before {
+          width: 10rem;
+        }
+
+        .np-active-slide-menu-item.np-slide-menu-dairy::before {
+          width: 9.2rem;
+        }
+
+        .np-active-slide-menu-item.np-slide-menu-poultry::before {
+          width: 4.9rem;
+        }
       }
 
       .np-active-slide-menu-item::after {
@@ -73,10 +109,16 @@
         position: absolute;
         bottom: -0.5rem;
         left: 1rem;
-        width: 10rem;
+        width: 6rem;
         height: 0.5rem;
         background-color: $color-primary;
         content: "";
+      }
+
+      @include bp(bp-m) {
+        .np-active-slide-menu-item::after {
+          width: 10rem;
+        }
       }
 
       li:first-of-type {
@@ -104,27 +146,94 @@
       margin: 0;
       color: $silverRust;
       font-family: $font-family--primary;
-      font-size: 2.4rem;
+      font-size: 2rem;
       line-height: 1.25;
+
+      @include bp(bp-m) {
+        font-size: 2.4rem;
+      }
     }
 
     p {
       font-family: $font-family--primary;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
+
+      @include bp(bp-m) {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}
+
+.np-featured__content {
+  position: relative;
+  width: 100%;
+  height: 30rem;
+
+  @include bp(bp-m) {
+    height: 20rem;
+  }
+
+  .np-featured__content--item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+}
+
+.np-featured__images {
+  position: relative;
+  width: 100%;
+  height: 23rem;
+
+  @include bp(bp-m) {
+    height: 43rem;
+  }
+
+  @include bp(bp-l) {
+    height: 57rem;
+  }
+
+  &--image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  img,
+  picture {
+    width: auto;
+    max-width: 100%;
+    height: 23rem;
+
+    @include bp(bp-m) {
+      height: 43rem;
+    }
+
+    @include bp(bp-l) {
+      height: 57rem;
     }
   }
 }
 
 .np-featured__content--item,
 .np-featured__images--image {
-  display: none;
+  //display: none;
+  transition: all 0.4s ease-in-out;
   opacity: 0;
   visibility: hidden;
 }
 
 .np-featured__content--item.np-active-featured-slide,
 .np-featured__images--image.np-active-featured-slide {
-  display: block;
+  //display: block;
+  transition: all 0.4s ease-in-out;
   opacity: 1;
   visibility: visible;
 }
