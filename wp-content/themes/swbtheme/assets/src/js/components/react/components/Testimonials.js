@@ -36,10 +36,12 @@ class Testimonials extends Component {
     const testimonialTitle = browserLang === "en" ? enTitle : frTitle;
     const settings = {
       dots: true,
+      arrows: false,
       infinite: true,
       speed: 500,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
+      customPaging: i => <div> </div>
     };
     return (
       <div className="np-testimonials">

@@ -1,4 +1,6 @@
 .np-testimonials {
+  padding-top: 5rem;
+
   &__wrapper {
     @include container-base(flex, large);
   }
@@ -34,7 +36,40 @@
     width: 100%;
 
     &--content {
-      color: $black;
+      margin: 0;
+      color: $regentGray;
+      font-size: 1.6rem;
+    }
+
+    &--name {
+      color: $color-secondary;
+      font-family: $font-family--secondary;
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  }
+
+  .slick-dots {
+    li {
+      display: inline-block;
+
+      div {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 0.5rem;
+        border-radius: 50%;
+        border: 0.1rem solid $color-secondary;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    li.slick-active {
+      div {
+        background-color: $color-secondary;
+      }
     }
   }
 }

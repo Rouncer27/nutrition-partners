@@ -58883,10 +58883,18 @@ var Testimonials = function (_Component) {
       var testimonialTitle = browserLang === "en" ? enTitle : frTitle;
       var settings = {
         dots: true,
+        arrows: false,
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        customPaging: function customPaging(i) {
+          return _react2.default.createElement(
+            "div",
+            null,
+            " "
+          );
+        }
       };
       return _react2.default.createElement(
         "div",
