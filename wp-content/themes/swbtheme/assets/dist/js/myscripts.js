@@ -58376,7 +58376,9 @@ var Process = function Process(props) {
           );
         })
       )
-    )
+    ),
+    _react2.default.createElement("div", { className: "np-process__bgone" }),
+    _react2.default.createElement("div", { className: "np-process__bgtwo" })
   );
 };
 

@@ -1,10 +1,49 @@
 .np-process {
+  position: relative;
+  padding-bottom: 7.5rem;
+
+  &__bgone,
+  &__bgtwo {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+  }
+
+  &__bgone {
+    top: -10rem;
+    right: 0;
+    width: 40rem;
+    height: 25rem;
+    background-image: url("#{$path--rel}/images/process/ntp-nutrition-food.jpg");
+  }
+
+  &__bgtwo {
+    bottom: 2rem;
+    left: -1rem;
+    width: 30rem;
+    height: 19rem;
+    background-image: url("#{$path--rel}/images/process/ntp-nutrition-pig-feed.jpg");
+  }
+
   &__wrapper {
-    @include container-base(flex, large);
+    @include container-base(flex);
+    position: relative;
+    z-index: 5;
   }
 
   &__title {
     width: 100%;
+
+    h2 {
+      margin-bottom: 5rem;
+      color: $silverRust;
+      font-family: $font-family--secondary;
+      font-size: 3.8rem;
+      font-weight: bold;
+      text-align: center;
+    }
   }
 
   &__info {
@@ -15,20 +54,29 @@
 
     &--step {
       display: flex;
+      position: relative;
       flex-wrap: wrap;
       justify-content: center;
-      width: 25%;
+      width: 50%;
       margin-bottom: 15rem;
-      padding: 0 3rem;
+      padding: 0 1rem;
+
+      @include bp(bp-m) {
+        width: 25%;
+        padding: 0 3rem;
+      }
     }
 
     &--number {
+      position: absolute;
+      top: 5rem;
+      left: 0;
       width: 100%;
 
       p {
         display: inline-block;
         margin: 0 auto;
-        color: $silverRust;
+        color: rgba($silverRust, 0.5);
         font-family: $font-family--primary;
         font-size: 5rem;
         font-weight: bold;
@@ -37,6 +85,7 @@
 
     &--icon {
       width: 100%;
+      margin-bottom: 3rem;
 
       i {
         display: block;
@@ -99,8 +148,12 @@
 
     &--content {
       width: 100%;
-      padding: 0 2rem;
+      padding: 0;
       text-align: center;
+
+      @include bp(bp-m) {
+        padding: 0 2rem;
+      }
 
       p {
         margin: 0;

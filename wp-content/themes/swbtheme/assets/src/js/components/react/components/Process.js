@@ -43,6 +43,8 @@ const Process = props => {
             })}
         </div>
       </div>
+      <div className="np-process__bgone" />
+      <div className="np-process__bgtwo" />
     </div>
   );
 };
