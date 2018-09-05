@@ -5,6 +5,13 @@ import axios from "axios";
 
 import PageLoad from "../../components/PageLoad";
 import Header from "../../components/Header";
+import Hero from "../../components/Hero";
+import TitleWithContent from "../../components/TitleWithContent";
+import WhyNP from "../../components/WhyNP";
+import ClosedCrop from "../../components/ClosedCrop";
+import Teams from "../../components/Teams";
+import FarmHealthy from "../../components/FarmHealthy";
+import ImageLink from "../../components/ImageLink";
 import Footer from "../../components/Footer";
 
 export default class About extends Component {
@@ -139,6 +146,10 @@ export default class About extends Component {
       Object.keys(this.state.siteOptions).length > 0 &&
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
       Object.keys(this.state.siteMainFrenchMenu).length > 0;
+    let acf;
+    if (renderComponent) {
+      acf = this.state.pageData.acf;
+    }
     return (
       <div className="np-page-root">
         {renderComponent ? (
@@ -152,7 +163,13 @@ export default class About extends Component {
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
             />
-            <h1>About Page</h1>
+            <Hero acf={acf} />
+            <TitleWithContent browserLang={this.state.browserLang} acf={acf} />
+            <WhyNP browserLang={this.state.browserLang} acf={acf} />
+            <ClosedCrop browserLang={this.state.browserLang} acf={acf} />
+            <Teams browserLang={this.state.browserLang} acf={acf} />
+            <FarmHealthy browserLang={this.state.browserLang} acf={acf} />
+            <ImageLink browserLang={this.state.browserLang} acf={acf} />
             <Footer
               browserLang={this.state.browserLang}
               pageData={this.state.pageData}

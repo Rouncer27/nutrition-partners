@@ -1,0 +1,23 @@
+.np-twcontent {
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__bluet {
+    h2 {
+      @include mainTitle();
+    }
+  }
+
+  &__greent {
+    h3 {
+      @include sub-maintitle();
+    }
+  }
+
+  &__mainpara {
+    p {
+      @include mainParagraph();
+    }
+  }
+}

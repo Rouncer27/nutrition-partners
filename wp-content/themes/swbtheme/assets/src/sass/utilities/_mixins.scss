@@ -1,0 +1,87 @@
+// Main Header. //
+@mixin mainTitle() {
+  margin-bottom: 1.5rem;
+  color: $color-secondary;
+  font-family: $font-family--secondary;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.13;
+  text-align: center;
+
+  @include bp(bp-m) {
+    font-size: 5.5rem;
+  }
+
+  @include bp(bp-l) {
+    font-size: 6.5rem;
+  }
+}
+
+// Main sub title. Smaller green title/paragraph. //
+@mixin sub-maintitle() {
+  margin-bottom: 2rem;
+  color: $color-shadow2;
+  font-family: $font-family--primary;
+  font-size: 1.9rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+
+  @include bp(bp-m) {
+    font-size: 2rem;
+  }
+
+  @include bp(bp-l) {
+    font-size: 2.2rem;
+  }
+}
+
+// the main body copy is here. //
+@mixin mainParagraph() {
+  margin-bottom: 1rem;
+  color: $npBlack;
+  font-family: $font-family--primary;
+  font-size: 1.8rem;
+  font-weight: normal;
+  line-height: 1.4;
+  text-align: center;
+
+  @include bp(bp-m) {
+    font-size: 1.8rem;
+  }
+
+  @include bp(bp-l) {
+    font-size: 2rem;
+  }
+}
+
+// The styles for the main button
+
+@mixin mainButton() {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 0.25rem;
+  transition: all 0.3s ease;
+  color: $color-secondary;
+  font-family: $font-family--accent;
+  font-size: 2rem;
+  text-transform: uppercase;
+  box-shadow: 0 0.25rem 0 $color-primary;
+
+  @include bp(bp-m) {
+    font-size: 1.6rem;
+  }
+
+  &::after {
+    @include fontAwesome();
+    position: absolute;
+    top: 0.1rem;
+    right: -2rem;
+    font-weight: normal;
+    content: "\f061";
+  }
+
+  &:hover {
+    color: $color-primary;
+  }
+}

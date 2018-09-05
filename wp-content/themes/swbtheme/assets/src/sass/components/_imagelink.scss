@@ -1,0 +1,68 @@
+.np-imglink {
+  @include bp(bp-m) {
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+  }
+
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__image {
+    width: calc(100% - 4rem);
+    margin: 4rem 2rem;
+
+    @include bp(bp-m) {
+      width: calc(50% - 4rem);
+    }
+
+    @include bp(bp-l) {
+      width: calc(50% - 10rem);
+      margin: 1rem 5rem;
+    }
+  }
+
+  &__content {
+    width: 100%;
+
+    @include bp(bp-m) {
+      align-self: center;
+      width: calc(50% - 2rem);
+      margin: 1rem;
+    }
+
+    @include bp(bp-l) {
+      width: calc(50% - 6rem);
+      margin: 1rem 3rem;
+    }
+  }
+
+  &__title {
+    h2 {
+      @include mainTitle();
+
+      @include bp(bp-m) {
+        text-align: left;
+      }
+
+      @include bp(bp-l) {
+        font-size: 4rem;
+      }
+    }
+  }
+
+  &__link {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    text-align: center;
+
+    @include bp(bp-l) {
+      margin-bottom: 0;
+      text-align: left;
+    }
+
+    a {
+      @include mainButton();
+    }
+  }
+}

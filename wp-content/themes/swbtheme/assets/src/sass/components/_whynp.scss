@@ -1,0 +1,154 @@
+.np-whynp {
+  @include bp(bp-l) {
+    background: linear-gradient(
+      to right,
+      rgba($color-shadow, 0.35) 0%,
+      rgba($color-shadow, 0.35) 50%,
+      transparent 50%,
+      transparent 100%
+    );
+  }
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__left {
+    width: 100%;
+
+    @include bp(bp-m) {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    @include bp(bp-l) {
+      width: calc(50% - 3rem);
+      margin: 0 1.5rem;
+    }
+  }
+
+  &__right {
+    width: 100%;
+
+    @include bp(bp-l) {
+      width: calc(50% - 3rem);
+      margin: 0 1.5rem;
+      padding: 10rem 2rem 0;
+    }
+  }
+
+  &__title {
+    width: 100%;
+
+    h2 {
+      @include mainTitle();
+
+      @include bp(bp-l) {
+        text-align: left;
+      }
+    }
+  }
+
+  &__imgtopl {
+    width: 100%;
+    margin-bottom: 2rem;
+
+    @include bp(bp-m) {
+      width: calc(50% - 6rem);
+      margin: 3rem;
+    }
+
+    @include bp(bp-l) {
+      width: calc(100% - 6rem);
+    }
+  }
+
+  &__imgmidl {
+    width: 100%;
+    margin-bottom: 2rem;
+
+    @include bp(bp-m) {
+      width: calc(50% - 6rem);
+      margin: 3rem;
+    }
+
+    @include bp(bp-l) {
+      width: calc(100% - 6rem);
+    }
+  }
+
+  &__intro {
+    margin-bottom: 2rem;
+
+    p {
+      @include mainParagraph();
+
+      @include bp(bp-l) {
+        text-align: left;
+      }
+    }
+  }
+
+  &__list {
+    margin-bottom: 2rem;
+
+    &--items {
+      text-align: left;
+
+      @include bp(bp-m) {
+        padding: 2rem 8rem;
+      }
+
+      @include bp(bp-l) {
+        padding: 2rem 4rem;
+      }
+    }
+
+    &--item {
+      display: block;
+      position: relative;
+      margin-bottom: 2rem;
+      padding-left: 1.5rem;
+      color: $color-secondary;
+      font-size: 1.9rem;
+      font-weight: bold;
+      line-height: 1.25;
+
+      &::after {
+        display: block;
+        position: absolute;
+        top: 0.75rem;
+        left: 0;
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 50%;
+        background-color: $color-secondary;
+        content: "";
+      }
+
+      @include bp(bp-m) {
+        font-size: 2rem;
+
+        &::after {
+          top: 1rem;
+        }
+      }
+
+      @include bp(bp-l) {
+        font-size: 1.8rem;
+      }
+    }
+  }
+
+  &__conc {
+    margin-bottom: 2rem;
+
+    p {
+      @include mainParagraph();
+
+      @include bp(bp-l) {
+        text-align: left;
+      }
+    }
+  }
+}

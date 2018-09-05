@@ -30172,10 +30172,10 @@ var aboutPage = document.querySelector(".swb-about-page");
 if (aboutPage !== null) __webpack_require__(674);
 
 var productsPage = document.querySelector(".swb-products-page");
-if (productsPage !== null) __webpack_require__(675);
+if (productsPage !== null) __webpack_require__(682);
 
 var contactPage = document.querySelector(".swb-contact-page");
-if (contactPage !== null) __webpack_require__(676);
+if (contactPage !== null) __webpack_require__(683);
 
 // import { TweenMax } from "TweenMax";
 // import ScrollMagic from "scrollmagic";
@@ -62459,6 +62459,34 @@ var _Header = __webpack_require__(97);
 
 var _Header2 = _interopRequireDefault(_Header);
 
+var _Hero = __webpack_require__(675);
+
+var _Hero2 = _interopRequireDefault(_Hero);
+
+var _TitleWithContent = __webpack_require__(676);
+
+var _TitleWithContent2 = _interopRequireDefault(_TitleWithContent);
+
+var _WhyNP = __webpack_require__(677);
+
+var _WhyNP2 = _interopRequireDefault(_WhyNP);
+
+var _ClosedCrop = __webpack_require__(678);
+
+var _ClosedCrop2 = _interopRequireDefault(_ClosedCrop);
+
+var _Teams = __webpack_require__(679);
+
+var _Teams2 = _interopRequireDefault(_Teams);
+
+var _FarmHealthy = __webpack_require__(680);
+
+var _FarmHealthy2 = _interopRequireDefault(_FarmHealthy);
+
+var _ImageLink = __webpack_require__(681);
+
+var _ImageLink2 = _interopRequireDefault(_ImageLink);
+
 var _Footer = __webpack_require__(99);
 
 var _Footer2 = _interopRequireDefault(_Footer);
@@ -62623,6 +62651,10 @@ var About = function (_Component) {
       var _React$createElement;
 
       var renderComponent = Object.keys(this.state.pageData).length > 0 && Object.keys(this.state.siteOptions).length > 0 && Object.keys(this.state.siteMainEnglishMenu).length > 0 && Object.keys(this.state.siteMainFrenchMenu).length > 0;
+      var acf = void 0;
+      if (renderComponent) {
+        acf = this.state.pageData.acf;
+      }
       return _react2.default.createElement(
         "div",
         { className: "np-page-root" },
@@ -62635,11 +62667,13 @@ var About = function (_Component) {
             pageData: this.state.pageData,
             siteMainEnglishMenu: this.state.siteMainEnglishMenu
           }, _defineProperty(_React$createElement, "siteMainEnglishMenu", this.state.siteMainEnglishMenu), _defineProperty(_React$createElement, "siteMainFrenchMenu", this.state.siteMainFrenchMenu), _defineProperty(_React$createElement, "siteOptions", this.state.siteOptions), _React$createElement)),
-          _react2.default.createElement(
-            "h1",
-            null,
-            "About Page"
-          ),
+          _react2.default.createElement(_Hero2.default, { acf: acf }),
+          _react2.default.createElement(_TitleWithContent2.default, { browserLang: this.state.browserLang, acf: acf }),
+          _react2.default.createElement(_WhyNP2.default, { browserLang: this.state.browserLang, acf: acf }),
+          _react2.default.createElement(_ClosedCrop2.default, { browserLang: this.state.browserLang, acf: acf }),
+          _react2.default.createElement(_Teams2.default, { browserLang: this.state.browserLang, acf: acf }),
+          _react2.default.createElement(_FarmHealthy2.default, { browserLang: this.state.browserLang, acf: acf }),
+          _react2.default.createElement(_ImageLink2.default, { browserLang: this.state.browserLang, acf: acf }),
           _react2.default.createElement(_Footer2.default, {
             browserLang: this.state.browserLang,
             pageData: this.state.pageData,
@@ -62662,6 +62696,538 @@ _reactDom2.default.render(_react2.default.createElement(About, null), document.g
 
 /***/ }),
 /* 675 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Hero = function Hero(props) {
+  var heroImageSrc = props.acf._np_hero_image.sizes.fullbackground;
+  var heroImageAlt = props.acf._np_hero_image.alt;
+  return _react2.default.createElement(
+    "div",
+    { className: "np-hero" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-hero__image" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-hero__wrapper" },
+        _react2.default.createElement("img", { src: heroImageSrc, alt: heroImageAlt })
+      )
+    )
+  );
+};
+
+exports.default = Hero;
+
+/***/ }),
+/* 676 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TitleWithContent = function TitleWithContent(props) {
+  var blueTitleReq = props.acf._np_twc_blue_title_req;
+  var greenTitleReq = props.acf._np_twc_green_title_req;
+  var mainParaReq = props.acf._np_twc_main_paragraphs_req;
+
+  if (blueTitleReq === "yes") {
+    var blueTitleEn = props.acf._np_twc_blue_title_en;
+    var blueTitleFr = props.acf._np_twc_blue_title_fr;
+    var blueTitle = _react2.default.createElement(
+      "h2",
+      null,
+      props.browserLang === "en" ? blueTitleEn : blueTitleFr
+    );
+  }
+
+  if (greenTitleReq === "yes") {
+    var greenTitleEn = props.acf._np_twc_green_title_en;
+    var greenTitleFr = props.acf._np_twc_green_title_fr;
+    var greenTitle = _react2.default.createElement(
+      "h3",
+      null,
+      props.browserLang === "en" ? greenTitleEn : greenTitleFr
+    );
+  }
+
+  if (mainParaReq === "yes") {
+    var mainParaEn = props.acf._np_twc_main_paragraphs_en;
+    var mainParaFr = props.acf._np_twc_main_paragraphs_fr;
+    var paraContent = props.browserLang === "en" ? mainParaEn : mainParaFr;
+    var mainPara = _react2.default.createElement("div", {
+      className: "np-twcontent__mainpara",
+      dangerouslySetInnerHTML: { __html: paraContent }
+    });
+  }
+
+  return _react2.default.createElement(
+    "div",
+    { className: "np-twcontent" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-twcontent__wrapper" },
+      blueTitleReq === "yes" && _react2.default.createElement(
+        "div",
+        { className: "np-twcontent__bluet" },
+        blueTitle
+      ),
+      greenTitleReq === "yes" && _react2.default.createElement(
+        "div",
+        { className: "np-twcontent__greent" },
+        greenTitle
+      ),
+      mainParaReq === "yes" && mainPara
+    )
+  );
+};
+
+exports.default = TitleWithContent;
+
+/***/ }),
+/* 677 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var WhyNP = function WhyNP(props) {
+  var wnpTitleEn = props.acf._np_wnp_title_en;
+  var wnpTitleFr = props.acf._np_wnp_title_fr;
+  var wnpTitle = props.browserLang === "en" ? wnpTitleEn : wnpTitleFr;
+
+  var wnpIntroEn = props.acf._np_wnp_intro_en;
+  var wnpIntroFr = props.acf._np_wnp_intro_fr;
+  var wnpIntro = props.browserLang === "en" ? wnpIntroEn : wnpIntroFr;
+
+  var wnpListEn = props.acf._np_wnp_list_en;
+  var wnpListFr = props.acf._np_wnp_list_fr;
+  var wnpItems = props.browserLang === "en" ? wnpListEn : wnpListFr;
+
+  var wnpConcEn = props.acf._np_wnp_conclusion_en;
+  var wnpConcFr = props.acf._np_wnp_conclusion_fr;
+  var wnpConc = props.browserLang === "en" ? wnpConcEn : wnpConcFr;
+
+  var wnpTopLeftSRC = props.acf._np_wnp_top_left.sizes.contained;
+  var wnpMidLeftSRC = props.acf._np_wnp_mid_left.sizes.contained;
+  var wnpBottomSRC = props.acf._np_wnp_bottom_right.sizes.contained;
+
+  return _react2.default.createElement(
+    "div",
+    { className: "np-whynp" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-whynp__wrapper" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-whynp__left" },
+        _react2.default.createElement(
+          "div",
+          { className: "np-whynp__title" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            wnpTitle
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "np-whynp__imgtopl" },
+          _react2.default.createElement("img", { src: wnpTopLeftSRC, alt: "" })
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "np-whynp__imgmidl" },
+          _react2.default.createElement("img", { src: wnpMidLeftSRC, alt: "" })
+        )
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-whynp__right" },
+        _react2.default.createElement("div", {
+          className: "np-whynp__intro",
+          dangerouslySetInnerHTML: { __html: wnpIntro }
+        }),
+        _react2.default.createElement(
+          "div",
+          { className: "np-whynp__list" },
+          _react2.default.createElement(
+            "ul",
+            { className: "np-whynp__list--items" },
+            wnpItems.map(function (item, index) {
+              return _react2.default.createElement(
+                "li",
+                { className: "np-whynp__list--item", key: index },
+                item.bullet
+              );
+            })
+          )
+        ),
+        _react2.default.createElement("div", {
+          className: "np-whynp__conc",
+          dangerouslySetInnerHTML: { __html: wnpConc }
+        }),
+        _react2.default.createElement(
+          "div",
+          { className: "np-whynp__btn" },
+          _react2.default.createElement("img", { src: wnpBottomSRC, alt: "" })
+        )
+      )
+    )
+  );
+};
+
+exports.default = WhyNP;
+
+/***/ }),
+/* 678 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ClosedCrop = function ClosedCrop(props) {
+  var ccTitleEn = props.acf._np_cc_image_title_en;
+  var ccTitleFr = props.acf._np_cc_image_title_fr;
+  var ccTitle = props.browserLang === "en" ? ccTitleEn : ccTitleFr;
+
+  var ccContentEn = props.acf._np_cc_image_content_en;
+  var ccContentFr = props.acf._np_cc_image_content_fr;
+  var ccContent = props.browserLang === "en" ? ccContentEn : ccContentFr;
+
+  var ccBtnTextEn = props.acf._np_cc_image_btn_text_en;
+  var ccBtnTextFr = props.acf._np_cc_image_btn_text_fr;
+  var ccBtnText = props.browserLang === "en" ? ccBtnTextEn : ccBtnTextFr;
+  var ccBtnLink = props.acf._np_cc_image_btn_link;
+
+  var ccImageSrc = props.acf._np_cc_image.sizes.contained;
+  var ccImageAlt = props.acf._np_cc_image.alt;
+
+  return _react2.default.createElement(
+    "div",
+    { className: "np-closecrop" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-closecrop__wrapper" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-closecrop__image" },
+        _react2.default.createElement(
+          "div",
+          { className: "np-closecrop__title" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            ccTitle
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "np-closecrop__cropped" },
+          _react2.default.createElement("img", { src: ccImageSrc, alt: ccImageAlt })
+        )
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-closecrop__content" },
+        _react2.default.createElement("div", {
+          className: "np-closecrop__content--paragraph",
+          dangerouslySetInnerHTML: { __html: ccContent }
+        }),
+        _react2.default.createElement(
+          "div",
+          { className: "np-closecrop__content--btn" },
+          _react2.default.createElement(
+            "a",
+            { href: ccBtnLink },
+            ccBtnText
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = ClosedCrop;
+
+/***/ }),
+/* 679 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Team = function Team(props) {
+  var teamTitleEn = props.acf._np_teams_title_en;
+  var teamTitleFr = props.acf._np_teams_title_fr;
+  var teamTitle = props.browserLang === "en" ? teamTitleEn : teamTitleFr;
+
+  var teamContentEn = props.acf._np_teams_intro_en;
+  var teamContentFr = props.acf._np_teams_intro_fr;
+  var teamContent = props.browserLang === "en" ? teamContentEn : teamContentFr;
+
+  var teamsEn = props.acf._np_teams_en;
+  var teamsFr = props.acf._np_teams_fr;
+  var teams = props.browserLang === "en" ? teamsEn : teamsFr;
+
+  return _react2.default.createElement(
+    "div",
+    { className: "np-teams" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-teams__intro" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-teams__wrapper" },
+        _react2.default.createElement(
+          "div",
+          { className: "np-teams__title" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            teamTitle
+          )
+        ),
+        _react2.default.createElement("div", {
+          className: "np-teams__content",
+          dangerouslySetInnerHTML: { __html: teamContent }
+        })
+      )
+    ),
+    _react2.default.createElement(
+      "div",
+      { className: "np-teams__background" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-teams__wrapper np-teams__wrapper--bottom" },
+        _react2.default.createElement(
+          "div",
+          { className: "np-teams__container" },
+          teams.length > 0 && teams.map(function (team, index) {
+            return _react2.default.createElement(
+              "div",
+              { key: index, className: "np-teams__team" },
+              _react2.default.createElement(
+                "div",
+                { className: "np-teams__team--image" },
+                _react2.default.createElement("img", {
+                  src: team.team_image.sizes.contained,
+                  alt: team.team_image.alt
+                }),
+                _react2.default.createElement(
+                  "div",
+                  { className: "np-teams__team--details" },
+                  _react2.default.createElement(
+                    "h3",
+                    null,
+                    team.team_name
+                  )
+                )
+              )
+            );
+          })
+        )
+      )
+    )
+  );
+};
+
+exports.default = Team;
+
+/***/ }),
+/* 680 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FarmHealthy = function FarmHealthy(props) {
+  var fHTitleEn = props.acf._np_farm_healthy_title_en;
+  var fHTitleFr = props.acf._np_farm_healthy_title_fr;
+  var fHTitle = props.browserLang === "en" ? fHTitleEn : fHTitleFr;
+
+  var fHContentEn = props.acf._np_farm_healthy_content_en;
+  var fHContentFr = props.acf._np_farm_healthy_content_fr;
+  var fHContent = props.browserLang === "en" ? fHContentEn : fHContentFr;
+
+  var fHimgsrcEn = props.acf._np_farm_healthy_image_en.sizes.contained;
+  var fHimgsrcFr = props.acf._np_farm_healthy_image_fr.sizes.contained;
+  var fHimgsrc = props.browserLang === "en" ? fHimgsrcEn : fHimgsrcFr;
+
+  var fHimgaltEn = props.acf._np_farm_healthy_image_en.alt;
+  var fHimgaltFr = props.acf._np_farm_healthy_image_fr.alt;
+  var fHimgalt = props.browserLang === "en" ? fHimgaltEn : fHimgaltFr;
+
+  return _react2.default.createElement(
+    "div",
+    { className: "np-farmhealth" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-farmhealth__wrapper" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-farmhealth__title" },
+        _react2.default.createElement(
+          "h2",
+          null,
+          fHTitle
+        )
+      ),
+      _react2.default.createElement("div", {
+        className: "np-farmhealth__content",
+        dangerouslySetInnerHTML: { __html: fHContent }
+      }),
+      _react2.default.createElement(
+        "div",
+        { className: "np-farmhealth__image" },
+        _react2.default.createElement("img", { src: fHimgsrc, alt: fHimgaltEn })
+      )
+    )
+  );
+};
+
+exports.default = FarmHealthy;
+
+/***/ }),
+/* 681 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ImageLink = function ImageLink(props) {
+  console.log(props);
+  var imgLinkTitleEn = props.acf._np_image_link_content_en;
+  var imgLinkTitleFr = props.acf._np_image_link_content_fr;
+  var imgLinkTitle = props.browserLang === "en" ? imgLinkTitleEn : imgLinkTitleFr;
+
+  var imgLinkBtnTextEn = props.acf._np_image_link_btn_text_en;
+  var imgLinkBtnTextFr = props.acf._np_image_link_btn_text_fr;
+  var imgLinkBtnText = props.browserLang === "en" ? imgLinkBtnTextEn : imgLinkBtnTextFr;
+
+  var imgLinksrcEn = props.acf._np_image_link_img_en.sizes.contained;
+  var imgLinksrcFr = props.acf._np_image_link_img_fr.sizes.contained;
+  var imgLinksrc = props.browserLang === "en" ? imgLinksrcEn : imgLinksrcFr;
+
+  var imgLinkaltEn = props.acf._np_image_link_img_en.alt;
+  var imgLinkaltFr = props.acf._np_image_link_img_fr.alt;
+  var imgLinkalt = props.browserLang === "en" ? imgLinkaltEn : imgLinkaltFr;
+
+  var imgLinkURL = props.acf._np_image_link_url;
+
+  return _react2.default.createElement(
+    "div",
+    { className: "np-imglink" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-imglink__wrapper" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-imglink__image" },
+        _react2.default.createElement("img", { src: imgLinksrc, alt: imgLinkalt })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-imglink__content" },
+        _react2.default.createElement(
+          "div",
+          { className: "np-imglink__title" },
+          _react2.default.createElement(
+            "h2",
+            null,
+            imgLinkTitle
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "np-imglink__link" },
+          _react2.default.createElement(
+            "a",
+            { href: imgLinkURL },
+            imgLinkBtnText
+          )
+        )
+      )
+    )
+  );
+};
+
+exports.default = ImageLink;
+
+/***/ }),
+/* 682 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62899,7 +63465,7 @@ exports.default = Products;
 _reactDom2.default.render(_react2.default.createElement(Products, null), document.getElementById("root"));
 
 /***/ }),
-/* 676 */
+/* 683 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

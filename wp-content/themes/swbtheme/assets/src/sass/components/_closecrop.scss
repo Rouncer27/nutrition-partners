@@ -1,0 +1,116 @@
+.np-closecrop {
+  &__wrapper {
+    @include container-base(flex);
+    justify-content: space-between;
+  }
+
+  &__image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 4rem;
+
+    @include bp(bp-m) {
+      width: 65%;
+      margin: 2rem auto;
+    }
+
+    @include bp(bp-l) {
+      width: calc(45% - 4rem);
+      margin: 2rem;
+    }
+  }
+
+  &__title {
+    width: 100%;
+
+    h2 {
+      @include mainTitle();
+
+      @include bp(bp-m) {
+        margin-bottom: 3rem;
+        font-size: 4rem;
+      }
+
+      @include bp(bp-l) {
+        margin-bottom: 3rem;
+        font-size: 5rem;
+      }
+    }
+  }
+
+  &__cropped {
+    width: 100%;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__content {
+    width: 100%;
+
+    @include bp(bp-m) {
+      width: 85%;
+      margin: 2rem auto;
+    }
+
+    @include bp(bp-l) {
+      width: calc(50% - 4rem);
+      margin: 2rem;
+    }
+
+    &--paragraph {
+      p {
+        @include mainParagraph();
+
+        @include bp(bp-l) {
+          font-size: 1.8rem;
+        }
+      }
+    }
+
+    &--btn {
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+      text-align: center;
+
+      @include bp(bp-l) {
+        margin-bottom: 0;
+        text-align: left;
+      }
+
+      a {
+        display: inline-block;
+        position: relative;
+        padding-bottom: 0.25rem;
+        transition: all 0.3s ease;
+        color: $color-secondary;
+        font-family: $font-family--accent;
+        font-size: 2rem;
+        text-transform: uppercase;
+        box-shadow: 0 0.25rem 0 $color-primary;
+
+        @include bp(bp-m) {
+          font-size: 1.6rem;
+        }
+
+        &::after {
+          @include fontAwesome();
+          position: absolute;
+          top: 0.1rem;
+          right: -2rem;
+          font-weight: normal;
+          content: "\f061";
+        }
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}
