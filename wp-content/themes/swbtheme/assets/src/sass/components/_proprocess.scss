@@ -1,0 +1,142 @@
+.np-ourpro {
+  background-color: $color-secondary;
+
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__intro {
+    width: 100%;
+
+    &--title {
+      @include mainTitle();
+      color: $color-shadow2;
+    }
+
+    &--paragraph {
+      p {
+        @include mainParagraph();
+        color: $white;
+      }
+    }
+  }
+
+  &__steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__step {
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+    margin-bottom: 15rem;
+    padding: 0 1rem;
+
+    @include bp(bp-m) {
+      width: 25%;
+      padding: 0 3rem;
+    }
+
+    &--number {
+      position: absolute;
+      top: 5rem;
+      left: 0;
+      width: 100%;
+
+      p {
+        display: inline-block;
+        margin: 0 auto;
+        color: rgba($silverRust, 0.5);
+        font-family: $font-family--primary;
+        font-size: 5rem;
+        font-weight: bold;
+      }
+    }
+
+    &--icon {
+      width: 100%;
+      margin-bottom: 3rem;
+
+      i {
+        display: block;
+        width: 10rem;
+        height: 10rem;
+        margin: 0 auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+    }
+
+    &--hand {
+      i {
+        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-01.png");
+      }
+    }
+
+    &--barn {
+      i {
+        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-02.png");
+      }
+    }
+
+    &--stock {
+      i {
+        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-03.png");
+      }
+    }
+
+    &--chem {
+      i {
+        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-04.png");
+      }
+    }
+
+    &--wind {
+      i {
+        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-05.png");
+      }
+    }
+
+    &--silo {
+      i {
+        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-06.png");
+      }
+    }
+
+    &--farmer {
+      i {
+        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-07.png");
+      }
+    }
+
+    &--animals {
+      i {
+        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-08.png");
+      }
+    }
+
+    &--title {
+      h3 {
+        color: $white;
+      }
+    }
+
+    &--content {
+      p {
+        color: $white;
+      }
+    }
+
+    &--list {
+      li {
+        color: $white;
+      }
+    }
+  }
+}

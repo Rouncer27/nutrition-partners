@@ -1,7 +1,6 @@
 import React from "react";
 
 const ImageLink = props => {
-  console.log(props);
   const imgLinkTitleEn = props.acf._np_image_link_content_en;
   const imgLinkTitleFr = props.acf._np_image_link_content_fr;
   const imgLinkTitle =

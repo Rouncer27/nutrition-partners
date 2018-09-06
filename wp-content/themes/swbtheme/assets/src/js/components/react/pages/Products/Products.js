@@ -5,6 +5,15 @@ import axios from "axios";
 
 import PageLoad from "../../components/PageLoad";
 import Header from "../../components/Header";
+import Hero from "../../components/Hero";
+import TitleWithContent from "../../components/TitleWithContent";
+import RepeatableContent from "../../components/RepeatableContent";
+import OurProProcess from "../../components/OurProProcess";
+import ThreeColumns from "../../components/ThreeColumns";
+import SideBySide from "../../components/SideBySide";
+import RepeatableContent2 from "../../components/RepeatableContent2";
+import KeyStats from "../../components/KeyStats";
+import ImageLink from "../../components/ImageLink";
 import Footer from "../../components/Footer";
 
 export default class Products extends Component {
@@ -139,6 +148,10 @@ export default class Products extends Component {
       Object.keys(this.state.siteOptions).length > 0 &&
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
       Object.keys(this.state.siteMainFrenchMenu).length > 0;
+    let acf;
+    if (renderComponent) {
+      acf = this.state.pageData.acf;
+    }
     return (
       <div className="np-page-root">
         {renderComponent ? (
@@ -152,7 +165,18 @@ export default class Products extends Component {
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
             />
-            <h1>Products Page</h1>
+            <Hero acf={acf} />
+            <TitleWithContent browserLang={this.state.browserLang} acf={acf} />
+            <RepeatableContent browserLang={this.state.browserLang} acf={acf} />
+            <OurProProcess browserLang={this.state.browserLang} acf={acf} />
+            <ThreeColumns browserLang={this.state.browserLang} acf={acf} />
+            <SideBySide browserLang={this.state.browserLang} acf={acf} />
+            <RepeatableContent2
+              browserLang={this.state.browserLang}
+              acf={acf}
+            />
+            <KeyStats browserLang={this.state.browserLang} acf={acf} />
+            <ImageLink browserLang={this.state.browserLang} acf={acf} />
             <Footer
               browserLang={this.state.browserLang}
               pageData={this.state.pageData}

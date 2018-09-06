@@ -1,0 +1,74 @@
+.np-columns {
+  &__wrapper {
+    @include container-base(flex);
+    position: relative;
+
+    @include bp(bp-l) {
+      margin-bottom: 10rem;
+      padding-top: 10rem;
+      padding-left: 5rem;
+    }
+  }
+
+  &__title {
+    width: 100%;
+
+    @include bp(bp-l) {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      //border: 1px solid red;
+    }
+
+    h2 {
+      @include sub-maintitle();
+      width: 100%;
+      font-family: $font-family--secondary;
+      font-size: 3rem;
+
+      @include bp(bp-m) {
+        font-size: 5rem;
+      }
+
+      @include bp(bp-l) {
+        margin: 0;
+        //border: 1px solid blue;
+        transform: translateX(-1.5rem) rotate(-90deg);
+        transform-origin: left center;
+        transition: all 0.5s ease;
+        font-size: 3.5rem;
+        text-align: left;
+      }
+    }
+  }
+
+  &__column {
+    width: 100%;
+
+    @include bp(bp-m) {
+      width: calc(33% - 4rem);
+      margin: 0 2rem;
+    }
+
+    h3 {
+      @include mainTitle();
+      text-align: left;
+
+      @include bp(bp-l) {
+        font-size: 4rem;
+      }
+    }
+    p {
+      @include mainParagraph();
+      text-align: left;
+
+      @include bp(bp-m) {
+        font-size: 1.6rem;
+      }
+
+      @include bp(bp-l) {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}

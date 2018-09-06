@@ -1,0 +1,104 @@
+.np-repcont {
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__paragraphs {
+    width: 100%;
+
+    @include bp(bp-l) {
+      width: calc(50% - 4rem);
+      margin-right: 4rem;
+    }
+  }
+
+  &__para {
+    width: 100%;
+    margin-bottom: 4rem;
+
+    &--title {
+      h2 {
+        @include sub-maintitle();
+        margin-bottom: 0;
+        text-align: left;
+      }
+    }
+
+    &--content {
+      p {
+        @include mainParagraph();
+        text-align: left;
+
+        @include bp(bp-l) {
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+
+  &__images {
+    width: 100%;
+
+    @include bp(bp-m) {
+      display: flex;
+      position: relative;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @include bp(bp-l) {
+      flex-direction: column;
+      justify-content: center;
+      width: calc(50% - 4rem);
+      margin-left: 4rem;
+    }
+
+    &--background {
+      display: none;
+
+      @include bp(bp-m) {
+        display: block;
+        position: absolute;
+        top: 5rem;
+        left: 5rem;
+        width: 140%;
+        height: 30rem;
+        background-color: rgba($color-shadow2, 0.25);
+        z-index: -1;
+      }
+
+      @include bp(bp-l) {
+        top: 7.5rem;
+        left: 5rem;
+        width: 250%;
+        height: 70rem;
+      }
+    }
+  }
+
+  &__img {
+    width: 100%;
+    max-width: 35rem;
+    margin: 2rem auto;
+
+    @include bp(bp-m) {
+      &:first-of-type {
+        max-width: 25rem;
+      }
+    }
+
+    @include bp(bp-l) {
+      &:first-of-type {
+        max-width: 32.5rem;
+        margin: 2rem 0;
+      }
+
+      &:nth-of-type(2) {
+        max-width: 35rem;
+        margin: 2rem 0 15rem;
+        transform: translateX(10rem);
+      }
+    }
+  }
+}
