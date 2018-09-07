@@ -64293,6 +64293,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(2);
@@ -64304,6 +64306,10 @@ __webpack_require__(35);
 var _axios = __webpack_require__(42);
 
 var _axios2 = _interopRequireDefault(_axios);
+
+var _FormFields = __webpack_require__(691);
+
+var _FormFields2 = _interopRequireDefault(_FormFields);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64327,9 +64333,12 @@ var ContactForm = function (_Component) {
     _this.onChange = _this.onChange.bind(_this);
     _this.emailWasSent = _this.emailWasSent.bind(_this);
     _this.emailValidationFailed = _this.emailValidationFailed.bind(_this);
+    _this.dismiss = _this.dismiss.bind(_this);
 
     _this.state = {
       submitting: false,
+      succsess: false,
+      errors: false,
       firstname: "",
       lastname: "",
       phone: "",
@@ -64384,6 +64393,8 @@ var ContactForm = function (_Component) {
       this.setState(function (prevState) {
         return {
           submitting: !prevState.submitting,
+          succsess: true,
+          errors: false,
           firstname: "",
           lastname: "",
           phone: "",
@@ -64399,21 +64410,74 @@ var ContactForm = function (_Component) {
       console.log(fields);
       this.setState(function (prevState) {
         return {
-          submitting: !prevState.submitting
+          submitting: !prevState.submitting,
+          succsess: false,
+          errors: true
         };
+      });
+    }
+  }, {
+    key: "dismiss",
+    value: function dismiss() {
+      this.setState(function (prevState) {
+        return _extends({}, prevState, {
+          submitting: false,
+          succsess: false,
+          errors: false
+        });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var formTitle = this.props.browserLang === "en" ? "Let's start talking today." : "Commençons à parler aujourd'hui.";
-      var fNameLabel = this.props.browserLang === "en" ? "First Name" : "Prénom";
-      var lNameLabel = this.props.browserLang === "en" ? "Last Name" : "Nom de famille";
-      var phoneLabel = this.props.browserLang === "en" ? "Phone Number" : "Numéro de téléphone";
-      var emailLabel = this.props.browserLang === "en" ? "Email Address" : "Adresse e-mail";
-      var messageLabel = this.props.browserLang === "en" ? "Message" : "Message";
-      var submitLabel = this.props.browserLang === "en" ? "Submit" : "Soumettre";
-      var requiredLabel = this.props.browserLang === "en" ? "Required fields are followed by" : "Les champs obligatoires sont suivis par";
+      var formDisplay = void 0;
+      if (!this.state.submitting && !this.state.errors && !this.state.succsess) {
+        formDisplay = _react2.default.createElement(_FormFields2.default, _extends({}, this.state, {
+          submit: this.onSubmit,
+          change: this.onChange,
+          lang: this.props.browserLang
+        }));
+      } else if (this.state.submitting && !this.state.errors && !this.state.succsess) {
+        formDisplay = _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "h1",
+            null,
+            "Submitting The form!"
+          )
+        );
+      } else if (!this.state.submitting && this.state.succsess && !this.state.errors) {
+        formDisplay = _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "h1",
+            null,
+            "YES THE FORM WAS SUBMITTED!"
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.dismiss },
+            "Dismiss"
+          )
+        );
+      } else if (!this.state.submitting && !this.state.succsess && this.state.errors) {
+        formDisplay = _react2.default.createElement(
+          "div",
+          null,
+          _react2.default.createElement(
+            "h1",
+            null,
+            "You have some errors in your form!"
+          ),
+          _react2.default.createElement(
+            "button",
+            { onClick: this.dismiss },
+            "Dismiss"
+          )
+        );
+      }
 
       return _react2.default.createElement(
         "div",
@@ -64421,140 +64485,7 @@ var ContactForm = function (_Component) {
         _react2.default.createElement(
           "div",
           { className: "np-contactform__wrapper" },
-          _react2.default.createElement(
-            "form",
-            { onSubmit: this.onSubmit },
-            _react2.default.createElement(
-              "div",
-              { className: "np-contactform__title" },
-              _react2.default.createElement(
-                "h2",
-                null,
-                formTitle
-              ),
-              _react2.default.createElement(
-                "p",
-                { className: "np-contactform__title--required" },
-                requiredLabel,
-                " ",
-                _react2.default.createElement(
-                  "strong",
-                  null,
-                  _react2.default.createElement(
-                    "abbr",
-                    { title: "required" },
-                    "*"
-                  )
-                )
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              { className: "np-contactform__fields" },
-              _react2.default.createElement(
-                "div",
-                { className: "np-contactform__fields--fname np-contactform__fields--container" },
-                _react2.default.createElement(
-                  "label",
-                  { htmlFor: "firstname" },
-                  fNameLabel,
-                  "*"
-                ),
-                _react2.default.createElement("input", {
-                  type: "text",
-                  name: "firstname",
-                  id: "firstname",
-                  placeholder: fNameLabel,
-                  value: this.state.firstname,
-                  onChange: this.onChange,
-                  required: true
-                })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "np-contactform__fields--lname np-contactform__fields--container" },
-                _react2.default.createElement(
-                  "label",
-                  { htmlFor: "lastname" },
-                  lNameLabel,
-                  "*"
-                ),
-                _react2.default.createElement("input", {
-                  type: "text",
-                  name: "lastname",
-                  id: "lastname",
-                  placeholder: lNameLabel,
-                  value: this.state.lastname,
-                  onChange: this.onChange,
-                  required: true
-                })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "np-contactform__fields--phone np-contactform__fields--container" },
-                _react2.default.createElement(
-                  "label",
-                  { htmlFor: "phone" },
-                  phoneLabel,
-                  "*"
-                ),
-                _react2.default.createElement("input", {
-                  type: "text",
-                  name: "phone",
-                  id: "phone",
-                  placeholder: phoneLabel,
-                  value: this.state.phone,
-                  onChange: this.onChange,
-                  required: true
-                })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "np-contactform__fields--email np-contactform__fields--container" },
-                _react2.default.createElement(
-                  "label",
-                  { htmlFor: "email" },
-                  emailLabel,
-                  "*"
-                ),
-                _react2.default.createElement("input", {
-                  type: "email",
-                  name: "email",
-                  id: "email",
-                  placeholder: emailLabel,
-                  value: this.state.email,
-                  onChange: this.onChange,
-                  required: true
-                })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "np-contactform__fields--message np-contactform__fields--container" },
-                _react2.default.createElement(
-                  "label",
-                  { htmlFor: "message" },
-                  messageLabel
-                ),
-                _react2.default.createElement("textarea", {
-                  cols: "40",
-                  rows: "8",
-                  name: "message",
-                  id: "message",
-                  onChange: this.onChange,
-                  value: this.state.message
-                })
-              ),
-              _react2.default.createElement(
-                "div",
-                { className: "np-contactform__fields--button np-contactform__fields--container" },
-                _react2.default.createElement(
-                  "button",
-                  { type: "submit" },
-                  submitLabel
-                )
-              )
-            )
-          )
+          formDisplay
         )
       );
     }
@@ -64564,6 +64495,172 @@ var ContactForm = function (_Component) {
 }(_react.Component);
 
 exports.default = ContactForm;
+
+/***/ }),
+/* 691 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FormFields = function FormFields(props) {
+  console.log(props);
+  var formTitle = props.lang === "en" ? "Let's start talking today." : "Commençons à parler aujourd'hui.";
+  var fNameLabel = props.lang === "en" ? "First Name" : "Prénom";
+  var lNameLabel = props.lang === "en" ? "Last Name" : "Nom de famille";
+  var phoneLabel = props.lang === "en" ? "Phone Number" : "Numéro de téléphone";
+  var emailLabel = props.lang === "en" ? "Email Address" : "Adresse e-mail";
+  var messageLabel = props.lang === "en" ? "Message" : "Message";
+  var submitLabel = props.lang === "en" ? "Submit" : "Soumettre";
+  var requiredLabel = props.lang === "en" ? "Required fields are followed by" : "Les champs obligatoires sont suivis par";
+
+  return _react2.default.createElement(
+    "form",
+    { onSubmit: props.submit },
+    _react2.default.createElement(
+      "div",
+      { className: "np-contactform__title" },
+      _react2.default.createElement(
+        "h2",
+        null,
+        formTitle
+      ),
+      _react2.default.createElement(
+        "p",
+        { className: "np-contactform__title--required" },
+        requiredLabel,
+        " ",
+        _react2.default.createElement(
+          "strong",
+          null,
+          _react2.default.createElement(
+            "abbr",
+            { title: "required" },
+            "*"
+          )
+        )
+      )
+    ),
+    _react2.default.createElement(
+      "div",
+      { className: "np-contactform__fields" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-contactform__fields--fname np-contactform__fields--container" },
+        _react2.default.createElement(
+          "label",
+          { htmlFor: "firstname" },
+          fNameLabel,
+          "*"
+        ),
+        _react2.default.createElement("input", {
+          type: "text",
+          name: "firstname",
+          id: "firstname",
+          placeholder: fNameLabel,
+          value: props.firstname,
+          onChange: props.change,
+          required: true
+        })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-contactform__fields--lname np-contactform__fields--container" },
+        _react2.default.createElement(
+          "label",
+          { htmlFor: "lastname" },
+          lNameLabel,
+          "*"
+        ),
+        _react2.default.createElement("input", {
+          type: "text",
+          name: "lastname",
+          id: "lastname",
+          placeholder: lNameLabel,
+          value: props.lastname,
+          onChange: props.change,
+          required: true
+        })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-contactform__fields--phone np-contactform__fields--container" },
+        _react2.default.createElement(
+          "label",
+          { htmlFor: "phone" },
+          phoneLabel,
+          "*"
+        ),
+        _react2.default.createElement("input", {
+          type: "text",
+          name: "phone",
+          id: "phone",
+          placeholder: phoneLabel,
+          value: props.phone,
+          onChange: props.change,
+          required: true
+        })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-contactform__fields--email np-contactform__fields--container" },
+        _react2.default.createElement(
+          "label",
+          { htmlFor: "email" },
+          emailLabel,
+          "*"
+        ),
+        _react2.default.createElement("input", {
+          type: "email",
+          name: "email",
+          id: "email",
+          placeholder: emailLabel,
+          value: props.email,
+          onChange: props.change,
+          required: true
+        })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-contactform__fields--message np-contactform__fields--container" },
+        _react2.default.createElement(
+          "label",
+          { htmlFor: "message" },
+          messageLabel
+        ),
+        _react2.default.createElement("textarea", {
+          cols: "40",
+          rows: "8",
+          name: "message",
+          id: "message",
+          onChange: props.change,
+          value: props.message
+        })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-contactform__fields--button np-contactform__fields--container" },
+        _react2.default.createElement(
+          "button",
+          { type: "submit" },
+          submitLabel
+        )
+      )
+    )
+  );
+};
+
+exports.default = FormFields;
 
 /***/ })
 /******/ ]);
