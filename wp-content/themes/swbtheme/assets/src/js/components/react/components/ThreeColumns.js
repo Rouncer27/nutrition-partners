@@ -21,6 +21,10 @@ const ThreeColumns = props => {
   const columnsDairy =
     props.browserLang === "en" ? columnsDairyEn : columnsDairyFr;
 
+  const poultryTitle = props.browserLang === "en" ? "Poultry" : "La Volaille";
+  const swineTitle = props.browserLang === "en" ? "Swine" : "Porc";
+  const dairyTitle = props.browserLang === "en" ? "Dairy" : "Laitier";
+
   return (
     <div className="np-columns">
       <div className="np-columns__wrapper">
@@ -28,15 +32,18 @@ const ThreeColumns = props => {
           <h2>{columnsTitle}</h2>
         </div>
         <div className="np-columns__column np-columns__poultry">
-          <h3>Poultry</h3>
+          <h3>{poultryTitle}</h3>
+          <i />
           <p>{columnsPoultry}</p>
         </div>
         <div className="np-columns__column np-columns__swine">
-          <h3>Swine</h3>
+          <h3>{swineTitle}</h3>
+          <i />
           <p>{columnsSwine}</p>
         </div>
         <div className="np-columns__column np-columns__dairy">
-          <h3>Dairy</h3>
+          <h3>{dairyTitle}</h3>
+          <i />
           <p>{columnsDairy}</p>
         </div>
       </div>

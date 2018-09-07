@@ -63731,6 +63731,10 @@ var ThreeColumns = function ThreeColumns(props) {
   var columnsDairyFr = props.acf._np_dairy_content_fr;
   var columnsDairy = props.browserLang === "en" ? columnsDairyEn : columnsDairyFr;
 
+  var poultryTitle = props.browserLang === "en" ? "Poultry" : "La Volaille";
+  var swineTitle = props.browserLang === "en" ? "Swine" : "Porc";
+  var dairyTitle = props.browserLang === "en" ? "Dairy" : "Laitier";
+
   return _react2.default.createElement(
     "div",
     { className: "np-columns" },
@@ -63752,8 +63756,9 @@ var ThreeColumns = function ThreeColumns(props) {
         _react2.default.createElement(
           "h3",
           null,
-          "Poultry"
+          poultryTitle
         ),
+        _react2.default.createElement("i", null),
         _react2.default.createElement(
           "p",
           null,
@@ -63766,8 +63771,9 @@ var ThreeColumns = function ThreeColumns(props) {
         _react2.default.createElement(
           "h3",
           null,
-          "Swine"
+          swineTitle
         ),
+        _react2.default.createElement("i", null),
         _react2.default.createElement(
           "p",
           null,
@@ -63780,8 +63786,9 @@ var ThreeColumns = function ThreeColumns(props) {
         _react2.default.createElement(
           "h3",
           null,
-          "Dairy"
+          dairyTitle
         ),
+        _react2.default.createElement("i", null),
         _react2.default.createElement(
           "p",
           null,

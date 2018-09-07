@@ -43,7 +43,9 @@
   }
 
   &__column {
+    position: relative;
     width: 100%;
+    padding-top: 10rem;
 
     @include bp(bp-m) {
       width: calc(33% - 4rem);
@@ -52,12 +54,28 @@
 
     h3 {
       @include mainTitle();
+      font-weight: 600;
       text-align: left;
 
       @include bp(bp-l) {
         font-size: 4rem;
       }
     }
+
+    i {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      width: 5rem;
+      height: 5rem;
+      margin: auto;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+    }
+
     p {
       @include mainParagraph();
       text-align: left;
@@ -69,6 +87,42 @@
       @include bp(bp-l) {
         font-size: 1.6rem;
       }
+    }
+  }
+
+  &__poultry {
+    i {
+      top: 6rem;
+      right: auto;
+      left: 5rem;
+      width: 5rem;
+      height: 6.1rem;
+      background-image: url("#{$path--rel}/images/threecolumns/NTP-animal-chicken-03.png");
+      background-size: 5rem 6.1rem;
+    }
+  }
+
+  &__swine {
+    i {
+      top: 5rem;
+      right: auto;
+      left: 0;
+      width: 12rem;
+      height: 7.1rem;
+      background-image: url("#{$path--rel}/images/threecolumns/NTP-animal-pig-03.png");
+      background-size: 12rem 7.1rem;
+    }
+  }
+
+  &__dairy {
+    i {
+      top: 1.5rem;
+      right: auto;
+      left: -2rem;
+      width: 17.5rem;
+      height: 11.4rem;
+      background-image: url("#{$path--rel}/images/threecolumns/NTP-animal-cow-03.png");
+      background-size: 17.5rem 11.4rem;
     }
   }
 }
