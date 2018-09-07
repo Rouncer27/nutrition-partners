@@ -5,6 +5,9 @@ import axios from "axios";
 
 import PageLoad from "../../components/PageLoad";
 import Header from "../../components/Header";
+import Hero from "../../components/Hero";
+import TitleWithContent from "../../components/TitleWithContent";
+import ContactForm from "../../components/ContactForm";
 import Footer from "../../components/Footer";
 
 export default class Contact extends Component {
@@ -139,6 +142,10 @@ export default class Contact extends Component {
       Object.keys(this.state.siteOptions).length > 0 &&
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
       Object.keys(this.state.siteMainFrenchMenu).length > 0;
+    let acf;
+    if (renderComponent) {
+      acf = this.state.pageData.acf;
+    }
     return (
       <div className="np-page-root">
         {renderComponent ? (
@@ -152,7 +159,12 @@ export default class Contact extends Component {
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
             />
-            <h1>Contact Page</h1>
+            <Hero acf={acf} />
+            <TitleWithContent browserLang={this.state.browserLang} acf={acf} />
+            <ContactForm
+              browserLang={this.state.browserLang}
+              getBaseURL={this.setPageAPIURL}
+            />
             <Footer
               browserLang={this.state.browserLang}
               pageData={this.state.pageData}

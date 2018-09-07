@@ -1,0 +1,25 @@
+.np-contactform {
+  background-color: $color-secondary;
+
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__title {
+    width: 100%;
+
+    h2 {
+      @include mainTitle();
+      color: $color-shadow2;
+    }
+
+    &--required {
+      font-size: 1.4rem;
+      text-align: center;
+    }
+  }
+
+  &__fields {
+    width: 100%;
+  }
+}
