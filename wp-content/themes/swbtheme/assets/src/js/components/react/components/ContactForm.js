@@ -39,6 +39,7 @@ class ContactForm extends Component {
       )
       .then(res => {
         if (res.data.status === "mail_sent") {
+          this.emailWasSent();
           this.setState(prevState => {
             return {
               firstname: "",
@@ -105,6 +106,7 @@ class ContactForm extends Component {
                   name="firstname"
                   id="firstname"
                   placeholder={fNameLabel}
+                  value={this.state.firstname}
                   onChange={this.onChange}
                   required
                 />
@@ -120,6 +122,7 @@ class ContactForm extends Component {
                   name="lastname"
                   id="lastname"
                   placeholder={lNameLabel}
+                  value={this.state.lastname}
                   onChange={this.onChange}
                   required
                 />
@@ -135,6 +138,7 @@ class ContactForm extends Component {
                   name="phone"
                   id="phone"
                   placeholder={phoneLabel}
+                  value={this.state.phone}
                   onChange={this.onChange}
                   required
                 />
@@ -150,6 +154,7 @@ class ContactForm extends Component {
                   name="email"
                   id="email"
                   placeholder={emailLabel}
+                  value={this.state.email}
                   onChange={this.onChange}
                   required
                 />
@@ -163,6 +168,7 @@ class ContactForm extends Component {
                   name="message"
                   id="message"
                   onChange={this.onChange}
+                  value={this.state.message}
                 />
               </div>
 

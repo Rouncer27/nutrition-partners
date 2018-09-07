@@ -64358,6 +64358,7 @@ var ContactForm = function (_Component) {
       var config = { headers: { "Content-Type": "multipart/form-data" } };
       _axios2.default.post(baseURL + "/wp-json/contact-form-7/v1/contact-forms/422/feedback", bodyFormData, config).then(function (res) {
         if (res.data.status === "mail_sent") {
+          _this2.emailWasSent();
           _this2.setState(function (prevState) {
             return {
               firstname: "",
@@ -64439,6 +64440,7 @@ var ContactForm = function (_Component) {
                   name: "firstname",
                   id: "firstname",
                   placeholder: fNameLabel,
+                  value: this.state.firstname,
                   onChange: this.onChange,
                   required: true
                 })
@@ -64457,6 +64459,7 @@ var ContactForm = function (_Component) {
                   name: "lastname",
                   id: "lastname",
                   placeholder: lNameLabel,
+                  value: this.state.lastname,
                   onChange: this.onChange,
                   required: true
                 })
@@ -64475,6 +64478,7 @@ var ContactForm = function (_Component) {
                   name: "phone",
                   id: "phone",
                   placeholder: phoneLabel,
+                  value: this.state.phone,
                   onChange: this.onChange,
                   required: true
                 })
@@ -64493,6 +64497,7 @@ var ContactForm = function (_Component) {
                   name: "email",
                   id: "email",
                   placeholder: emailLabel,
+                  value: this.state.email,
                   onChange: this.onChange,
                   required: true
                 })
@@ -64510,7 +64515,8 @@ var ContactForm = function (_Component) {
                   rows: "8",
                   name: "message",
                   id: "message",
-                  onChange: this.onChange
+                  onChange: this.onChange,
+                  value: this.state.message
                 })
               ),
               _react2.default.createElement(
