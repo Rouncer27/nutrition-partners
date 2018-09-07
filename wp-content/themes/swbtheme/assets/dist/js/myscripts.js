@@ -64354,7 +64354,7 @@ var ContactForm = function (_Component) {
       var baseURL = this.props.getBaseURL();
       var config = { headers: { "Content-Type": "multipart/form-data" } };
       _axios2.default.post(baseURL + "/wp-json/contact-form-7/v1/contact-forms/422/feedback", bodyFormData, config).then(function (res) {
-        console.log(res);
+        console.log(res.data.status);
       }).catch(function (err) {
         console.log(err);
       });

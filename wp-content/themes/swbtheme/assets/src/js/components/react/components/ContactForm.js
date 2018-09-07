@@ -37,7 +37,7 @@ class ContactForm extends Component {
         config
       )
       .then(res => {
-        console.log(res);
+        console.log(res.data.status);
       })
       .catch(err => {
         console.log(err);
