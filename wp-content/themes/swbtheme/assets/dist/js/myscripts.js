@@ -64325,6 +64325,7 @@ var ContactForm = function (_Component) {
 
     _this.onSubmit = _this.onSubmit.bind(_this);
     _this.onChange = _this.onChange.bind(_this);
+    _this.emailWasSent = _this.emailWasSent.bind(_this);
 
     _this.state = {
       firstname: "",
@@ -64344,6 +64345,8 @@ var ContactForm = function (_Component) {
   }, {
     key: "onSubmit",
     value: function onSubmit(e) {
+      var _this2 = this;
+
       e.preventDefault();
       var bodyFormData = new FormData();
       bodyFormData.set("first-name", this.state.firstname);
@@ -64354,10 +64357,25 @@ var ContactForm = function (_Component) {
       var baseURL = this.props.getBaseURL();
       var config = { headers: { "Content-Type": "multipart/form-data" } };
       _axios2.default.post(baseURL + "/wp-json/contact-form-7/v1/contact-forms/422/feedback", bodyFormData, config).then(function (res) {
-        console.log(res.data.status);
+        if (res.data.status === "mail_sent") {
+          _this2.setState(function (prevState) {
+            return {
+              firstname: "",
+              lastname: "",
+              phone: "",
+              email: "",
+              message: ""
+            };
+          });
+        }
       }).catch(function (err) {
         console.log(err);
       });
+    }
+  }, {
+    key: "emailWasSent",
+    value: function emailWasSent() {
+      console.log("Yes sir!");
     }
   }, {
     key: "render",

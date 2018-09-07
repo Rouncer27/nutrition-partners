@@ -7,6 +7,7 @@ class ContactForm extends Component {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.emailWasSent = this.emailWasSent.bind(this);
 
     this.state = {
       firstname: "",
@@ -37,11 +38,25 @@ class ContactForm extends Component {
         config
       )
       .then(res => {
-        console.log(res.data.status);
+        if (res.data.status === "mail_sent") {
+          this.setState(prevState => {
+            return {
+              firstname: "",
+              lastname: "",
+              phone: "",
+              email: "",
+              message: ""
+            };
+          });
+        }
       })
       .catch(err => {
         console.log(err);
       });
+  }
+
+  emailWasSent() {
+    console.log("Yes sir!");
   }
 
   render() {
