@@ -16,6 +16,7 @@
     margin-bottom: 4rem;
 
     @include bp(bp-l) {
+      align-self: center;
       width: calc(50% - 4rem);
       margin-left: 4rem;
     }
@@ -23,12 +24,21 @@
     &--title {
       h2 {
         @include mainTitle();
+
+        @include bp(bp-l) {
+          font-size: 4rem;
+          text-align: left;
+        }
       }
     }
 
     &--paragraph {
       p {
         @include mainParagraph();
+
+        @include bp(bp-l) {
+          text-align: left;
+        }
       }
     }
   }

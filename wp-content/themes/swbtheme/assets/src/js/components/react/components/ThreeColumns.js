@@ -47,6 +47,7 @@ const ThreeColumns = props => {
           <p>{columnsDairy}</p>
         </div>
       </div>
+      <div className="np-columns__feed" />
     </div>
   );
 };

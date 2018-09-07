@@ -63795,7 +63795,8 @@ var ThreeColumns = function ThreeColumns(props) {
           columnsDairy
         )
       )
-    )
+    ),
+    _react2.default.createElement("div", { className: "np-columns__feed" })
   );
 };
 

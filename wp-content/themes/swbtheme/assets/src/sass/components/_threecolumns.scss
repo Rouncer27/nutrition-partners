@@ -1,4 +1,15 @@
 .np-columns {
+  position: relative;
+  padding-bottom: 25rem;
+
+  @include bp(bp-m) {
+    padding-bottom: 20rem;
+  }
+
+  @include bp(bp-l) {
+    padding-bottom: 5rem;
+  }
+
   &__wrapper {
     @include container-base(flex);
     position: relative;
@@ -45,11 +56,12 @@
   &__column {
     position: relative;
     width: 100%;
-    padding-top: 10rem;
+    padding-top: 15rem;
 
     @include bp(bp-m) {
       width: calc(33% - 4rem);
       margin: 0 2rem;
+      padding-top: 10rem;
     }
 
     h3 {
@@ -92,37 +104,73 @@
 
   &__poultry {
     i {
-      top: 6rem;
+      top: 10rem;
       right: auto;
-      left: 5rem;
+      left: 1rem;
       width: 5rem;
       height: 6.1rem;
       background-image: url("#{$path--rel}/images/threecolumns/NTP-animal-chicken-03.png");
       background-size: 5rem 6.1rem;
+
+      @include bp(bp-m) {
+        top: 6rem;
+        left: 5rem;
+      }
     }
   }
 
   &__swine {
     i {
-      top: 5rem;
+      top: 9rem;
       right: auto;
-      left: 0;
+      left: -1rem;
       width: 12rem;
       height: 7.1rem;
       background-image: url("#{$path--rel}/images/threecolumns/NTP-animal-pig-03.png");
+      background-repeat: no-repeat;
+      background-position: center;
       background-size: 12rem 7.1rem;
+
+      @include bp(bp-m) {
+        top: 5rem;
+        left: 0;
+      }
     }
   }
 
   &__dairy {
     i {
-      top: 1.5rem;
+      top: 5rem;
       right: auto;
-      left: -2rem;
+      left: -1rem;
       width: 17.5rem;
       height: 11.4rem;
       background-image: url("#{$path--rel}/images/threecolumns/NTP-animal-cow-03.png");
       background-size: 17.5rem 11.4rem;
+
+      @include bp(bp-m) {
+        top: 1.5rem;
+        left: -2rem;
+      }
+    }
+  }
+
+  &__feed {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 30rem;
+    height: 31.7rem;
+    background-image: url("#{$path--rel}/images/threecolumns/ntp-feedsuppliers.jpg");
+    background-size: 30rem 31.7rem;
+    z-index: -1;
+
+    @include bp(bp-m) {
+      bottom: -7.5rem;
+    }
+
+    @include bp(bp-l) {
+      bottom: -10rem;
     }
   }
 }
