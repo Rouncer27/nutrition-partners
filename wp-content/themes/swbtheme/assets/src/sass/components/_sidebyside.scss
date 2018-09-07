@@ -1,0 +1,84 @@
+.np-sideby {
+  @include bp(bp-l) {
+    margin-bottom: 5rem;
+  }
+
+  &__wrapper {
+    @include container-base(flex);
+
+    @include bp(bp-l) {
+      flex-direction: row-reverse;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    margin-bottom: 4rem;
+
+    @include bp(bp-l) {
+      width: calc(50% - 4rem);
+      margin-left: 4rem;
+    }
+
+    &--title {
+      h2 {
+        @include mainTitle();
+      }
+    }
+
+    &--paragraph {
+      p {
+        @include mainParagraph();
+      }
+    }
+  }
+
+  &__image {
+    position: relative;
+    width: 100%;
+
+    @include bp(bp-m) {
+      width: 50%;
+      margin-right: 25%;
+      margin-left: 25%;
+    }
+
+    @include bp(bp-l) {
+      width: calc(50% - 4rem);
+      margin-right: 4rem;
+      margin-bottom: 0;
+      margin-left: auto;
+      padding-bottom: 0;
+    }
+
+    img {
+      @include bp(bp-l) {
+        width: 90%;
+      }
+    }
+
+    &--background {
+      position: absolute;
+      top: 5rem;
+      bottom: 5rem;
+      left: -50%;
+      width: 200%;
+      height: auto;
+      background-color: $color-shadow;
+      z-index: -1;
+
+      @include bp(bp-m) {
+        left: -100%;
+        width: 300%;
+      }
+
+      @include bp(bp-l) {
+        top: 5rem;
+        bottom: 0;
+        left: -100%;
+        width: calc(200% + 4rem);
+        height: calc(100%);
+      }
+    }
+  }
+}

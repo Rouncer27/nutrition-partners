@@ -24,11 +24,11 @@ const SideBySide = props => {
     <div className="np-sideby">
       <div className="np-sideby__wrapper">
         <div className="np-sideby__content">
-          <div className="np-sideby__title">
+          <div className="np-sideby__content--title">
             <h2>{sidebyTitle}</h2>
           </div>
           <div
-            className="np-sideby__paragraph"
+            className="np-sideby__content--paragraph"
             dangerouslySetInnerHTML={{ __html: sidebyPara }}
           />
         </div>
@@ -36,6 +36,7 @@ const SideBySide = props => {
           <div className="np-sideby__image--container">
             <img src={sidebyImgSRC} alt={sidebyImgALT} />
           </div>
+          <div className="np-sideby__image--background" />
         </div>
       </div>
     </div>

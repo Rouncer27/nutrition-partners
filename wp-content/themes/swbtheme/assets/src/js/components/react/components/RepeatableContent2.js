@@ -45,6 +45,7 @@ const RepeatableContent2 = props => {
               </div>
             );
           })}
+          <div className="np-repcont__images--background" />
         </div>
       </div>
     </div>

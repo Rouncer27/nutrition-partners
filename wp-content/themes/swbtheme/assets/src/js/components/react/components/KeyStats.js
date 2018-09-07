@@ -15,10 +15,10 @@ const KeyStats = props => {
           {keyStats.map((stat, index) => {
             return (
               <div className="np-keystats__stat" key={index}>
-                <div className="np-keystats__number">
+                <div className="np-keystats__stat--number">
                   <p>{stat.stat_number}</p>
                 </div>
-                <div className="np-keystats__description">
+                <div className="np-keystats__stat--description">
                   <p>{stat.stat_description}</p>
                 </div>
               </div>

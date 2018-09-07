@@ -6,9 +6,16 @@
   &__paragraphs {
     width: 100%;
 
+    @include bp(bp-m) {
+      width: calc(80%);
+      margin-right: 10%;
+      margin-left: 10%;
+    }
+
     @include bp(bp-l) {
       width: calc(50% - 4rem);
       margin-right: 4rem;
+      margin-left: auto;
     }
   }
 

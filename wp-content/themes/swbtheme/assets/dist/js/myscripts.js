@@ -63839,7 +63839,7 @@ var SideBySide = function SideBySide(props) {
         { className: "np-sideby__content" },
         _react2.default.createElement(
           "div",
-          { className: "np-sideby__title" },
+          { className: "np-sideby__content--title" },
           _react2.default.createElement(
             "h2",
             null,
@@ -63847,7 +63847,7 @@ var SideBySide = function SideBySide(props) {
           )
         ),
         _react2.default.createElement("div", {
-          className: "np-sideby__paragraph",
+          className: "np-sideby__content--paragraph",
           dangerouslySetInnerHTML: { __html: sidebyPara }
         })
       ),
@@ -63858,7 +63858,8 @@ var SideBySide = function SideBySide(props) {
           "div",
           { className: "np-sideby__image--container" },
           _react2.default.createElement("img", { src: sidebyImgSRC, alt: sidebyImgALT })
-        )
+        ),
+        _react2.default.createElement("div", { className: "np-sideby__image--background" })
       )
     )
   );
@@ -63938,7 +63939,8 @@ var RepeatableContent2 = function RepeatableContent2(props) {
             { key: index, className: "np-repcont__img" },
             _react2.default.createElement("img", { src: rcImgSRC, alt: rcImgALT })
           );
-        })
+        }),
+        _react2.default.createElement("div", { className: "np-repcont__images--background" })
       )
     )
   );
@@ -63992,7 +63994,7 @@ var KeyStats = function KeyStats(props) {
             { className: "np-keystats__stat", key: index },
             _react2.default.createElement(
               "div",
-              { className: "np-keystats__number" },
+              { className: "np-keystats__stat--number" },
               _react2.default.createElement(
                 "p",
                 null,
@@ -64001,7 +64003,7 @@ var KeyStats = function KeyStats(props) {
             ),
             _react2.default.createElement(
               "div",
-              { className: "np-keystats__description" },
+              { className: "np-keystats__stat--description" },
               _react2.default.createElement(
                 "p",
                 null,
