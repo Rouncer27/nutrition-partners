@@ -8,8 +8,10 @@ class ContactForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.emailWasSent = this.emailWasSent.bind(this);
+    this.emailValidationFailed = this.emailValidationFailed.bind(this);
 
     this.state = {
+      submitting: false,
       firstname: "",
       lastname: "",
       phone: "",
@@ -23,6 +25,14 @@ class ContactForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+    if (this.state.submitting) return console.log("I will not!");
+
+    this.setState(prevState => {
+      return {
+        submitting: !prevState.submitting
+      };
+    });
+
     const bodyFormData = new FormData();
     bodyFormData.set("first-name", this.state.firstname);
     bodyFormData.set("last-name", this.state.lastname);
@@ -38,17 +48,11 @@ class ContactForm extends Component {
         config
       )
       .then(res => {
+        console.log(res.data);
         if (res.data.status === "mail_sent") {
-          this.emailWasSent();
-          this.setState(prevState => {
-            return {
-              firstname: "",
-              lastname: "",
-              phone: "",
-              email: "",
-              message: ""
-            };
-          });
+          this.emailWasSent(res.data.message);
+        } else if (res.data.status === "validation_failed") {
+          this.emailValidationFailed(res.data.message, res.data.invalidFields);
         }
       })
       .catch(err => {
@@ -56,8 +60,28 @@ class ContactForm extends Component {
       });
   }
 
-  emailWasSent() {
-    console.log("Yes sir!");
+  emailWasSent(mess) {
+    console.log(mess);
+    this.setState(prevState => {
+      return {
+        submitting: !prevState.submitting,
+        firstname: "",
+        lastname: "",
+        phone: "",
+        email: "",
+        message: ""
+      };
+    });
+  }
+
+  emailValidationFailed(mess, fields) {
+    console.log(mess);
+    console.log(fields);
+    this.setState(prevState => {
+      return {
+        submitting: !prevState.submitting
+      };
+    });
   }
 
   render() {
