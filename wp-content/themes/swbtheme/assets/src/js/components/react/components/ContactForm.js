@@ -45,7 +45,6 @@ class ContactForm extends Component {
   }
 
   render() {
-    console.log(this.props);
     const formTitle =
       this.props.browserLang === "en"
         ? "Let's start talking today."
@@ -81,8 +80,11 @@ class ContactForm extends Component {
               </p>
             </div>
             <div className="np-contactform__fields">
-              <div className="np-contactform__fields--fname">
-                <label htmlFor="firstname">{fNameLabel}</label>
+              <div className="np-contactform__fields--fname np-contactform__fields--container">
+                <label htmlFor="firstname">
+                  {fNameLabel}
+                  &#42;
+                </label>
                 <input
                   type="text"
                   name="firstname"
@@ -93,8 +95,11 @@ class ContactForm extends Component {
                 />
               </div>
 
-              <div className="np-contactform__fields--lname">
-                <label htmlFor="lastname">{lNameLabel}</label>
+              <div className="np-contactform__fields--lname np-contactform__fields--container">
+                <label htmlFor="lastname">
+                  {lNameLabel}
+                  &#42;
+                </label>
                 <input
                   type="text"
                   name="lastname"
@@ -105,8 +110,11 @@ class ContactForm extends Component {
                 />
               </div>
 
-              <div className="np-contactform__fields--phone">
-                <label htmlFor="phone">{phoneLabel}</label>
+              <div className="np-contactform__fields--phone np-contactform__fields--container">
+                <label htmlFor="phone">
+                  {phoneLabel}
+                  &#42;
+                </label>
                 <input
                   type="text"
                   name="phone"
@@ -117,8 +125,11 @@ class ContactForm extends Component {
                 />
               </div>
 
-              <div className="np-contactform__fields--email">
-                <label htmlFor="email">{emailLabel}</label>
+              <div className="np-contactform__fields--email np-contactform__fields--container">
+                <label htmlFor="email">
+                  {emailLabel}
+                  &#42;
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -129,7 +140,7 @@ class ContactForm extends Component {
                 />
               </div>
 
-              <div className="np-contactform__fields--message">
+              <div className="np-contactform__fields--message np-contactform__fields--container">
                 <label htmlFor="message">{messageLabel}</label>
                 <textarea
                   cols="40"
@@ -140,7 +151,7 @@ class ContactForm extends Component {
                 />
               </div>
 
-              <div className="np-contactform__fields--button">
+              <div className="np-contactform__fields--button np-contactform__fields--container">
                 <button type="submit">{submitLabel}</button>
               </div>
             </div>

@@ -64362,7 +64362,6 @@ var ContactForm = function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
       var formTitle = this.props.browserLang === "en" ? "Let's start talking today." : "Commençons à parler aujourd'hui.";
       var fNameLabel = this.props.browserLang === "en" ? "First Name" : "Prénom";
       var lNameLabel = this.props.browserLang === "en" ? "Last Name" : "Nom de famille";
@@ -64410,11 +64409,12 @@ var ContactForm = function (_Component) {
               { className: "np-contactform__fields" },
               _react2.default.createElement(
                 "div",
-                { className: "np-contactform__fields--fname" },
+                { className: "np-contactform__fields--fname np-contactform__fields--container" },
                 _react2.default.createElement(
                   "label",
                   { htmlFor: "firstname" },
-                  fNameLabel
+                  fNameLabel,
+                  "*"
                 ),
                 _react2.default.createElement("input", {
                   type: "text",
@@ -64427,11 +64427,12 @@ var ContactForm = function (_Component) {
               ),
               _react2.default.createElement(
                 "div",
-                { className: "np-contactform__fields--lname" },
+                { className: "np-contactform__fields--lname np-contactform__fields--container" },
                 _react2.default.createElement(
                   "label",
                   { htmlFor: "lastname" },
-                  lNameLabel
+                  lNameLabel,
+                  "*"
                 ),
                 _react2.default.createElement("input", {
                   type: "text",
@@ -64444,11 +64445,12 @@ var ContactForm = function (_Component) {
               ),
               _react2.default.createElement(
                 "div",
-                { className: "np-contactform__fields--phone" },
+                { className: "np-contactform__fields--phone np-contactform__fields--container" },
                 _react2.default.createElement(
                   "label",
                   { htmlFor: "phone" },
-                  phoneLabel
+                  phoneLabel,
+                  "*"
                 ),
                 _react2.default.createElement("input", {
                   type: "text",
@@ -64461,11 +64463,12 @@ var ContactForm = function (_Component) {
               ),
               _react2.default.createElement(
                 "div",
-                { className: "np-contactform__fields--email" },
+                { className: "np-contactform__fields--email np-contactform__fields--container" },
                 _react2.default.createElement(
                   "label",
                   { htmlFor: "email" },
-                  emailLabel
+                  emailLabel,
+                  "*"
                 ),
                 _react2.default.createElement("input", {
                   type: "email",
@@ -64478,7 +64481,7 @@ var ContactForm = function (_Component) {
               ),
               _react2.default.createElement(
                 "div",
-                { className: "np-contactform__fields--message" },
+                { className: "np-contactform__fields--message np-contactform__fields--container" },
                 _react2.default.createElement(
                   "label",
                   { htmlFor: "message" },
@@ -64494,7 +64497,7 @@ var ContactForm = function (_Component) {
               ),
               _react2.default.createElement(
                 "div",
-                { className: "np-contactform__fields--button" },
+                { className: "np-contactform__fields--button np-contactform__fields--container" },
                 _react2.default.createElement(
                   "button",
                   { type: "submit" },
