@@ -1,6 +1,8 @@
 .np-contactform {
-  background-color: $color-secondary;
   min-height: 40vh;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: $color-secondary;
 
   &__wrapper {
     @include container-base(flex);

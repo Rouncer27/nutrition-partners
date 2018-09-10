@@ -64076,6 +64076,10 @@ var _ContactForm = __webpack_require__(690);
 
 var _ContactForm2 = _interopRequireDefault(_ContactForm);
 
+var _LocationMaps = __webpack_require__(695);
+
+var _LocationMaps2 = _interopRequireDefault(_LocationMaps);
+
 var _Footer = __webpack_require__(99);
 
 var _Footer2 = _interopRequireDefault(_Footer);
@@ -64262,6 +64266,7 @@ var Contact = function (_Component) {
             browserLang: this.state.browserLang,
             getBaseURL: this.setPageAPIURL
           }),
+          _react2.default.createElement(_LocationMaps2.default, { browserLang: this.state.browserLang, acf: acf }),
           _react2.default.createElement(_Footer2.default, {
             browserLang: this.state.browserLang,
             pageData: this.state.pageData,
@@ -64798,6 +64803,104 @@ var ErrorMessages = function ErrorMessages(props) {
 };
 
 exports.default = ErrorMessages;
+
+/***/ }),
+/* 695 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LocationMaps = function LocationMaps(props) {
+  console.log(props);
+  var maps = props.acf._np_location_maps;
+  var lang = props.browserLang;
+
+  return _react2.default.createElement(
+    "div",
+    { className: "np-maps" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-maps__wrapper" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-maps__content" },
+        maps.map(function (map, index) {
+          console.log(map);
+          var mapURL = lang === "en" ? map.google_map_url_en : map.google_map_url_fr;
+          var mapImgSrc = lang === "en" ? map.screen_shot_en.sizes.contained : map.screen_shot_fr.sizes.contained;
+          var mapTitle = lang === "en" ? map.location_title_en : map.location_title_fr;
+          var mapCity = lang === "en" ? map.city_province_en : map.city_province_fr;
+          var mapStreet = lang === "en" ? map.street_address_en : map.street_address_fr;
+          var mapPhone = lang === "en" ? map.phone_en : map.phone_fr;
+
+          return _react2.default.createElement(
+            "div",
+            { className: "np-maps__location" },
+            _react2.default.createElement(
+              "div",
+              { className: "np-maps__location--image" },
+              _react2.default.createElement(
+                "a",
+                { target: "_blank", href: mapURL },
+                _react2.default.createElement("img", { src: mapImgSrc, alt: "Location" })
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "np-maps__location--title" },
+              _react2.default.createElement(
+                "h3",
+                null,
+                mapTitle
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "np-maps__location--address" },
+              _react2.default.createElement(
+                "p",
+                null,
+                mapCity
+              ),
+              _react2.default.createElement(
+                "p",
+                null,
+                mapStreet
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "np-maps__location--contact" },
+              _react2.default.createElement(
+                "p",
+                null,
+                "Phone: ",
+                _react2.default.createElement(
+                  "a",
+                  { href: "tel:1+" + mapPhone },
+                  mapPhone
+                )
+              )
+            )
+          );
+        })
+      )
+    )
+  );
+};
+
+exports.default = LocationMaps;
 
 /***/ })
 /******/ ]);

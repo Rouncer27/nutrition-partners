@@ -1,0 +1,69 @@
+.np-maps {
+  &__wrapper {
+    @include container-base(flex);
+    @include bp(bp-l) {
+      max-width: 75rem;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  &__location {
+    width: 100%;
+    margin: 4rem auto;
+
+    @include bp(bp-m) {
+      width: calc(50% - 4rem);
+      margin: 2rem;
+    }
+
+    @include bp(bp-l) {
+      width: calc(50% - 8rem);
+      margin: 2rem 4rem;
+    }
+
+    &--image {
+      width: 100%;
+    }
+
+    &--title {
+      h3 {
+        margin-bottom: 0.25rem;
+        color: $color-secondary;
+        font-weight: 600;
+        text-align: center;
+
+        @include bp(bp-l) {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    &--contact,
+    &--address {
+      p,
+      a {
+        margin: 0;
+        transition: all 0.4s ease;
+        color: $grey;
+        font-size: 1.8rem;
+        text-align: center;
+
+        @include bp(bp-l) {
+          font-size: 1.4rem;
+        }
+      }
+
+      a {
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+}

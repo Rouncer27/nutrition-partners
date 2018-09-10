@@ -8,6 +8,7 @@ import Header from "../../components/Header";
 import Hero from "../../components/Hero";
 import TitleWithContent from "../../components/TitleWithContent";
 import ContactForm from "../../components/ContactForm";
+import LocationMaps from "../../components/LocationMaps";
 import Footer from "../../components/Footer";
 
 export default class Contact extends Component {
@@ -165,6 +166,7 @@ export default class Contact extends Component {
               browserLang={this.state.browserLang}
               getBaseURL={this.setPageAPIURL}
             />
+            <LocationMaps browserLang={this.state.browserLang} acf={acf} />
             <Footer
               browserLang={this.state.browserLang}
               pageData={this.state.pageData}
