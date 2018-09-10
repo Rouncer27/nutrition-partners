@@ -1,6 +1,6 @@
 require("../../src/js/components/header/header.nav.js");
-require("../../src/js/components/footer/footer.js");
-require("../../src/js/components/woocommerce/woocommerce.js");
+// require("../../src/js/components/footer/footer.js");
+// require("../../src/js/components/woocommerce/woocommerce.js");
 
 require("../../src/js/components/language/language.js");
 
@@ -19,6 +19,10 @@ if (productsPage !== null)
 const contactPage = document.querySelector(".swb-contact-page");
 if (contactPage !== null)
   require("../../src/js/components/react/pages/Contact/Contact.js");
+
+const NewsPage = document.querySelector(".swb-blog-page");
+if (NewsPage !== null)
+  require("../../src/js/components/react/pages/Blog/Blog.js");
 
 // import { TweenMax } from "TweenMax";
 // import ScrollMagic from "scrollmagic";

@@ -1,0 +1,23 @@
+.np-blogposts {
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__articles {
+    width: 100%;
+
+    @include bp(bp-l) {
+      width: calc(60% - 3rem);
+      margin-right: 3rem;
+    }
+  }
+
+  &__sidebar {
+    width: 100%;
+
+    @include bp(bp-l) {
+      width: calc(40% - 3rem);
+      margin-left: 3rem;
+    }
+  }
+}

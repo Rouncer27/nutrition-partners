@@ -1,0 +1,17 @@
+.np-blogintro {
+  padding: 3rem 0;
+
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__title {
+    h2 {
+      @include mainTitle();
+
+      @include bp(bp-l) {
+        font-size: 5rem;
+      }
+    }
+  }
+}
