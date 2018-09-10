@@ -64311,6 +64311,18 @@ var _FormFields = __webpack_require__(691);
 
 var _FormFields2 = _interopRequireDefault(_FormFields);
 
+var _FormSubmitting = __webpack_require__(692);
+
+var _FormSubmitting2 = _interopRequireDefault(_FormSubmitting);
+
+var _FormSuccess = __webpack_require__(693);
+
+var _FormSuccess2 = _interopRequireDefault(_FormSuccess);
+
+var _ErrorMessages = __webpack_require__(694);
+
+var _ErrorMessages2 = _interopRequireDefault(_ErrorMessages);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -64339,6 +64351,7 @@ var ContactForm = function (_Component) {
       submitting: false,
       succsess: false,
       errors: false,
+      errorMessages: [],
       firstname: "",
       lastname: "",
       phone: "",
@@ -64406,13 +64419,12 @@ var ContactForm = function (_Component) {
   }, {
     key: "emailValidationFailed",
     value: function emailValidationFailed(mess, fields) {
-      console.log(mess);
-      console.log(fields);
       this.setState(function (prevState) {
         return {
           submitting: !prevState.submitting,
           succsess: false,
-          errors: true
+          errors: true,
+          errorMessages: fields
         };
       });
     }
@@ -64423,7 +64435,8 @@ var ContactForm = function (_Component) {
         return _extends({}, prevState, {
           submitting: false,
           succsess: false,
-          errors: false
+          errors: false,
+          errorMessages: []
         });
       });
     }
@@ -64438,45 +64451,14 @@ var ContactForm = function (_Component) {
           lang: this.props.browserLang
         }));
       } else if (this.state.submitting && !this.state.errors && !this.state.succsess) {
-        formDisplay = _react2.default.createElement(
-          "div",
-          null,
-          _react2.default.createElement(
-            "h1",
-            null,
-            "Submitting The form!"
-          )
-        );
+        formDisplay = _react2.default.createElement(_FormSubmitting2.default, null);
       } else if (!this.state.submitting && this.state.succsess && !this.state.errors) {
-        formDisplay = _react2.default.createElement(
-          "div",
-          null,
-          _react2.default.createElement(
-            "h1",
-            null,
-            "YES THE FORM WAS SUBMITTED!"
-          ),
-          _react2.default.createElement(
-            "button",
-            { onClick: this.dismiss },
-            "Dismiss"
-          )
-        );
+        formDisplay = _react2.default.createElement(_FormSuccess2.default, { dismiss: this.dismiss });
       } else if (!this.state.submitting && !this.state.succsess && this.state.errors) {
-        formDisplay = _react2.default.createElement(
-          "div",
-          null,
-          _react2.default.createElement(
-            "h1",
-            null,
-            "You have some errors in your form!"
-          ),
-          _react2.default.createElement(
-            "button",
-            { onClick: this.dismiss },
-            "Dismiss"
-          )
-        );
+        formDisplay = _react2.default.createElement(_ErrorMessages2.default, {
+          errorMessages: this.state.errorMessages,
+          dismiss: this.dismiss
+        });
       }
 
       return _react2.default.createElement(
@@ -64661,6 +64643,161 @@ var FormFields = function FormFields(props) {
 };
 
 exports.default = FormFields;
+
+/***/ }),
+/* 692 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FormSubmitting = function FormSubmitting(props) {
+  return _react2.default.createElement(
+    "div",
+    { className: "np-formaction" },
+    _react2.default.createElement(
+      "div",
+      { className: "np-formaction__wrapper" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-formaction__content" },
+        _react2.default.createElement(
+          "h2",
+          null,
+          "Submitting The form..."
+        )
+      )
+    )
+  );
+};
+
+exports.default = FormSubmitting;
+
+/***/ }),
+/* 693 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FormSuccess = function FormSuccess(props) {
+  return _react2.default.createElement(
+    "div",
+    { className: "np-formaction", onClick: props.dismiss },
+    _react2.default.createElement(
+      "div",
+      { className: "np-formaction__wrapper" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-formaction__content" },
+        _react2.default.createElement(
+          "h2",
+          null,
+          "Thank you"
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "The form has been submitted. we will be in touch soon."
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: props.dismiss },
+          "Dismiss"
+        )
+      )
+    )
+  );
+};
+
+exports.default = FormSuccess;
+
+/***/ }),
+/* 694 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ErrorMessages = function ErrorMessages(props) {
+  return _react2.default.createElement(
+    "div",
+    { className: "np-formaction", onClick: props.dismiss },
+    _react2.default.createElement(
+      "div",
+      { className: "np-formaction__wrapper" },
+      _react2.default.createElement(
+        "div",
+        { className: "np-formaction__content" },
+        _react2.default.createElement(
+          "h2",
+          null,
+          "You have some errors in your form!"
+        ),
+        props.errorMessages.length > 0 && props.errorMessages.map(function (err, index) {
+          var message = err.into.split(".");
+          if (message[2] === "first-name") return _react2.default.createElement(
+            "p",
+            { key: index },
+            "The first name field is required. Please fill out your first name and submit."
+          );
+          if (message[2] === "last-name") return _react2.default.createElement(
+            "p",
+            { key: index },
+            "The last name field is required. Please fill out your last name and submit."
+          );
+          if (message[2] === "phone") return _react2.default.createElement(
+            "p",
+            { key: index },
+            "The phone number field is required. Please fill out your phone number and submit."
+          );
+          if (message[2] === "email") return _react2.default.createElement(
+            "p",
+            { key: index },
+            "The email field is required. Please fill out your email and submit."
+          );
+        }),
+        _react2.default.createElement(
+          "button",
+          { onClick: props.dismiss },
+          "Dismiss"
+        )
+      )
+    )
+  );
+};
+
+exports.default = ErrorMessages;
 
 /***/ })
 /******/ ]);

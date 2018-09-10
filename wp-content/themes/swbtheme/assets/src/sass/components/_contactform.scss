@@ -1,5 +1,6 @@
 .np-contactform {
   background-color: $color-secondary;
+  min-height: 40vh;
 
   &__wrapper {
     @include container-base(flex);
@@ -94,6 +95,58 @@
         background-color: transparent;
         color: $white;
       }
+    }
+  }
+}
+
+.np-formaction {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-shadow2, 0.9);
+  z-index: 1000;
+
+  &__wrapper {
+    @include container-base(flex, small);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
+    height: 100%;
+
+    h2 {
+      width: 100%;
+      margin: 3rem auto;
+      color: $white;
+      text-align: center;
+    }
+
+    p {
+      margin-bottom: 0.5rem;
+      color: $white;
+    }
+
+    button {
+      @include mainButton();
+      margin-top: 5rem;
+      border: 0 solid transparent;
+      background: transparent;
     }
   }
 }

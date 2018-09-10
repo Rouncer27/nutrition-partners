@@ -3,6 +3,9 @@ import "babel-polyfill";
 import axios from "axios";
 
 import FormFields from "./contactForm/FormFields";
+import FormSubmitting from "./contactForm/FormSubmitting";
+import FormSuccess from "./contactForm/FormSuccess";
+import ErrorMessages from "./contactForm/ErrorMessages";
 
 class ContactForm extends Component {
   constructor(props) {
@@ -17,6 +20,7 @@ class ContactForm extends Component {
       submitting: false,
       succsess: false,
       errors: false,
+      errorMessages: [],
       firstname: "",
       lastname: "",
       phone: "",
@@ -82,13 +86,12 @@ class ContactForm extends Component {
   }
 
   emailValidationFailed(mess, fields) {
-    console.log(mess);
-    console.log(fields);
     this.setState(prevState => {
       return {
         submitting: !prevState.submitting,
         succsess: false,
-        errors: true
+        errors: true,
+        errorMessages: fields
       };
     });
   }
@@ -99,7 +102,8 @@ class ContactForm extends Component {
         ...prevState,
         submitting: false,
         succsess: false,
-        errors: false
+        errors: false,
+        errorMessages: []
       };
     });
   }
@@ -120,32 +124,23 @@ class ContactForm extends Component {
       !this.state.errors &&
       !this.state.succsess
     ) {
-      formDisplay = (
-        <div>
-          <h1>Submitting The form!</h1>
-        </div>
-      );
+      formDisplay = <FormSubmitting />;
     } else if (
       !this.state.submitting &&
       this.state.succsess &&
       !this.state.errors
     ) {
-      formDisplay = (
-        <div>
-          <h1>YES THE FORM WAS SUBMITTED!</h1>
-          <button onClick={this.dismiss}>Dismiss</button>
-        </div>
-      );
+      formDisplay = <FormSuccess dismiss={this.dismiss} />;
     } else if (
       !this.state.submitting &&
       !this.state.succsess &&
       this.state.errors
     ) {
       formDisplay = (
-        <div>
-          <h1>You have some errors in your form!</h1>
-          <button onClick={this.dismiss}>Dismiss</button>
-        </div>
+        <ErrorMessages
+          errorMessages={this.state.errorMessages}
+          dismiss={this.dismiss}
+        />
       );
     }
 
