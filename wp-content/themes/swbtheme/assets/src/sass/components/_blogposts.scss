@@ -1,6 +1,6 @@
 .np-blogposts {
   &__wrapper {
-    @include container-base(flex);
+    @include container-base(flex, large);
   }
 
   &__articles {
@@ -13,11 +13,68 @@
   }
 
   &__sidebar {
+    position: relative;
     width: 100%;
 
     @include bp(bp-l) {
       width: calc(40% - 3rem);
       margin-left: 3rem;
+    }
+
+    &--background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1000rem;
+      height: 100%;
+      background-color: rgba($color-shadow2, 0.25);
+      z-index: -1;
+    }
+  }
+}
+
+.np-post {
+  margin-bottom: 5rem;
+  &__image {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    h2 {
+      margin: 0;
+      color: $color-secondary;
+      font-size: 1.6rem;
+      font-weight: 600;
+
+      a {
+        transition: all 0.4s ease;
+        color: $color-secondary;
+        font-family: $font-family--accent;
+        font-size: 1em;
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  &__excerpt {
+    p {
+      @include mainParagraph();
+      text-align: left;
+
+      @include bp(bp-l) {
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  &__link {
+    margin-top: 2rem;
+
+    a {
+      @include mainButton();
     }
   }
 }

@@ -29,4 +29,10 @@ if( function_exists('acf_add_options_page') ) {
     'parent_slug' => 'site-wide-settings',
   ));
 
+  acf_add_options_sub_page(array(
+    'page_title'  => 'Blog Page Options',
+    'menu_title'  => 'Blog Page Options',
+    'parent_slug' => 'site-wide-settings',
+  ));
+
 }

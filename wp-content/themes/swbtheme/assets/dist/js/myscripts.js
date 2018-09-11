@@ -64797,6 +64797,7 @@ var Blog = function (_Component) {
     _this.getEnglishMenuItems = _this.getEnglishMenuItems.bind(_this);
     _this.getFrenchMenuItems = _this.getFrenchMenuItems.bind(_this);
     _this.getBlogPosts = _this.getBlogPosts.bind(_this);
+    _this.loadMore = _this.loadMore.bind(_this);
 
     _this.state = {
       browserLang: "",
@@ -64805,6 +64806,7 @@ var Blog = function (_Component) {
       pageID: "",
       pageData: {},
       blogPosts: {},
+      loadMoreBtn: false,
       siteOptions: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
@@ -64890,10 +64892,47 @@ var Blog = function (_Component) {
       var _this4 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp/v2/posts/?_embed").then(function (result) {
-        _this4.setState(function (prevState) {
-          return _extends({}, prevState, {
-            blogPosts: result.data
+        if (result.data.length > 0) {
+          var firstFive = result.data.slice(0, 5);
+          _this4.setState(function (prevState) {
+            return _extends({}, prevState, {
+              blogPosts: firstFive,
+              loadMoreBtn: result.data.length > 5
+            });
           });
+        } else {
+          console.log("there is no posts in the database!");
+        }
+      });
+    }
+  }, {
+    key: "loadMore",
+    value: function loadMore() {
+      var _this5 = this;
+
+      this.setState(function (prevState) {
+        return _extends({}, prevState, {
+          loadMoreBtn: false
+        });
+      }, function () {
+        _axios2.default.get(_this5.state.pageApiUrl + "/wp-json/wp/v2/posts/?_embed&offset=" + _this5.state.blogPosts.length).then(function (result) {
+          console.log(result.data);
+          if (result.data.length > 0) {
+            var firstFive = result.data.slice(0, 5);
+            console.log(firstFive);
+            _this5.setState(function (prevState) {
+              return _extends({}, prevState, {
+                blogPosts: [].concat(_toConsumableArray(prevState.blogPosts), _toConsumableArray(firstFive)),
+                loadMoreBtn: result.data.length > 5
+              });
+            });
+          } else {
+            _this5.setState(function (prevState) {
+              return _extends({}, prevState, {
+                loadMoreBtn: false
+              });
+            });
+          }
         });
       });
     }
@@ -64903,10 +64942,10 @@ var Blog = function (_Component) {
   }, {
     key: "getEnglishMenuItems",
     value: function getEnglishMenuItems() {
-      var _this5 = this;
+      var _this6 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp-api-menus/v2/menus/2").then(function (res) {
-        _this5.setState(function (prevState) {
+        _this6.setState(function (prevState) {
           return _extends({}, prevState, {
             siteMainEnglishMenu: res.data
           });
@@ -64916,10 +64955,10 @@ var Blog = function (_Component) {
   }, {
     key: "getFrenchMenuItems",
     value: function getFrenchMenuItems() {
-      var _this6 = this;
+      var _this7 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp-api-menus/v2/menus/3").then(function (res) {
-        _this6.setState(function (prevState) {
+        _this7.setState(function (prevState) {
           return _extends({}, prevState, {
             siteMainFrenchMenu: res.data
           });
@@ -64932,10 +64971,10 @@ var Blog = function (_Component) {
   }, {
     key: "getOptionsData",
     value: function getOptionsData() {
-      var _this7 = this;
+      var _this8 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/acf/v3/options/options").then(function (res) {
-        _this7.setState(function (prevState) {
+        _this8.setState(function (prevState) {
           return _extends({}, prevState, {
             siteOptions: res.data.acf
           });
@@ -64952,7 +64991,6 @@ var Blog = function (_Component) {
       if (renderComponent) {
         acf = this.state.pageData.acf;
       }
-
       return _react2.default.createElement(
         "div",
         { className: "np-page-root" },
@@ -64969,7 +65007,10 @@ var Blog = function (_Component) {
           _react2.default.createElement(_BlogIntro2.default, { acf: acf, browserLang: this.state.browserLang }),
           _react2.default.createElement(_Posts2.default, {
             postsData: this.state.blogPosts,
-            browserLang: this.state.browserLang
+            browserLang: this.state.browserLang,
+            siteOptions: this.state.siteOptions,
+            loadMoreBtn: this.state.loadMoreBtn,
+            loadMore: this.loadMore
           }),
           _react2.default.createElement(_Footer2.default, {
             browserLang: this.state.browserLang,
@@ -65052,6 +65093,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Posts = function Posts(props) {
   var posts = props.postsData;
   var lang = props.browserLang;
+  var defaultImg = props.siteOptions._np_default_post_image ? props.siteOptions._np_default_post_image.sizes.halfsquarecropped : false;
   return _react2.default.createElement(
     "div",
     { className: "np-blogposts" },
@@ -65062,7 +65104,12 @@ var Posts = function Posts(props) {
         "div",
         { className: "np-blogposts__articles" },
         posts.map(function (post) {
-          return _react2.default.createElement(_Post2.default, { key: post.id, post: post, lang: lang });
+          return _react2.default.createElement(_Post2.default, {
+            key: post.id,
+            post: post,
+            lang: lang,
+            defaultImg: defaultImg
+          });
         })
       ),
       _react2.default.createElement(
@@ -65072,6 +65119,16 @@ var Posts = function Posts(props) {
           "h3",
           null,
           "Sidebar"
+        ),
+        _react2.default.createElement("div", { className: "np-blogposts__sidebar--background" })
+      ),
+      _react2.default.createElement(
+        "div",
+        { className: "np-blogposts__loadmore" },
+        _react2.default.createElement(
+          "button",
+          { onClick: props.loadMore, disabled: !props.loadMoreBtn },
+          "More Posts"
         )
       )
     )
@@ -65098,19 +65155,19 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Post = function Post(props) {
-  console.log(props);
   var postTitle = props.lang === "en" ? props.post.acf._np_en_article_title : props.post.acf._np_fr_article_title;
 
   var postExcerpt = props.lang === "en" ? props.post.acf._np_en_article_excerpt : props.post.acf._np_fr_article_excerpt;
 
-  var postImgSrc = props.post._embedded["wp:featuredmedia"][0].media_details.sizes.full.source_url;
+  var postImgSrc = props.post._embedded["wp:featuredmedia"] ? props.post._embedded["wp:featuredmedia"][0].media_details.sizes.halfsquarecropped.source_url : props.defaultImg;
+
   var postLink = props.post.link;
   return _react2.default.createElement(
     "div",
-    null,
+    { className: "np-post" },
     _react2.default.createElement(
       "div",
-      null,
+      { className: "np-post__image" },
       _react2.default.createElement(
         "a",
         { href: postLink },
@@ -65119,7 +65176,7 @@ var Post = function Post(props) {
     ),
     _react2.default.createElement(
       "div",
-      null,
+      { className: "np-post__title" },
       _react2.default.createElement(
         "h2",
         null,
@@ -65130,10 +65187,13 @@ var Post = function Post(props) {
         )
       )
     ),
-    _react2.default.createElement("div", { dangerouslySetInnerHTML: { __html: postExcerpt } }),
+    _react2.default.createElement("div", {
+      className: "np-post__excerpt",
+      dangerouslySetInnerHTML: { __html: postExcerpt }
+    }),
     _react2.default.createElement(
       "div",
-      null,
+      { className: "np-post__link" },
       _react2.default.createElement(
         "a",
         { href: postLink },

@@ -19,6 +19,7 @@ class Blog extends Component {
     this.getEnglishMenuItems = this.getEnglishMenuItems.bind(this);
     this.getFrenchMenuItems = this.getFrenchMenuItems.bind(this);
     this.getBlogPosts = this.getBlogPosts.bind(this);
+    this.loadMore = this.loadMore.bind(this);
 
     this.state = {
       browserLang: "",
@@ -27,6 +28,7 @@ class Blog extends Component {
       pageID: "",
       pageData: {},
       blogPosts: {},
+      loadMoreBtn: false,
       siteOptions: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
@@ -102,13 +104,59 @@ class Blog extends Component {
     axios
       .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts/?_embed`)
       .then(result => {
-        this.setState(prevState => {
-          return {
-            ...prevState,
-            blogPosts: result.data
-          };
-        });
+        if (result.data.length > 0) {
+          const firstFive = result.data.slice(0, 5);
+          this.setState(prevState => {
+            return {
+              ...prevState,
+              blogPosts: firstFive,
+              loadMoreBtn: result.data.length > 5
+            };
+          });
+        } else {
+          console.log("there is no posts in the database!");
+        }
       });
+  }
+
+  loadMore() {
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          loadMoreBtn: false
+        };
+      },
+      () => {
+        axios
+          .get(
+            `${this.state.pageApiUrl}/wp-json/wp/v2/posts/?_embed&offset=${
+              this.state.blogPosts.length
+            }`
+          )
+          .then(result => {
+            console.log(result.data);
+            if (result.data.length > 0) {
+              const firstFive = result.data.slice(0, 5);
+              console.log(firstFive);
+              this.setState(prevState => {
+                return {
+                  ...prevState,
+                  blogPosts: [...prevState.blogPosts, ...firstFive],
+                  loadMoreBtn: result.data.length > 5
+                };
+              });
+            } else {
+              this.setState(prevState => {
+                return {
+                  ...prevState,
+                  loadMoreBtn: false
+                };
+              });
+            }
+          });
+      }
+    );
   }
 
   // Get the english menu items. //
@@ -163,7 +211,6 @@ class Blog extends Component {
     if (renderComponent) {
       acf = this.state.pageData.acf;
     }
-
     return (
       <div className="np-page-root">
         {renderComponent ? (
@@ -182,6 +229,9 @@ class Blog extends Component {
             <Posts
               postsData={this.state.blogPosts}
               browserLang={this.state.browserLang}
+              siteOptions={this.state.siteOptions}
+              loadMoreBtn={this.state.loadMoreBtn}
+              loadMore={this.loadMore}
             />
             <Footer
               browserLang={this.state.browserLang}
