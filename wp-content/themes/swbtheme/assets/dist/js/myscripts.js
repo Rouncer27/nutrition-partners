@@ -65509,10 +65509,11 @@ var _moment2 = _interopRequireDefault(_moment);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Article = function Article(props) {
-  console.log(props.categories);
+  console.log(props.pageData);
   var title = props.browserLang === "en" ? props.acf._np_en_article_title : props.acf._np_fr_article_title;
   var author = props.pageData.author;
   var date = (0, _moment2.default)(props.pageData.date).format("LL");
+  var link = props.pageData.link;
   var content = props.browserLang === "en" ? props.acf._np_en_article_content : props.acf._np_fr_article_content;
   return _react2.default.createElement(
     "div",
@@ -65570,27 +65571,56 @@ var Article = function Article(props) {
           "div",
           { className: "np-signart__meta--share" },
           _react2.default.createElement(
-            "p",
-            null,
-            "Share"
-          ),
-          _react2.default.createElement(
-            "ul",
-            null,
+            "div",
+            { className: "socialmedia share-buttons" },
             _react2.default.createElement(
-              "li",
+              "p",
               null,
-              "Facebook"
+              "Share"
             ),
             _react2.default.createElement(
-              "li",
-              null,
-              "Google Plus"
-            ),
-            _react2.default.createElement(
-              "li",
-              null,
-              "Instagram"
+              "ul",
+              { className: "socialmedia__menu socialmedia__menu--single" },
+              _react2.default.createElement(
+                "li",
+                { className: "socialmedia__menu--twitter" },
+                _react2.default.createElement("a", {
+                  target: "_blank",
+                  title: "Share on Twitter",
+                  href: "http://twitter.com/intent/tweet?status=" + title + " " + link,
+                  onclick: "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                })
+              ),
+              _react2.default.createElement(
+                "li",
+                { className: "socialmedia__menu--googleplus" },
+                _react2.default.createElement("a", {
+                  target: "_blank",
+                  title: "Share on Google+",
+                  href: "https://plus.google.com/share?url=<?php the_permalink(); ?>",
+                  onclick: "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                })
+              ),
+              _react2.default.createElement(
+                "li",
+                { className: "socialmedia__menu--facebook" },
+                _react2.default.createElement("a", {
+                  target: "_blank",
+                  title: "Share on facebook",
+                  href: "http://www.facebook.com/share.php?u=<?php the_permalink(); ?>&title=<?php the_title(); ?>",
+                  onclick: "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                })
+              ),
+              _react2.default.createElement(
+                "li",
+                { className: "socialmedia__menu--linkedin" },
+                _react2.default.createElement("a", {
+                  target: "_blank",
+                  title: "Share on linkedin",
+                  href: "http://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink(); ?>&title=<?php the_title(); ?>",
+                  onclick: "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                })
+              )
             )
           )
         )

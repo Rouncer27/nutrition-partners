@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import moment from "moment";
 
 const Article = props => {
-  console.log(props.categories);
+  console.log(props.pageData);
   const title =
     props.browserLang === "en"
       ? props.acf._np_en_article_title
       : props.acf._np_fr_article_title;
   const author = props.pageData.author;
   const date = moment(props.pageData.date).format("LL");
+  const link = props.pageData.link;
   const content =
     props.browserLang === "en"
       ? props.acf._np_en_article_content
@@ -38,12 +39,43 @@ const Article = props => {
             )}
           </div>
           <div className="np-signart__meta--share">
-            <p>Share</p>
-            <ul>
-              <li>Facebook</li>
-              <li>Google Plus</li>
-              <li>Instagram</li>
-            </ul>
+            <div className="socialmedia share-buttons">
+              <p>Share</p>
+              <ul className="socialmedia__menu socialmedia__menu--single">
+                <li className="socialmedia__menu--twitter">
+                  <a
+                    target="_blank"
+                    title="Share on Twitter"
+                    href={`http://twitter.com/intent/tweet?status=${title} ${link}`}
+                    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                  />
+                </li>
+                <li className="socialmedia__menu--googleplus">
+                  <a
+                    target="_blank"
+                    title="Share on Google+"
+                    href="https://plus.google.com/share?url=<?php the_permalink(); ?>"
+                    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                  />
+                </li>
+                <li className="socialmedia__menu--facebook">
+                  <a
+                    target="_blank"
+                    title="Share on facebook"
+                    href="http://www.facebook.com/share.php?u=<?php the_permalink(); ?>&title=<?php the_title(); ?>"
+                    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                  />
+                </li>
+                <li className="socialmedia__menu--linkedin">
+                  <a
+                    target="_blank"
+                    title="Share on linkedin"
+                    href="http://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink(); ?>&title=<?php the_title(); ?>"
+                    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                  />
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div

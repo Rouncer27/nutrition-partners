@@ -53,6 +53,21 @@
         font-size: 2.4rem;
         font-weight: 600;
       }
+
+      .socialmedia {
+        .socialmedia__menu--single {
+          li {
+            margin-right: 1rem;
+            a {
+              background-color: $color-secondary;
+
+              &:hover {
+                background-color: $color-primary;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
