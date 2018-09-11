@@ -23,6 +23,7 @@ class SinglePost extends Component {
       pageApiUrl: "",
       pageID: "",
       pageData: {},
+      categories: [],
       siteOptions: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
@@ -85,12 +86,41 @@ class SinglePost extends Component {
     axios
       .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts/${this.state.pageID}`)
       .then(result => {
-        this.setState(prevState => {
-          return {
-            ...prevState,
-            pageData: result.data
-          };
-        });
+        this.setState(
+          prevState => {
+            return {
+              ...prevState,
+              pageData: result.data
+            };
+          },
+          () => {
+            axios
+              .get(`${this.state.pageApiUrl}/wp-json/wp/v2/categories/`)
+              .then(result => {
+                let catName = [];
+                catName = this.state.pageData.categories.map(catId => {
+                  return result.data.filter(cat => {
+                    if (cat.id === catId) {
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  });
+                });
+                const catNames = [].concat(
+                  catName.map(cat => {
+                    return cat[0];
+                  })
+                );
+                this.setState(prevState => {
+                  return {
+                    ...prevState,
+                    categories: catNames
+                  };
+                });
+              });
+          }
+        );
       });
   }
 
@@ -161,6 +191,7 @@ class SinglePost extends Component {
             <Article
               browserLang={this.state.browserLang}
               pageData={this.state.pageData}
+              categories={this.state.categories}
               acf={acf}
             />
             <FooterPost

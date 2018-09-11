@@ -65296,6 +65296,7 @@ var SinglePost = function (_Component) {
       pageApiUrl: "",
       pageID: "",
       pageData: {},
+      categories: [],
       siteOptions: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
@@ -65371,6 +65372,27 @@ var SinglePost = function (_Component) {
           return _extends({}, prevState, {
             pageData: result.data
           });
+        }, function () {
+          _axios2.default.get(_this3.state.pageApiUrl + "/wp-json/wp/v2/categories/").then(function (result) {
+            var catName = [];
+            catName = _this3.state.pageData.categories.map(function (catId) {
+              return result.data.filter(function (cat) {
+                if (cat.id === catId) {
+                  return true;
+                } else {
+                  return false;
+                }
+              });
+            });
+            var catNames = [].concat(catName.map(function (cat) {
+              return cat[0];
+            }));
+            _this3.setState(function (prevState) {
+              return _extends({}, prevState, {
+                categories: catNames
+              });
+            });
+          });
         });
       });
     }
@@ -65445,6 +65467,7 @@ var SinglePost = function (_Component) {
           _react2.default.createElement(_Article2.default, {
             browserLang: this.state.browserLang,
             pageData: this.state.pageData,
+            categories: this.state.categories,
             acf: acf
           }),
           _react2.default.createElement(_FooterPost2.default, {
@@ -65479,13 +65502,17 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _moment = __webpack_require__(1);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Article = function Article(props) {
-  console.log(props);
+  console.log(props.categories);
   var title = props.browserLang === "en" ? props.acf._np_en_article_title : props.acf._np_fr_article_title;
   var author = props.pageData.author;
-  var date = props.pageData.date;
+  var date = (0, _moment2.default)(props.pageData.date).format("LL");
   var content = props.browserLang === "en" ? props.acf._np_en_article_content : props.acf._np_fr_article_content;
   return _react2.default.createElement(
     "div",
@@ -65519,6 +65546,24 @@ var Article = function Article(props) {
             "p",
             null,
             date
+          ),
+          props.categories.length > 0 && _react2.default.createElement(
+            "p",
+            null,
+            "Filed under:",
+            " ",
+            props.categories.map(function (cat, index) {
+              return _react2.default.createElement(
+                "span",
+                { key: index },
+                _react2.default.createElement(
+                  "a",
+                  { href: cat.link },
+                  cat.name
+                ),
+                ", "
+              );
+            })
           )
         ),
         _react2.default.createElement(
