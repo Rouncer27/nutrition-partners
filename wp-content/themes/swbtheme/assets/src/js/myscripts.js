@@ -24,6 +24,10 @@ const NewsPage = document.querySelector(".swb-blog-page");
 if (NewsPage !== null)
   require("../../src/js/components/react/pages/Blog/Blog.js");
 
+const SinglePost = document.querySelector(".swb-single-blog-post");
+if (SinglePost !== null)
+  require("../../src/js/components/react/pages/SinglePost/SinglePost.js");
+
 // import { TweenMax } from "TweenMax";
 // import ScrollMagic from "scrollmagic";
 // import "animation.gsap";

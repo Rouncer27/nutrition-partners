@@ -1,0 +1,38 @@
+.np-signart {
+  &__wrapper {
+    @include container-base(flex);
+  }
+
+  &__meta {
+    width: 100%;
+    @include bp(bp-l) {
+      width: calc(40% - 3rem);
+      margin-right: 3rem;
+    }
+
+    &--title {
+      h1 {
+        @include mainTitle();
+
+        @include bp(bp-l) {
+          font-size: 4rem;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  &__content {
+    width: 100%;
+    @include bp(bp-l) {
+      width: calc(50% - 3rem);
+      margin-left: 3rem;
+    }
+
+    p {
+      @include bp(bp-l) {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}

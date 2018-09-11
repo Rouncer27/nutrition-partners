@@ -5,12 +5,11 @@ import axios from "axios";
 
 import PageLoad from "../../components/PageLoad";
 import Header from "../../components/Header";
-import Hero from "../../components/Hero";
-import BlogIntro from "../../components/BlogIntro";
-import Posts from "../../components/Posts";
-import Footer from "../../components/Footer";
+import Article from "../../components/Article";
+import HeroPost from "../../components/HeroPost";
+import FooterPost from "../../components/FooterPost";
 
-class Blog extends Component {
+class SinglePost extends Component {
   constructor() {
     super();
 
@@ -18,18 +17,12 @@ class Blog extends Component {
     this.setPageAPIURL = this.setPageAPIURL.bind(this);
     this.getEnglishMenuItems = this.getEnglishMenuItems.bind(this);
     this.getFrenchMenuItems = this.getFrenchMenuItems.bind(this);
-    this.getBlogPosts = this.getBlogPosts.bind(this);
-    this.loadMore = this.loadMore.bind(this);
 
     this.state = {
       browserLang: "",
-      userLocation: "",
       pageApiUrl: "",
       pageID: "",
       pageData: {},
-      blogPosts: {},
-      loadMoreBtn: false,
-      postsLoading: false,
       siteOptions: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
@@ -37,7 +30,8 @@ class Blog extends Component {
   }
 
   componentDidMount() {
-    const pageID = document.querySelector(".swb-blog-page").dataset.pageid;
+    const pageID = document.querySelector(".swb-single-blog-post").dataset
+      .pageid;
     let sessionStart = sessionStorage.getItem("npWebLang");
     const apiBaseURL = this.setPageAPIURL();
 
@@ -52,7 +46,6 @@ class Blog extends Component {
       },
       () => {
         this.getPageData();
-        this.getBlogPosts();
         this.getEnglishMenuItems();
         this.getFrenchMenuItems();
         this.getOptionsData();
@@ -90,7 +83,7 @@ class Blog extends Component {
   // Get this page data. //
   getPageData() {
     axios
-      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/pages/${this.state.pageID}`)
+      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts/${this.state.pageID}`)
       .then(result => {
         this.setState(prevState => {
           return {
@@ -99,66 +92,6 @@ class Blog extends Component {
           };
         });
       });
-  }
-
-  getBlogPosts() {
-    axios
-      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts/?_embed`)
-      .then(result => {
-        if (result.data.length > 0) {
-          const firstFive = result.data.slice(0, 5);
-          this.setState(prevState => {
-            return {
-              ...prevState,
-              blogPosts: firstFive,
-              loadMoreBtn: result.data.length > 5
-            };
-          });
-        } else {
-          console.log("there is no posts in the database!");
-        }
-      });
-  }
-
-  loadMore() {
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          loadMoreBtn: false,
-          postsLoading: true
-        };
-      },
-      () => {
-        axios
-          .get(
-            `${this.state.pageApiUrl}/wp-json/wp/v2/posts/?_embed&offset=${
-              this.state.blogPosts.length
-            }`
-          )
-          .then(result => {
-            if (result.data.length > 0) {
-              const firstFive = result.data.slice(0, 5);
-              this.setState(prevState => {
-                return {
-                  ...prevState,
-                  blogPosts: [...prevState.blogPosts, ...firstFive],
-                  loadMoreBtn: result.data.length > 5,
-                  postsLoading: false
-                };
-              });
-            } else {
-              this.setState(prevState => {
-                return {
-                  ...prevState,
-                  loadMoreBtn: false,
-                  postsLoading: false
-                };
-              });
-            }
-          });
-      }
-    );
   }
 
   // Get the english menu items. //
@@ -205,7 +138,6 @@ class Blog extends Component {
   render() {
     const renderComponent =
       Object.keys(this.state.pageData).length > 0 &&
-      Object.keys(this.state.blogPosts).length > 0 &&
       Object.keys(this.state.siteOptions).length > 0 &&
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
       Object.keys(this.state.siteMainFrenchMenu).length > 0;
@@ -225,22 +157,18 @@ class Blog extends Component {
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
             />
-            <Hero acf={acf} />
-            <BlogIntro acf={acf} browserLang={this.state.browserLang} />
-            <Posts
-              postsData={this.state.blogPosts}
+            <HeroPost acf={acf} />
+            <Article
+              browserLang={this.state.browserLang}
+              pageData={this.state.pageData}
+              acf={acf}
+            />
+            <FooterPost
               browserLang={this.state.browserLang}
               siteOptions={this.state.siteOptions}
-              loadMoreBtn={this.state.loadMoreBtn}
-              postsLoading={this.state.postsLoading}
-              loadMore={this.loadMore}
-            />
-            <Footer
-              browserLang={this.state.browserLang}
               pageData={this.state.pageData}
               siteMainEnglishMenu={this.state.siteMainEnglishMenu}
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
-              siteOptions={this.state.siteOptions}
             />
           </div>
         ) : (
@@ -251,4 +179,4 @@ class Blog extends Component {
   }
 }
 
-ReactDOM.render(<Blog />, document.getElementById("root"));
+ReactDOM.render(<SinglePost />, document.getElementById("root"));
