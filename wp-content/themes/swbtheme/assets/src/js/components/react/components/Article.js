@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import moment from "moment";
 
 const Article = props => {
-  console.log(props.pageData);
   const title =
     props.browserLang === "en"
       ? props.acf._np_en_article_title
@@ -47,31 +46,55 @@ const Article = props => {
                     target="_blank"
                     title="Share on Twitter"
                     href={`http://twitter.com/intent/tweet?status=${title} ${link}`}
-                    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                    onClick={e => {
+                      window.open(
+                        e.target.href,
+                        "",
+                        "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600"
+                      );
+                    }}
                   />
                 </li>
                 <li className="socialmedia__menu--googleplus">
                   <a
                     target="_blank"
                     title="Share on Google+"
-                    href="https://plus.google.com/share?url=<?php the_permalink(); ?>"
-                    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                    href={`https://plus.google.com/share?url=${link}`}
+                    onClick={e => {
+                      window.open(
+                        e.target.href,
+                        "",
+                        "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600"
+                      );
+                    }}
                   />
                 </li>
                 <li className="socialmedia__menu--facebook">
                   <a
                     target="_blank"
                     title="Share on facebook"
-                    href="http://www.facebook.com/share.php?u=<?php the_permalink(); ?>&title=<?php the_title(); ?>"
-                    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                    href={`http://www.facebook.com/share.php?u=${link}&title=${title}`}
+                    onClick={e => {
+                      window.open(
+                        e.target.href,
+                        "",
+                        "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600"
+                      );
+                    }}
                   />
                 </li>
                 <li className="socialmedia__menu--linkedin">
                   <a
                     target="_blank"
                     title="Share on linkedin"
-                    href="http://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink(); ?>&title=<?php the_title(); ?>"
-                    onclick="javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                    href={`http://www.linkedin.com/shareArticle?mini=true&url=${link}&title=${title}`}
+                    onClick={e => {
+                      window.open(
+                        e.target.href,
+                        "",
+                        "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600"
+                      );
+                    }}
                   />
                 </li>
               </ul>

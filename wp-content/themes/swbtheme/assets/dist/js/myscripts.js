@@ -65509,7 +65509,6 @@ var _moment2 = _interopRequireDefault(_moment);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Article = function Article(props) {
-  console.log(props.pageData);
   var title = props.browserLang === "en" ? props.acf._np_en_article_title : props.acf._np_fr_article_title;
   var author = props.pageData.author;
   var date = (0, _moment2.default)(props.pageData.date).format("LL");
@@ -65588,7 +65587,9 @@ var Article = function Article(props) {
                   target: "_blank",
                   title: "Share on Twitter",
                   href: "http://twitter.com/intent/tweet?status=" + title + " " + link,
-                  onclick: "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                  onClick: function onClick(e) {
+                    window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
+                  }
                 })
               ),
               _react2.default.createElement(
@@ -65597,8 +65598,10 @@ var Article = function Article(props) {
                 _react2.default.createElement("a", {
                   target: "_blank",
                   title: "Share on Google+",
-                  href: "https://plus.google.com/share?url=<?php the_permalink(); ?>",
-                  onclick: "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                  href: "https://plus.google.com/share?url=" + link,
+                  onClick: function onClick(e) {
+                    window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
+                  }
                 })
               ),
               _react2.default.createElement(
@@ -65607,8 +65610,10 @@ var Article = function Article(props) {
                 _react2.default.createElement("a", {
                   target: "_blank",
                   title: "Share on facebook",
-                  href: "http://www.facebook.com/share.php?u=<?php the_permalink(); ?>&title=<?php the_title(); ?>",
-                  onclick: "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                  href: "http://www.facebook.com/share.php?u=" + link + "&title=" + title,
+                  onClick: function onClick(e) {
+                    window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
+                  }
                 })
               ),
               _react2.default.createElement(
@@ -65617,8 +65622,10 @@ var Article = function Article(props) {
                 _react2.default.createElement("a", {
                   target: "_blank",
                   title: "Share on linkedin",
-                  href: "http://www.linkedin.com/shareArticle?mini=true&url=<?php the_permalink(); ?>&title=<?php the_title(); ?>",
-                  onclick: "javascript:window.open(this.href,'', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                  href: "http://www.linkedin.com/shareArticle?mini=true&url=" + link + "&title=" + title,
+                  onClick: function onClick(e) {
+                    window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
+                  }
                 })
               )
             )
