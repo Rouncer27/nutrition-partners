@@ -1,6 +1,7 @@
 import React from "react";
 
 const Post = props => {
+  console.log(props);
   const postTitle =
     props.lang === "en"
       ? props.post.acf._np_en_article_title
@@ -11,17 +12,17 @@ const Post = props => {
       ? props.post.acf._np_en_article_excerpt
       : props.post.acf._np_fr_article_excerpt;
 
-  const postImgSrc = props.post._embedded["wp:featuredmedia"]
-    ? props.post._embedded["wp:featuredmedia"][0].media_details.sizes
-        .halfsquarecropped.source_url
+  const mainImg = props.post.acf.featured_image
+    ? props.post.acf.featured_image.sizes.mainblogpage
     : props.defaultImg;
 
   const postLink = props.post.link;
+
   return (
     <div className="np-post">
       <div className="np-post__image">
         <a href={postLink}>
-          <img src={postImgSrc} alt={postTitle} />
+          <img src={mainImg} alt={postTitle} />
         </a>
       </div>
       <div className="np-post__title">
@@ -34,7 +35,9 @@ const Post = props => {
         dangerouslySetInnerHTML={{ __html: postExcerpt }}
       />
       <div className="np-post__link">
-        <a href={postLink}>Contiune Reading</a>
+        <a href={postLink}>
+          {props.lang === "en" ? "Contiune Reading" : "Lecture Contiune"}
+        </a>
       </div>
     </div>
   );

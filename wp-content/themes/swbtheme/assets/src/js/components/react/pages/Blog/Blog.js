@@ -29,6 +29,7 @@ class Blog extends Component {
       pageData: {},
       blogPosts: {},
       loadMoreBtn: false,
+      postsLoading: false,
       siteOptions: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
@@ -124,7 +125,8 @@ class Blog extends Component {
       prevState => {
         return {
           ...prevState,
-          loadMoreBtn: false
+          loadMoreBtn: false,
+          postsLoading: true
         };
       },
       () => {
@@ -135,22 +137,22 @@ class Blog extends Component {
             }`
           )
           .then(result => {
-            console.log(result.data);
             if (result.data.length > 0) {
               const firstFive = result.data.slice(0, 5);
-              console.log(firstFive);
               this.setState(prevState => {
                 return {
                   ...prevState,
                   blogPosts: [...prevState.blogPosts, ...firstFive],
-                  loadMoreBtn: result.data.length > 5
+                  loadMoreBtn: result.data.length > 5,
+                  postsLoading: false
                 };
               });
             } else {
               this.setState(prevState => {
                 return {
                   ...prevState,
-                  loadMoreBtn: false
+                  loadMoreBtn: false,
+                  postsLoading: false
                 };
               });
             }
@@ -231,6 +233,7 @@ class Blog extends Component {
               browserLang={this.state.browserLang}
               siteOptions={this.state.siteOptions}
               loadMoreBtn={this.state.loadMoreBtn}
+              postsLoading={this.state.postsLoading}
               loadMore={this.loadMore}
             />
             <Footer

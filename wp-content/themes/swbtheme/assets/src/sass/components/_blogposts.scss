@@ -31,12 +31,32 @@
       z-index: -1;
     }
   }
+
+  &__loadmore {
+    button {
+      @include mainButton();
+      border: 0 solid transparent;
+
+      &:disabled {
+        box-shadow: 0 0.25rem 0 $grey;
+        color: $grey;
+      }
+    }
+  }
 }
 
 .np-post {
   margin-bottom: 5rem;
   &__image {
+    width: 100%;
+    max-width: 75rem;
     margin-bottom: 2rem;
+
+    img {
+      width: 100%;
+      max-width: 75rem;
+      max-height: 100%;
+    }
   }
 
   &__title {

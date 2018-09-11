@@ -64807,6 +64807,7 @@ var Blog = function (_Component) {
       pageData: {},
       blogPosts: {},
       loadMoreBtn: false,
+      postsLoading: false,
       siteOptions: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
@@ -64912,24 +64913,25 @@ var Blog = function (_Component) {
 
       this.setState(function (prevState) {
         return _extends({}, prevState, {
-          loadMoreBtn: false
+          loadMoreBtn: false,
+          postsLoading: true
         });
       }, function () {
         _axios2.default.get(_this5.state.pageApiUrl + "/wp-json/wp/v2/posts/?_embed&offset=" + _this5.state.blogPosts.length).then(function (result) {
-          console.log(result.data);
           if (result.data.length > 0) {
             var firstFive = result.data.slice(0, 5);
-            console.log(firstFive);
             _this5.setState(function (prevState) {
               return _extends({}, prevState, {
                 blogPosts: [].concat(_toConsumableArray(prevState.blogPosts), _toConsumableArray(firstFive)),
-                loadMoreBtn: result.data.length > 5
+                loadMoreBtn: result.data.length > 5,
+                postsLoading: false
               });
             });
           } else {
             _this5.setState(function (prevState) {
               return _extends({}, prevState, {
-                loadMoreBtn: false
+                loadMoreBtn: false,
+                postsLoading: false
               });
             });
           }
@@ -65010,6 +65012,7 @@ var Blog = function (_Component) {
             browserLang: this.state.browserLang,
             siteOptions: this.state.siteOptions,
             loadMoreBtn: this.state.loadMoreBtn,
+            postsLoading: this.state.postsLoading,
             loadMore: this.loadMore
           }),
           _react2.default.createElement(_Footer2.default, {
@@ -65093,7 +65096,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Posts = function Posts(props) {
   var posts = props.postsData;
   var lang = props.browserLang;
-  var defaultImg = props.siteOptions._np_default_post_image ? props.siteOptions._np_default_post_image.sizes.halfsquarecropped : false;
+  var defaultImg = props.siteOptions._np_default_post_image ? props.siteOptions._np_default_post_image.sizes.mainblogpage : false;
+
+  var loadMoreText = "";
+  var loadMoreBtnTextLangActive = lang === "en" ? "Load More Posts" : "Charger plus de messages";
+  var loadMoreBtnTextLangDisabled = lang === "en" ? "No More Posts" : "Plus de messages";
+  var loadMoreBtnTextLangLoading = lang === "en" ? "Loading Posts" : "Chargement des messages";
+
+  if (props.postsLoading) {
+    loadMoreText = loadMoreBtnTextLangLoading;
+  } else {
+    loadMoreText = props.loadMoreBtn ? loadMoreBtnTextLangActive : loadMoreBtnTextLangDisabled;
+  }
+
   return _react2.default.createElement(
     "div",
     { className: "np-blogposts" },
@@ -65128,7 +65143,7 @@ var Posts = function Posts(props) {
         _react2.default.createElement(
           "button",
           { onClick: props.loadMore, disabled: !props.loadMoreBtn },
-          "More Posts"
+          loadMoreText
         )
       )
     )
@@ -65155,13 +65170,15 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Post = function Post(props) {
+  console.log(props);
   var postTitle = props.lang === "en" ? props.post.acf._np_en_article_title : props.post.acf._np_fr_article_title;
 
   var postExcerpt = props.lang === "en" ? props.post.acf._np_en_article_excerpt : props.post.acf._np_fr_article_excerpt;
 
-  var postImgSrc = props.post._embedded["wp:featuredmedia"] ? props.post._embedded["wp:featuredmedia"][0].media_details.sizes.halfsquarecropped.source_url : props.defaultImg;
+  var mainImg = props.post.acf.featured_image ? props.post.acf.featured_image.sizes.mainblogpage : props.defaultImg;
 
   var postLink = props.post.link;
+
   return _react2.default.createElement(
     "div",
     { className: "np-post" },
@@ -65171,7 +65188,7 @@ var Post = function Post(props) {
       _react2.default.createElement(
         "a",
         { href: postLink },
-        _react2.default.createElement("img", { src: postImgSrc, alt: postTitle })
+        _react2.default.createElement("img", { src: mainImg, alt: postTitle })
       )
     ),
     _react2.default.createElement(
@@ -65197,7 +65214,7 @@ var Post = function Post(props) {
       _react2.default.createElement(
         "a",
         { href: postLink },
-        "Contiune Reading"
+        props.lang === "en" ? "Contiune Reading" : "Lecture Contiune"
       )
     )
   );

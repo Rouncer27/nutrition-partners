@@ -54,6 +54,11 @@ function SWB_theme_setup() {
 	// Need a image for half sized images on a mobile device. Screens smaller than 768px. //
 	add_image_size( 'mobilehalf', 500, 1000, false );
 
+
+	add_image_size( 'mainblogpage', 750, 375, true );
+	add_image_size( 'mainblogpagesmall', 500, 250, true );
+	
+
 	// *** Custom Image sizes here. *** //
 
 	/**
