@@ -57915,12 +57915,21 @@ var LauguageButton = function LauguageButton(_ref) {
   return _react2.default.createElement(
     "div",
     { className: "np-langbtn" },
-    _react2.default.createElement("button", {
-      className: (0, _classnames2.default)("tgl-btn", {
-        active: browserLang === "en"
+    _react2.default.createElement(
+      "label",
+      null,
+      "English / French",
+      _react2.default.createElement("input", {
+        type: "checkbox",
+        className: "ios-switch green  bigswitch",
+        onChange: switchTheLang
       }),
-      onClick: switchTheLang
-    })
+      _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement("div", null)
+      )
+    )
   );
 };
 
