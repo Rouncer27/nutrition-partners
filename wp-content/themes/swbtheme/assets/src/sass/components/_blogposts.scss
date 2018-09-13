@@ -19,6 +19,20 @@
     @include bp(bp-l) {
       width: calc(40% - 3rem);
       margin-left: 3rem;
+      padding: 6rem;
+      padding-top: 3rem;
+    }
+
+    &--title {
+      h3 {
+        @include mainTitle();
+        margin: 0;
+        margin-bottom: 2rem;
+
+        @include bp(bp-l) {
+          font-size: 3rem;
+        }
+      }
     }
 
     &--background {

@@ -1,0 +1,26 @@
+import React from "react";
+import Post from "./Post";
+
+const PostSidebar = props => {
+  console.log(props.posts);
+  return (
+    <div className="np-blogposts__sidebar">
+      <div className="np-blogposts__sidebar--title">
+        <h3>Newsletters</h3>
+      </div>
+      {props.posts.map(post => {
+        return (
+          <Post
+            key={post.id}
+            post={post}
+            lang={props.lang}
+            defaultImg={props.defaultImg}
+          />
+        );
+      })}
+      <div className="np-blogposts__sidebar--background" />
+    </div>
+  );
+};
+
+export default PostSidebar;

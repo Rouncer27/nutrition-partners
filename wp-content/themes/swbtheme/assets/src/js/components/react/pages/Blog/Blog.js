@@ -20,6 +20,7 @@ class Blog extends Component {
     this.getFrenchMenuItems = this.getFrenchMenuItems.bind(this);
     this.getBlogPosts = this.getBlogPosts.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.getNewsletterCats = this.getNewsletterCats.bind(this);
 
     this.state = {
       browserLang: "",
@@ -28,6 +29,7 @@ class Blog extends Component {
       pageID: "",
       pageData: {},
       blogPosts: {},
+      newsletters: {},
       loadMoreBtn: false,
       postsLoading: false,
       siteOptions: {},
@@ -53,6 +55,7 @@ class Blog extends Component {
       () => {
         this.getPageData();
         this.getBlogPosts();
+        this.getNewsletterCats();
         this.getEnglishMenuItems();
         this.getFrenchMenuItems();
         this.getOptionsData();
@@ -101,9 +104,31 @@ class Blog extends Component {
       });
   }
 
+  getNewsletterCats() {
+    axios
+      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts/?_embed&categories=10`)
+      .then(result => {
+        if (result.data.length > 0) {
+          const onlyFive = result.data.slice(0, 5);
+          this.setState(prevState => {
+            return {
+              ...prevState,
+              newsletters: onlyFive
+            };
+          });
+        } else {
+          console.log("there is no posts in the database!");
+        }
+      });
+  }
+
   getBlogPosts() {
     axios
-      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts/?_embed`)
+      .get(
+        `${
+          this.state.pageApiUrl
+        }/wp-json/wp/v2/posts/?_embed&categories_exclude=10`
+      )
       .then(result => {
         if (result.data.length > 0) {
           const firstFive = result.data.slice(0, 5);
@@ -132,7 +157,9 @@ class Blog extends Component {
       () => {
         axios
           .get(
-            `${this.state.pageApiUrl}/wp-json/wp/v2/posts/?_embed&offset=${
+            `${
+              this.state.pageApiUrl
+            }/wp-json/wp/v2/posts/?_embed&categories_exclude=10&offset=${
               this.state.blogPosts.length
             }`
           )
@@ -229,6 +256,11 @@ class Blog extends Component {
             <BlogIntro acf={acf} browserLang={this.state.browserLang} />
             <Posts
               postsData={this.state.blogPosts}
+              newsletters={
+                this.state.newsletters.length > 0
+                  ? this.state.newsletters
+                  : false
+              }
               browserLang={this.state.browserLang}
               siteOptions={this.state.siteOptions}
               loadMoreBtn={this.state.loadMoreBtn}

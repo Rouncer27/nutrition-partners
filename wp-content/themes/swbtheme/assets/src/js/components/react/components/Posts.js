@@ -1,5 +1,6 @@
 import React from "react";
 import Post from "./Post";
+import PostSidebar from "./PostSidebar";
 
 const Posts = props => {
   const posts = props.postsData;
@@ -39,10 +40,12 @@ const Posts = props => {
             );
           })}
         </div>
-        <div className="np-blogposts__sidebar">
-          <h3>Sidebar</h3>
-          <div className="np-blogposts__sidebar--background" />
-        </div>
+        <PostSidebar
+          posts={props.newsletters}
+          lang={lang}
+          defaultImg={defaultImg}
+        />
+
         <div className="np-blogposts__loadmore">
           <button onClick={props.loadMore} disabled={!props.loadMoreBtn}>
             {loadMoreText}
