@@ -4,6 +4,7 @@
 
   &__wrapper {
     @include container-base(flex);
+    width: 80rem;
   }
 
   &__title {
@@ -12,15 +13,10 @@
     text-align: center;
 
     h2 {
+      @include mainTitle();
       margin: 0;
       color: $silverRust;
-      font-family: $font-family--secondary;
-      font-size: 3.8rem;
-      font-weight: bold;
-
-      @include bp(bp-m) {
-        font-size: 5rem;
-      }
+      font-weight: 500;
     }
   }
 
@@ -28,7 +24,13 @@
     text-align: center;
 
     p {
+      @include mainParagraph();
+      margin-bottom: 2rem;
       color: $athensGray;
+
+      @include bp(bp-m) {
+        font-size: 1.6rem;
+      }
 
       @include bp(bp-l) {
         font-size: 1.8rem;

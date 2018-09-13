@@ -43,24 +43,23 @@
     }
 
     h2 {
-      margin: 3rem auto;
-      color: $color-secondary;
-      font-family: $font-family--secondary;
-      font-size: 3.6rem;
-      font-weight: bold;
+      @include mainTitle();
+      text-align: left;
 
-      @include bp(bp-m) {
-        font-size: 3.8rem;
+      @include bp(bp-l) {
+        font-size: 5rem;
       }
     }
   }
 
   &__right {
+    display: none;
     align-self: flex-end;
     width: 100%;
     margin-bottom: 3rem;
 
     @include bp(bp-m) {
+      display: block;
       padding-top: 20rem;
     }
   }

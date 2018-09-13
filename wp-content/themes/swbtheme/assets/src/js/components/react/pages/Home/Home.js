@@ -130,7 +130,7 @@ export default class Home extends Component {
   // Get the recent posts //
   getPostsData() {
     axios
-      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts?_embed`)
+      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts?_embed&per_page=3`)
       .then(result => {
         this.setState(prevState => {
           return {

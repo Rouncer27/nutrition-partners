@@ -1,9 +1,14 @@
 .np-process {
   position: relative;
   padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-bottom: 10rem;
 
   @include bp(bp-m) {
+    padding-top: 10rem;
+    padding-bottom: 12.5rem;
+  }
+
+  @include bp(bp-l) {
     padding-top: 7.5rem;
     padding-bottom: 7.5rem;
   }
@@ -40,10 +45,14 @@
     background-image: url("#{$path--rel}/images/process/ntp-nutrition-pig-feed.jpg");
 
     @include bp(bp-m) {
-      bottom: 2rem;
+      bottom: 0;
       left: -17.5rem;
       width: 40rem;
       height: 25rem;
+    }
+
+    @include bp(bp-l) {
+      bottom: 2rem;
     }
   }
 
@@ -78,12 +87,17 @@
       flex-wrap: wrap;
       justify-content: center;
       width: 50%;
-      margin-bottom: 15rem;
+      margin-bottom: 7.5rem;
       padding: 0 1rem;
 
       @include bp(bp-m) {
         width: 25%;
+        margin-bottom: 7rem;
         padding: 0 3rem;
+      }
+
+      @include bp(bp-l) {
+        margin-bottom: 7rem;
       }
     }
 

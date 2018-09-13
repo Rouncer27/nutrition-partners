@@ -33040,7 +33040,7 @@ var Home = function (_Component) {
     value: function getPostsData() {
       var _this6 = this;
 
-      _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp/v2/posts?_embed").then(function (result) {
+      _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp/v2/posts?_embed&per_page=3").then(function (result) {
         _this6.setState(function (prevState) {
           return _extends({}, prevState, {
             postsData: result.data
@@ -60646,6 +60646,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var RecentArticles = function RecentArticles(props) {
   var acf = props.pageData.acf;
   var browserLang = props.browserLang;
+
   return _react2.default.createElement(
     "div",
     { className: "np-recent" },
@@ -60665,7 +60666,6 @@ var RecentArticles = function RecentArticles(props) {
         "div",
         { className: "np-recent__articles" },
         props.postsData.length > 0 && props.postsData.map(function (post, index) {
-          if (index >= 3) return;
           return _react2.default.createElement(_Article2.default, { key: post.id, post: post, browserLang: browserLang });
         })
       )
@@ -60697,13 +60697,16 @@ var _moment2 = _interopRequireDefault(_moment);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (props) {
+  console.log(props);
+
+  var mainImg = props.post.acf.featured_image ? props.post.acf.featured_image.sizes.mainblogpage : props.defaultImg;
+
   var post = props.post,
       browserLang = props.browserLang;
 
 
   _moment2.default.locale(browserLang);
   var articleDate = (0, _moment2.default)(post.date).format("MMMM Do YYYY");
-  var featuredImage = post._embedded["wp:featuredmedia"][0].media_details.sizes.halfsquarecropped.source_url;
 
   var enTitle = post.acf._np_en_article_title;
   var frTitle = post.acf._np_fr_article_title;
@@ -60711,13 +60714,19 @@ exports.default = function (props) {
   var frExcerpt = post.acf._np_fr_article_excerpt;
   var articleTitle = browserLang === "en" ? enTitle : frTitle;
   var articleExcerpt = browserLang === "en" ? enExcerpt : frExcerpt;
+  var postLink = props.post.link;
+
   return _react2.default.createElement(
     "div",
     { className: "np-recent__article" },
     _react2.default.createElement(
       "div",
       { className: "np-recent__article--image" },
-      _react2.default.createElement("img", { src: featuredImage, alt: articleTitle })
+      _react2.default.createElement(
+        "a",
+        { href: postLink },
+        _react2.default.createElement("img", { src: mainImg, alt: articleTitle })
+      )
     ),
     _react2.default.createElement(
       "div",
@@ -60725,7 +60734,11 @@ exports.default = function (props) {
       _react2.default.createElement(
         "h2",
         null,
-        articleTitle
+        _react2.default.createElement(
+          "a",
+          { href: postLink },
+          articleTitle
+        )
       ),
       _react2.default.createElement(
         "p",
@@ -60738,7 +60751,16 @@ exports.default = function (props) {
       dangerouslySetInnerHTML: {
         __html: articleExcerpt
       }
-    })
+    }),
+    _react2.default.createElement(
+      "div",
+      { className: "np-recent__article--link" },
+      _react2.default.createElement(
+        "a",
+        { href: postLink },
+        browserLang === "en" ? "Contiune Reading" : "Lecture Contiune"
+      )
+    )
   );
 };
 

@@ -2,13 +2,16 @@ import React from "react";
 import moment from "moment";
 
 export default props => {
+  console.log(props);
+
+  const mainImg = props.post.acf.featured_image
+    ? props.post.acf.featured_image.sizes.mainblogpage
+    : props.defaultImg;
+
   const { post, browserLang } = props;
 
   moment.locale(browserLang);
   const articleDate = moment(post.date).format("MMMM Do YYYY");
-  const featuredImage =
-    post._embedded["wp:featuredmedia"][0].media_details.sizes.halfsquarecropped
-      .source_url;
 
   const enTitle = post.acf._np_en_article_title;
   const frTitle = post.acf._np_fr_article_title;
@@ -16,13 +19,19 @@ export default props => {
   const frExcerpt = post.acf._np_fr_article_excerpt;
   const articleTitle = browserLang === "en" ? enTitle : frTitle;
   const articleExcerpt = browserLang === "en" ? enExcerpt : frExcerpt;
+  const postLink = props.post.link;
+
   return (
     <div className="np-recent__article">
       <div className="np-recent__article--image">
-        <img src={featuredImage} alt={articleTitle} />
+        <a href={postLink}>
+          <img src={mainImg} alt={articleTitle} />
+        </a>
       </div>
       <div className="np-recent__article--title">
-        <h2>{articleTitle}</h2>
+        <h2>
+          <a href={postLink}>{articleTitle}</a>
+        </h2>
         <p>{articleDate}</p>
       </div>
       <div
@@ -31,6 +40,11 @@ export default props => {
           __html: articleExcerpt
         }}
       />
+      <div className="np-recent__article--link">
+        <a href={postLink}>
+          {browserLang === "en" ? "Contiune Reading" : "Lecture Contiune"}
+        </a>
+      </div>
     </div>
   );
 };

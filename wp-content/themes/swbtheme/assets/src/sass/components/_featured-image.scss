@@ -1,5 +1,5 @@
 .np-featured {
-  min-height: 50rem;
+  min-height: 80rem;
   margin: 0;
   padding: 0;
   background: linear-gradient(
@@ -11,7 +11,7 @@
   );
 
   @include bp(bp-m) {
-    min-height: 100vh;
+    min-height: 60rem;
     background: linear-gradient(
       to bottom,
       $color-secondary 0%,
@@ -19,6 +19,10 @@
       transparent 40rem,
       transparent 100%
     );
+  }
+
+  @include bp(bp-l) {
+    min-height: 100vh;
   }
 
   &__wrapper {
@@ -40,17 +44,20 @@
       margin: 3rem 0 1rem;
 
       li {
-        display: inline-block;
+        display: block;
         position: relative;
-        margin: 0.5rem 1.5rem;
-        padding: 3rem 1rem 0.25rem;
+        width: 100%;
+        margin: 0.5rem 0;
+        padding: 2rem 0 0.25rem;
         color: $color-secondary;
         font-family: $font-family--primary;
-        font-size: 1.2rem;
+        font-size: 2rem;
         font-weight: 900;
         text-transform: uppercase;
 
         @include bp(bp-m) {
+          display: inline-block;
+          width: 10rem;
           margin: 0.5rem 4rem;
           padding: 6rem 1rem 0.25rem;
           font-size: 2rem;
@@ -64,13 +71,18 @@
       .np-active-slide-menu-item::before {
         display: block;
         position: absolute;
-        top: 0;
-        left: 1rem;
+        top: -1rem;
+        left: 0;
         height: 3rem;
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
         content: "";
+
+        @include bp(bp-l) {
+          top: 0;
+          left: 1rem;
+        }
       }
 
       .np-active-slide-menu-item.np-slide-menu-swine::before {
@@ -108,11 +120,17 @@
         display: block;
         position: absolute;
         bottom: -0.5rem;
-        left: 1rem;
-        width: 6rem;
+        left: 0;
+        width: 8rem;
         height: 0.5rem;
         background-color: $color-primary;
         content: "";
+
+        @include bp(bp-m) {
+          left: 1rem;
+          width: 6rem;
+          height: 0.5rem;
+        }
       }
 
       @include bp(bp-m) {
@@ -134,6 +152,7 @@
 
   &__content {
     width: 100%;
+    margin-top: 2.5rem;
 
     h2 {
       margin: 0;
@@ -143,15 +162,8 @@
     }
 
     h3 {
-      margin: 0;
-      color: $silverRust;
-      font-family: $font-family--primary;
-      font-size: 2rem;
-      line-height: 1.25;
-
-      @include bp(bp-m) {
-        font-size: 2.4rem;
-      }
+      @include sub-maintitle();
+      text-align: left;
     }
 
     p {
