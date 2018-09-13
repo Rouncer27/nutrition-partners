@@ -35,6 +35,25 @@
       }
     }
 
+    &--signup {
+      p {
+        @include mainTitle();
+        margin: 0;
+        padding-bottom: 2.5rem;
+        text-align: left;
+
+        @include bp(bp-l) {
+          font-size: 2rem;
+        }
+      }
+
+      button {
+        @include mainButton();
+        border: 0 solid transparent;
+        background: transparent;
+      }
+    }
+
     &--background {
       position: absolute;
       top: 0;
@@ -50,6 +69,7 @@
     button {
       @include mainButton();
       border: 0 solid transparent;
+      background: transparent;
 
       &:disabled {
         box-shadow: 0 0.25rem 0 $grey;
