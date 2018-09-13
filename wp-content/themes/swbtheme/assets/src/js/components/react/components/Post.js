@@ -9,13 +9,21 @@ class Post extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    if (this.props.post.delay !== undefined) {
+      setTimeout(() => {
+        this.setState(() => {
+          return {
+            show: true
+          };
+        });
+      }, 350 * this.props.post.delay);
+    } else {
       this.setState(() => {
         return {
           show: true
         };
       });
-    }, 350 * this.props.post.delay);
+    }
   }
 
   render() {

@@ -25764,13 +25764,21 @@ var Post = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      setTimeout(function () {
-        _this2.setState(function () {
+      if (this.props.post.delay !== undefined) {
+        setTimeout(function () {
+          _this2.setState(function () {
+            return {
+              show: true
+            };
+          });
+        }, 350 * this.props.post.delay);
+      } else {
+        this.setState(function () {
           return {
             show: true
           };
         });
-      }, 350 * this.props.post.delay);
+      }
     }
   }, {
     key: "render",
