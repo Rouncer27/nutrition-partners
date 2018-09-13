@@ -41,9 +41,11 @@
   }
 
   &__menu {
+    display: none;
     align-self: center;
 
     @include bp(bp-m) {
+      display: block;
       width: 40%;
     }
   }

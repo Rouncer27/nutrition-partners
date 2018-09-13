@@ -105,6 +105,10 @@
       h3 {
         @include mainTitle();
         color: $white;
+
+        @include bp(bp-l) {
+          font-size: 5rem;
+        }
       }
     }
   }

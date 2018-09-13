@@ -30,7 +30,7 @@
 
   &__content {
     width: 100%;
-    margin-bottom: 4rem;
+    margin-bottom: 0;
 
     @include bp(bp-m) {
       width: calc(100% - 15rem);
@@ -48,9 +48,11 @@
   }
 
   &__image {
+    display: none;
     width: 100%;
 
     @include bp(bp-m) {
+      display: block;
       width: calc(100% - 10rem);
       margin: 0 10rem 3rem;
     }
