@@ -67442,22 +67442,22 @@ var Posts = function Posts(props) {
             lang: lang,
             defaultImg: defaultImg
           });
-        })
+        }),
+        _react2.default.createElement(
+          "div",
+          { className: "np-blogposts__loadmore" },
+          _react2.default.createElement(
+            "button",
+            { onClick: props.loadMore, disabled: !props.loadMoreBtn },
+            loadMoreText
+          )
+        )
       ),
       _react2.default.createElement(_PostSidebar2.default, {
         posts: props.newsletters,
         lang: lang,
         defaultImg: defaultImg
-      }),
-      _react2.default.createElement(
-        "div",
-        { className: "np-blogposts__loadmore" },
-        _react2.default.createElement(
-          "button",
-          { onClick: props.loadMore, disabled: !props.loadMoreBtn },
-          loadMoreText
-        )
-      )
+      })
     )
   );
 };

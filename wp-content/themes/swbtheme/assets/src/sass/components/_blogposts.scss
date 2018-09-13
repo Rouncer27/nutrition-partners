@@ -16,6 +16,7 @@
     align-self: flex-start;
     position: relative;
     width: 100%;
+    padding: 6rem 1rem;
 
     @include bp(bp-l) {
       width: calc(40% - 3rem);
@@ -58,15 +59,20 @@
     &--background {
       position: absolute;
       top: 0;
-      left: 0;
+      left: -200%;
       width: 1000rem;
       height: 100%;
       background-color: rgba($color-shadow2, 0.25);
       z-index: -1;
+
+      @include bp(bp-m) {
+        left: 0;
+      }
     }
   }
 
   &__loadmore {
+    padding: 4rem 0;
     button {
       @include mainButton();
       border: 0 solid transparent;

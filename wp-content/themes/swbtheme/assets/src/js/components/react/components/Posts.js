@@ -48,18 +48,17 @@ const Posts = props => {
               />
             );
           })}
+          <div className="np-blogposts__loadmore">
+            <button onClick={props.loadMore} disabled={!props.loadMoreBtn}>
+              {loadMoreText}
+            </button>
+          </div>
         </div>
         <PostSidebar
           posts={props.newsletters}
           lang={lang}
           defaultImg={defaultImg}
         />
-
-        <div className="np-blogposts__loadmore">
-          <button onClick={props.loadMore} disabled={!props.loadMoreBtn}>
-            {loadMoreText}
-          </button>
-        </div>
       </div>
     </div>
   );
