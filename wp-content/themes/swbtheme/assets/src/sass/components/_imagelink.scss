@@ -42,6 +42,7 @@
       @include mainTitle();
 
       @include bp(bp-m) {
+        font-size: 3rem;
         text-align: left;
       }
 
