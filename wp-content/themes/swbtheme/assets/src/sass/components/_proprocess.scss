@@ -8,6 +8,10 @@
   &__intro {
     width: 100%;
 
+    @include bp(bp-l) {
+      padding-bottom: 10rem;
+    }
+
     &--title {
       @include mainTitle();
       color: $color-shadow2;
@@ -17,6 +21,11 @@
       p {
         @include mainParagraph();
         color: $white;
+
+        @include bp(bp-l) {
+          font-size: 1.6rem;
+          text-align: center;
+        }
       }
     }
   }
@@ -75,67 +84,82 @@
 
     &--hand {
       i {
-        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-01.png");
+        background-image: url("#{$path--rel}/images/proprocess/NTP-Process-Step-icons-01.png");
       }
     }
 
     &--barn {
       i {
-        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-02.png");
+        background-image: url("#{$path--rel}/images/proprocess/NTP-Process-Step-icons-02.png");
       }
     }
 
     &--stock {
       i {
-        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-03.png");
+        background-image: url("#{$path--rel}/images/proprocess/NTP-Process-Step-icons-03.png");
       }
     }
 
     &--chem {
       i {
-        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-04.png");
+        background-image: url("#{$path--rel}/images/proprocess/NTP-Process-Step-icons-04.png");
       }
     }
 
     &--wind {
       i {
-        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-05.png");
+        background-image: url("#{$path--rel}/images/proprocess/NTP-Process-Step-icons-05.png");
       }
     }
 
     &--silo {
       i {
-        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-06.png");
+        background-image: url("#{$path--rel}/images/proprocess/NTP-Process-Step-icons-06.png");
       }
     }
 
     &--farmer {
       i {
-        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-07.png");
+        background-image: url("#{$path--rel}/images/proprocess/NTP-Process-Step-icons-07.png");
       }
     }
 
     &--animals {
       i {
-        background-image: url("#{$path--rel}/images/process/NTP-Process-Step-08.png");
+        background-image: url("#{$path--rel}/images/proprocess/NTP-Process-Step-icons-08.png");
       }
     }
 
     &--title {
       h3 {
         color: $white;
+
+        @include bp(bp-l) {
+          font-size: 1.4rem;
+          text-align: center;
+        }
       }
     }
 
     &--content {
       p {
         color: $white;
+
+        @include bp(bp-l) {
+          font-size: 1.2rem;
+          text-align: center;
+        }
       }
     }
 
     &--list {
       li {
         color: $white;
+
+        @include bp(bp-l) {
+          font-size: 1.2rem;
+          text-align: center;
+        }
       }
     }
   }

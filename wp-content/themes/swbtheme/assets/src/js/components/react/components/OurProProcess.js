@@ -42,6 +42,9 @@ const OurProProcess = props => {
                 >
                   <i />
                 </div>
+                <div className="np-process__info--number">
+                  <p>{`${index + 1}.`}</p>
+                </div>
                 <div className="np-ourpro__step--title">
                   <h3>{stepTitle}</h3>
                 </div>

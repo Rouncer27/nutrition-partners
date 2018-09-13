@@ -65717,6 +65717,15 @@ var OurProProcess = function OurProProcess(props) {
             ),
             _react2.default.createElement(
               "div",
+              { className: "np-process__info--number" },
+              _react2.default.createElement(
+                "p",
+                null,
+                index + 1 + "."
+              )
+            ),
+            _react2.default.createElement(
+              "div",
               { className: "np-ourpro__step--title" },
               _react2.default.createElement(
                 "h3",
