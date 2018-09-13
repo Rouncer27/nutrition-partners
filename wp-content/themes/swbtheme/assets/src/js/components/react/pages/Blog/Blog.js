@@ -131,7 +131,17 @@ class Blog extends Component {
       )
       .then(result => {
         if (result.data.length > 0) {
+          let delayCounter = 0;
           const firstFive = result.data.slice(0, 5);
+          firstFive.forEach(post => {
+            if (delayCounter < 5) {
+              post.delay = delayCounter;
+              delayCounter++;
+            } else {
+              delayCounter = 0;
+              post.delay = delayCounter;
+            }
+          });
           this.setState(prevState => {
             return {
               ...prevState,
@@ -165,7 +175,17 @@ class Blog extends Component {
           )
           .then(result => {
             if (result.data.length > 0) {
+              let delayCounter = 0;
               const firstFive = result.data.slice(0, 5);
+              firstFive.forEach(post => {
+                if (delayCounter < 5) {
+                  post.delay = delayCounter;
+                  delayCounter++;
+                } else {
+                  delayCounter = 0;
+                  post.delay = delayCounter;
+                }
+              });
               this.setState(prevState => {
                 return {
                   ...prevState,

@@ -2,7 +2,6 @@ import React from "react";
 import Post from "./Post";
 
 const PostSidebar = props => {
-  console.log(props.posts);
   return (
     <div className="np-blogposts__sidebar">
       <div className="np-blogposts__sidebar--title">
@@ -19,6 +18,10 @@ const PostSidebar = props => {
         );
       })}
       <div className="np-blogposts__sidebar--background" />
+      <div className="np-blogposts__sidebar--signup">
+        <p>Join our newsletter</p>
+        <button>Sign-up</button>
+      </div>
     </div>
   );
 };
