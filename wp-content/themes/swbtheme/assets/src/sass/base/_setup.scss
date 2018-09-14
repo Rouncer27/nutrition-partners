@@ -32,6 +32,7 @@ main {
   flex-wrap: wrap;
 }
 
+body.single-post,
 body.blog {
   .swbwrapper {
     @media screen and (-ms-high-contrast: active),
