@@ -65,7 +65,7 @@ class Post extends React.Component {
         />
         <div className="np-post__link">
           <a href={postLink}>
-            {this.props.lang === "en" ? "Contiune Reading" : "Lecture Contiune"}
+            {this.props.lang === "en" ? "Continue Reading" : "Lecture Continue"}
           </a>
         </div>
       </div>

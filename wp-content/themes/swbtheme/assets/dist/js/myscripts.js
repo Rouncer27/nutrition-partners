@@ -74502,7 +74502,7 @@ exports.default = function (props) {
       _react2.default.createElement(
         "a",
         { href: postLink },
-        browserLang === "en" ? "Contiune Reading" : "Lecture Contiune"
+        browserLang === "en" ? "Continue Reading" : "Lecture Contiune"
       )
     )
   );

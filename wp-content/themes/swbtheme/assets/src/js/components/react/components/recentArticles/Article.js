@@ -42,7 +42,7 @@ export default props => {
       />
       <div className="np-recent__article--link">
         <a href={postLink}>
-          {browserLang === "en" ? "Contiune Reading" : "Lecture Contiune"}
+          {browserLang === "en" ? "Continue Reading" : "Lecture Contiune"}
         </a>
       </div>
     </div>
