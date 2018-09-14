@@ -60,6 +60,10 @@
       width: calc(50% - 4rem);
       margin-left: 4rem;
     }
+    @media screen and (-ms-high-contrast: active),
+      screen and (-ms-high-contrast: none) {
+      flex-direction: row;
+    }
 
     &--background {
       display: none;
