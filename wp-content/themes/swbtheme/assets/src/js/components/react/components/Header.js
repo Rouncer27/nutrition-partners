@@ -78,10 +78,10 @@ class Header extends Component {
               </div>{" "}
               <div className="menu-main-menu-container">
                 <Menu mainMenuItem={mainMenuItem} slug={pageData.slug} />
-                {/* <LauguageButton
+                <LauguageButton
                   browserLang={browserLang}
                   switchTheLang={switchTheLang}
-                /> */}
+                />
               </div>
               <div className="mobile-background" />
             </div>
