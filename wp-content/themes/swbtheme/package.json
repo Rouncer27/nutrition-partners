@@ -57,7 +57,7 @@
     "breakpoint-sass": "^2.7.1",
     "classnames": "^2.2.6",
     "es6-promise": "^4.2.4",
-    "gsap": "^1.20.3",
+    "gsap": "^1.20.6",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.22.2",
     "normalize.scss": "^0.1.0",
