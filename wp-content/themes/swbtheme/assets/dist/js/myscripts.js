@@ -81466,7 +81466,9 @@ var RepeatableContent2 = function (_Component) {
         duration: 0,
         triggerHook: 0.65,
         reverse: false
-      }).addTo(controller2).addIndicators().setTween(sectionTL2);
+      }).addTo(controller2)
+      //.addIndicators()
+      .setTween(sectionTL2);
     }
   }, {
     key: "render",

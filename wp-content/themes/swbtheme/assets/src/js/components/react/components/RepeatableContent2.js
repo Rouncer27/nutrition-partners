@@ -42,7 +42,7 @@ class RepeatableContent2 extends Component {
       reverse: false
     })
       .addTo(controller2)
-      .addIndicators()
+      //.addIndicators()
       .setTween(sectionTL2);
   }
   render() {
