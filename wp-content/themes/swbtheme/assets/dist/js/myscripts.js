@@ -39572,7 +39572,7 @@ var Post = function (_React$Component) {
           _react2.default.createElement(
             "a",
             { href: postLink },
-            this.props.lang === "en" ? "Contiune Reading" : "Lecture Contiune"
+            this.props.lang === "en" ? "Continue Reading" : "Lecture Continue"
           )
         )
       );
