@@ -10157,11 +10157,7 @@ var Header = function (_Component) {
               _react2.default.createElement(
                 "div",
                 { className: "menu-main-menu-container" },
-                _react2.default.createElement(_Menu2.default, { mainMenuItem: mainMenuItem, slug: pageData.slug }),
-                _react2.default.createElement(_LauguageButton2.default, {
-                  browserLang: browserLang,
-                  switchTheLang: switchTheLang
-                })
+                _react2.default.createElement(_Menu2.default, { mainMenuItem: mainMenuItem, slug: pageData.slug })
               ),
               _react2.default.createElement("div", { className: "mobile-background" })
             )
