@@ -51,7 +51,7 @@ class WhyNP extends Component {
       reverse: false
     })
       .addTo(controller)
-      .addIndicators()
+      // .addIndicators()
       .setTween(whyTL);
 
     const controller2 = new ScrollMagic.Controller();
@@ -76,7 +76,7 @@ class WhyNP extends Component {
       reverse: false
     })
       .addTo(controller2)
-      .addIndicators()
+      // .addIndicators()
       .setTween(whyTL2);
   }
 

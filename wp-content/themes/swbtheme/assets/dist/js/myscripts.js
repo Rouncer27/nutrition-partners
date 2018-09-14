@@ -78765,7 +78765,9 @@ var WhyNP = function (_Component) {
         duration: 0,
         triggerHook: 0.6,
         reverse: false
-      }).addTo(controller).addIndicators().setTween(whyTL);
+      }).addTo(controller)
+      // .addIndicators()
+      .setTween(whyTL);
 
       var controller2 = new _scrollmagic2.default.Controller();
       var whyTL2 = new TimelineMax();
@@ -78780,7 +78782,9 @@ var WhyNP = function (_Component) {
         duration: 0,
         triggerHook: 0,
         reverse: false
-      }).addTo(controller2).addIndicators().setTween(whyTL2);
+      }).addTo(controller2)
+      // .addIndicators()
+      .setTween(whyTL2);
     }
   }, {
     key: "render",
