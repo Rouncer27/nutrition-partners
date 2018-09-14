@@ -31,3 +31,12 @@ main {
   flex-direction: column;
   flex-wrap: wrap;
 }
+
+body.blog {
+  .swbwrapper {
+    @media screen and (-ms-high-contrast: active),
+      screen and (-ms-high-contrast: none) {
+      flex-direction: row;
+    }
+  }
+}
