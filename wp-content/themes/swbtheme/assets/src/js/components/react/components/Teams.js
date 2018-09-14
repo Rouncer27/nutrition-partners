@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-// import * as ScrollMagic from "scrollmagic";
 import ScrollMagic from "scrollmagic";
 import "animation.gsap";
 import "debug.addIndicators";
-// import * as gsap from "gsap";
 import { TweenMax } from "TweenMax";
 
 class Team extends Component {
@@ -14,17 +12,36 @@ class Team extends Component {
   componentDidMount() {
     const controller = new ScrollMagic.Controller();
     const teamTL = new TimelineMax();
+
     const teamTitle = document.querySelector(".np-teams__title");
-    teamTL.fromTo(teamTitle, 4, { autoAlpha: 0 }, { autoAlpha: 1 });
+    const teamContent = document.querySelector(".np-teams__content");
+    const teamImages = [...document.querySelectorAll(".np-teams__team")];
+
+    teamTL
+      .fromTo(teamTitle, 0.25, { y: 200, autoAlpha: 0 }, { y: 0, autoAlpha: 1 })
+      .fromTo(
+        teamContent,
+        0.25,
+        { x: 200, autoAlpha: 0 },
+        { x: 0, autoAlpha: 1 }
+      )
+      .staggerFromTo(
+        teamImages,
+        1,
+        { y: 200, autoAlpha: 0 },
+        { y: 0, autoAlpha: 1 },
+        0.25
+      );
+
     const teamScene = new ScrollMagic.Scene({
       triggerElement: teamTitle,
       offset: 0,
       duration: 0,
-      triggerHook: 0.5,
+      triggerHook: 0.75,
       reverse: false
     })
       .addTo(controller)
-      .addIndicators()
+      // .addIndicators()
       .setTween(teamTL);
   }
 
