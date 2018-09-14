@@ -77937,23 +77937,17 @@ var Team = function (_Component) {
   _createClass(Team, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // console.log(ScrollMagic);
-      // console.log(gsap);
-      // const controller = new ScrollMagic.Controller();
-      // const teamTL = new gsap.TimelineMax();
-      // const teamTitle = document.querySelector(".np-teams__title");
-      // console.log(teamTitle);
-      // teamTL.fromTo(teamTitle, 4, { autoAlpha: 0 }, { autoAlpha: 1 });
-      // const teamScene = new ScrollMagic.Scene({
-      //   triggerElement: teamTitle,
-      //   offset: 0,
-      //   duration: 0,
-      //   triggerHook: 0.5,
-      //   reverse: false
-      // })
-      //   .addTo(controller)
-      //   .addIndicators()
-      //   .setTween(teamTL);
+      var controller = new _scrollmagic2.default.Controller();
+      var teamTL = new TimelineMax();
+      var teamTitle = document.querySelector(".np-teams__title");
+      teamTL.fromTo(teamTitle, 4, { autoAlpha: 0 }, { autoAlpha: 1 });
+      var teamScene = new _scrollmagic2.default.Scene({
+        triggerElement: teamTitle,
+        offset: 0,
+        duration: 0,
+        triggerHook: 0.5,
+        reverse: false
+      }).addTo(controller).addIndicators().setTween(teamTL);
     }
   }, {
     key: "render",
