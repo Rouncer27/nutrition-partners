@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 // import * as ScrollMagic from "scrollmagic";
-// import ScrollMagic from "scrollmagic";
-// import "animation.gsap";
-// import "debug.addIndicators";
-// import * as gsap from "gsap";
+import ScrollMagic from "scrollmagic";
+import "animation.gsap";
+import "debug.addIndicators";
+import * as gsap from "gsap";
 // import { TweenMax } from "TweenMax";
 
 class Team extends Component {
