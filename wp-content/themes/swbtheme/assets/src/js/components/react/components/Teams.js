@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import ScrollMagic from "scrollmagic";
 import "animation.gsap";
 import "debug.addIndicators";
-import * as gsap from "gsap";
-// import { TweenMax } from "TweenMax";
+// import * as gsap from "gsap";
+import { TweenMax } from "TweenMax";
 
 class Team extends Component {
   constructor(props) {
