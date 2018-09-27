@@ -81562,9 +81562,17 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var KeyStats = function KeyStats(props) {
-  var keyStatsEn = props.acf._np_key_stats_en;
-  var keyStatsFr = props.acf._np_key_stats_fr;
-  var keyStats = props.browserLang === "en" ? keyStatsEn : keyStatsFr;
+  var keyAdvEn = props.acf._np_key_advantage_en ? props.acf._np_key_advantage_en : [];
+  var keyInduEn = props.acf._np_key_industry_en ? props.acf._np_key_industry_en : [];
+  var keyOppEn = props.acf._np_key_opportunity_en ? props.acf._np_key_opportunity_en : [];
+
+  var keyAdvFn = props.acf._np_key_advantage_fr ? props.acf._np_key_advantage_fr : [];
+  var keyInduFn = props.acf._np_key_industry_fr ? props.acf._np_key_industry_fr : [];
+  var keyOppFn = props.acf._np_key_opportunity_fr ? props.acf._np_key_opportunity_fr : [];
+
+  var keyAdvantage = props.browserLang === "en" ? keyAdvEn : keyAdvFn;
+  var keyIndustry = props.browserLang === "en" ? keyInduEn : keyInduFn;
+  var keyOpportunity = props.browserLang === "en" ? keyOppEn : keyOppFn;
 
   return _react2.default.createElement(
     "div",
@@ -81584,30 +81592,93 @@ var KeyStats = function KeyStats(props) {
       _react2.default.createElement(
         "div",
         { className: "np-keystats__stats" },
-        keyStats.map(function (stat, index) {
-          return _react2.default.createElement(
-            "div",
-            { className: "np-keystats__stat", key: index },
-            _react2.default.createElement(
+        _react2.default.createElement(
+          "div",
+          { className: "np-keystats__stats--advantage" },
+          _react2.default.createElement("div", { "class": "np-keystats__stats--advantage--header" }),
+          keyAdvantage.map(function (stat, index) {
+            return _react2.default.createElement(
               "div",
-              { className: "np-keystats__stat--number" },
+              { className: "np-keystats__stat", key: index },
               _react2.default.createElement(
-                "p",
-                null,
-                stat.stat_number
+                "div",
+                { className: "np-keystats__stat--number" },
+                _react2.default.createElement(
+                  "p",
+                  null,
+                  stat.stat_number
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "np-keystats__stat--description" },
+                _react2.default.createElement(
+                  "p",
+                  null,
+                  stat.stat_description
+                )
               )
-            ),
-            _react2.default.createElement(
+            );
+          })
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "np-keystats__stats--industry" },
+          _react2.default.createElement("div", { "class": "np-keystats__stats--industry--header" }),
+          keyIndustry.map(function (stat, index) {
+            return _react2.default.createElement(
               "div",
-              { className: "np-keystats__stat--description" },
+              { className: "np-keystats__stat", key: index },
               _react2.default.createElement(
-                "p",
-                null,
-                stat.stat_description
+                "div",
+                { className: "np-keystats__stat--number" },
+                _react2.default.createElement(
+                  "p",
+                  null,
+                  stat.stat_number
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "np-keystats__stat--description" },
+                _react2.default.createElement(
+                  "p",
+                  null,
+                  stat.stat_description
+                )
               )
-            )
-          );
-        })
+            );
+          })
+        ),
+        _react2.default.createElement(
+          "div",
+          { className: "np-keystats__stats--opportunity" },
+          _react2.default.createElement("div", { "class": "np-keystats__stats--opportunity--header" }),
+          keyOpportunity.map(function (stat, index) {
+            return _react2.default.createElement(
+              "div",
+              { className: "np-keystats__stat", key: index },
+              _react2.default.createElement(
+                "div",
+                { className: "np-keystats__stat--number" },
+                _react2.default.createElement(
+                  "p",
+                  null,
+                  stat.stat_number
+                )
+              ),
+              _react2.default.createElement(
+                "div",
+                { className: "np-keystats__stat--description" },
+                _react2.default.createElement(
+                  "p",
+                  null,
+                  stat.stat_description
+                )
+              )
+            );
+          })
+        )
       )
     )
   );

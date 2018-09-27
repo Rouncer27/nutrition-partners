@@ -78,3 +78,16 @@
     }
   }
 }
+
+.mainfooter__menu {
+  .swbmainnav__wrap {
+    li {
+      a {
+        @include bp(bp-m) {
+          padding: 1rem 0.5rem;
+          font-size: 1.4rem;
+        }
+      }
+    }
+  }
+}
