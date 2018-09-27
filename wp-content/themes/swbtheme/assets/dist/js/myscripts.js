@@ -81689,7 +81689,6 @@ var KeyStats = function (_Component) {
     value: function animateTheFarm(icon) {
       var cloudOne = icon.querySelector(".np-cloud-one");
       var cloudTwo = icon.querySelector(".np-cloud-two");
-      console.log(cloudOne, cloudTwo);
 
       var cloudsTL = new TimelineMax({ repeat: -1 });
       cloudsTL.add("start").fromTo(cloudOne, 10, {

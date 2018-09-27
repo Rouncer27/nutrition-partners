@@ -127,7 +127,6 @@ class KeyStats extends Component {
   animateTheFarm(icon) {
     const cloudOne = icon.querySelector(".np-cloud-one");
     const cloudTwo = icon.querySelector(".np-cloud-two");
-    console.log(cloudOne, cloudTwo);
 
     const cloudsTL = new TimelineMax({ repeat: -1 });
     cloudsTL

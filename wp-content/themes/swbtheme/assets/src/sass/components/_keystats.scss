@@ -85,14 +85,19 @@
 
     &--opportunity {
       &--header {
+        width: 20rem;
+        max-width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+
         svg {
           display: block;
           width: 20rem;
           max-width: 100%;
           margin: 0 auto;
-          fill: $white;
-          object-fit: cover;
           overflow: hidden;
+          object-fit: cover;
+          fill: $white;
 
           .nl-adv-first {
             transform-origin: center center;
