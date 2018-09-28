@@ -190,6 +190,7 @@ class KeyStats extends Component {
       const statTL = new TimelineMax();
       const statCon = new ScrollMagic.Controller();
       const statContainer = stat.querySelector(".np-keystats__stat--number p");
+      const statType = stat.querySelector(".np-stat-year");
       const statFinal = parseFloat(
         stat.querySelector(".np-keystats__stat--number p").innerText
       );
@@ -199,7 +200,8 @@ class KeyStats extends Component {
 
       const countNumbersUp = (statStart, statFinal) => {
         statNum.innerHTML = statStart.score;
-        if (statFinal % 1 === 0) {
+
+        if (statFinal % 1 === 0 && statType === null) {
           statTween.to(statStart, 1.75, {
             score: statFinal.toFixed(2),
             onUpdate: function() {
@@ -211,7 +213,7 @@ class KeyStats extends Component {
             },
             ease: Circ.easeOut
           });
-        } else {
+        } else if (statFinal % 1 !== 0 && statType === null) {
           statTween.to(statStart, 1.75, {
             score: statFinal.toFixed(2),
             onUpdate: function() {
@@ -219,6 +221,15 @@ class KeyStats extends Component {
                 .toFixed(1)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              statContainer.innerHTML = nwc;
+            },
+            ease: Circ.easeOut
+          });
+        } else {
+          statTween.to(statStart, 1.75, {
+            score: statFinal.toFixed(2),
+            onUpdate: function() {
+              var nwc = statStart.score.toFixed(0);
               statContainer.innerHTML = nwc;
             },
             ease: Circ.easeOut
@@ -380,7 +391,7 @@ class KeyStats extends Component {
                 } else if (stat.stats_number_type_2 == "money") {
                   displayType = "$";
                 } else if (stat.stats_number_type_2 == "year") {
-                  displayType = false;
+                  displayType = "year";
                 } else if (stat.stats_number_type_2 == "num") {
                   displayType = false;
                 }
@@ -389,10 +400,16 @@ class KeyStats extends Component {
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       {displayType &&
-                        displayType == "$" && <i>{displayType}</i>}
+                        displayType == "$" && (
+                          <i className="np-stat-dollar">{displayType}</i>
+                        )}
                       <p>{stat.stat_number}</p>
                       {displayType &&
-                        displayType == "%" && <i>{displayType}</i>}
+                        displayType == "%" && (
+                          <i className="np-stat-percent">{displayType}</i>
+                        )}
+                      {displayType &&
+                        displayType == "year" && <i className="np-stat-year" />}
                     </div>
                     <div className="np-keystats__stat--type">
                       {displaySize && <p>{displaySize}</p>}
@@ -490,10 +507,14 @@ class KeyStats extends Component {
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       {displayType &&
-                        displayType == "$" && <i>{displayType}</i>}
+                        displayType == "$" && (
+                          <i className="np-stat-dollar">{displayType}</i>
+                        )}
                       <p>{stat.stat_number}</p>
                       {displayType &&
-                        displayType == "%" && <i>{displayType}</i>}
+                        displayType == "%" && (
+                          <i className="np-stat-percent">{displayType}</i>
+                        )}
                     </div>
                     <div className="np-keystats__stat--type">
                       {displaySize && <p>{displaySize}</p>}
@@ -633,10 +654,14 @@ class KeyStats extends Component {
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       {displayType &&
-                        displayType == "$" && <i>{displayType}</i>}
+                        displayType == "$" && (
+                          <i className="np-stat-dollar">{displayType}</i>
+                        )}
                       <p>{stat.stat_number}</p>
                       {displayType &&
-                        displayType == "%" && <i>{displayType}</i>}
+                        displayType == "%" && (
+                          <i className="np-stat-percent">{displayType}</i>
+                        )}
                     </div>
                     <div className="np-keystats__stat--type">
                       {displaySize && <p>{displaySize}</p>}

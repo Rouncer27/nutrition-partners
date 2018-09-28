@@ -81739,6 +81739,7 @@ var KeyStats = function (_Component) {
         var statTL = new TimelineMax();
         var statCon = new _scrollmagic2.default.Controller();
         var statContainer = stat.querySelector(".np-keystats__stat--number p");
+        var statType = stat.querySelector(".np-stat-year");
         var statFinal = parseFloat(stat.querySelector(".np-keystats__stat--number p").innerText);
         var statNum = stat.querySelector(".np-keystats__stat--number p");
         var statStart = { score: 0 };
@@ -81746,7 +81747,8 @@ var KeyStats = function (_Component) {
 
         var countNumbersUp = function countNumbersUp(statStart, statFinal) {
           statNum.innerHTML = statStart.score;
-          if (statFinal % 1 === 0) {
+
+          if (statFinal % 1 === 0 && statType === null) {
             statTween.to(statStart, 1.75, {
               score: statFinal.toFixed(2),
               onUpdate: function onUpdate() {
@@ -81755,11 +81757,20 @@ var KeyStats = function (_Component) {
               },
               ease: Circ.easeOut
             });
-          } else {
+          } else if (statFinal % 1 !== 0 && statType === null) {
             statTween.to(statStart, 1.75, {
               score: statFinal.toFixed(2),
               onUpdate: function onUpdate() {
                 var nwc = statStart.score.toFixed(1).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                statContainer.innerHTML = nwc;
+              },
+              ease: Circ.easeOut
+            });
+          } else {
+            statTween.to(statStart, 1.75, {
+              score: statFinal.toFixed(2),
+              onUpdate: function onUpdate() {
+                var nwc = statStart.score.toFixed(0);
                 statContainer.innerHTML = nwc;
               },
               ease: Circ.easeOut
@@ -81936,7 +81947,7 @@ var KeyStats = function (_Component) {
                 } else if (stat.stats_number_type_2 == "money") {
                   displayType = "$";
                 } else if (stat.stats_number_type_2 == "year") {
-                  displayType = false;
+                  displayType = "year";
                 } else if (stat.stats_number_type_2 == "num") {
                   displayType = false;
                 }
@@ -81949,7 +81960,7 @@ var KeyStats = function (_Component) {
                     { className: "np-keystats__stat--number" },
                     displayType && displayType == "$" && _react2.default.createElement(
                       "i",
-                      null,
+                      { className: "np-stat-dollar" },
                       displayType
                     ),
                     _react2.default.createElement(
@@ -81959,9 +81970,10 @@ var KeyStats = function (_Component) {
                     ),
                     displayType && displayType == "%" && _react2.default.createElement(
                       "i",
-                      null,
+                      { className: "np-stat-percent" },
                       displayType
-                    )
+                    ),
+                    displayType && displayType == "year" && _react2.default.createElement("i", { className: "np-stat-year" })
                   ),
                   _react2.default.createElement(
                     "div",
@@ -82084,7 +82096,7 @@ var KeyStats = function (_Component) {
                     { className: "np-keystats__stat--number" },
                     displayType && displayType == "$" && _react2.default.createElement(
                       "i",
-                      null,
+                      { className: "np-stat-dollar" },
                       displayType
                     ),
                     _react2.default.createElement(
@@ -82094,7 +82106,7 @@ var KeyStats = function (_Component) {
                     ),
                     displayType && displayType == "%" && _react2.default.createElement(
                       "i",
-                      null,
+                      { className: "np-stat-percent" },
                       displayType
                     )
                   ),
@@ -82264,7 +82276,7 @@ var KeyStats = function (_Component) {
                     { className: "np-keystats__stat--number" },
                     displayType && displayType == "$" && _react2.default.createElement(
                       "i",
-                      null,
+                      { className: "np-stat-dollar" },
                       displayType
                     ),
                     _react2.default.createElement(
@@ -82274,7 +82286,7 @@ var KeyStats = function (_Component) {
                     ),
                     displayType && displayType == "%" && _react2.default.createElement(
                       "i",
-                      null,
+                      { className: "np-stat-percent" },
                       displayType
                     )
                   ),
