@@ -361,27 +361,43 @@ class KeyStats extends Component {
                 </svg>
               </div>
               {keyAdvantage.map((stat, index) => {
-                const statType = stat.stats_number_type;
-                let displayType = false;
+                const statSize = stat.stats_number_type;
+                let displaySize = false;
 
                 if (stat.stats_number_type == "percent") {
-                  displayType = "Percent";
+                  displaySize = false;
                 } else if (stat.stats_number_type == "billions") {
-                  displayType = "Billion";
-                } else if (stat.stats_number_type == "Millions") {
-                  displayType = "Million";
+                  displaySize = "Billion";
+                } else if (stat.stats_number_type == "millions") {
+                  displaySize = "Million";
+                }
+
+                const statType = stat.stats_number_type_2;
+                let displayType = false;
+
+                if (stat.stats_number_type_2 == "percent") {
+                  displayType = "%";
+                } else if (stat.stats_number_type_2 == "money") {
+                  displayType = "$";
+                } else if (stat.stats_number_type_2 == "year") {
+                  displayType = false;
+                } else if (stat.stats_number_type_2 == "num") {
+                  displayType = false;
                 }
 
                 return (
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
+                      {displayType &&
+                        displayType == "$" && <i>{displayType}</i>}
                       <p>{stat.stat_number}</p>
+                      {displayType &&
+                        displayType == "%" && <i>{displayType}</i>}
                     </div>
-                    {displayType && (
-                      <div className="np-keystats__stat--type">
-                        <p>{displayType}</p>
-                      </div>
-                    )}
+                    <div className="np-keystats__stat--type">
+                      {displaySize && <p>{displaySize}</p>}
+                    </div>
+
                     <div className="np-keystats__stat--description">
                       <p>{stat.stat_description}</p>
                     </div>
@@ -446,27 +462,42 @@ class KeyStats extends Component {
               </div>
 
               {keyIndustry.map((stat, index) => {
-                const statType = stat.stats_number_type;
-                let displayType = false;
+                const statSize = stat.stats_number_type;
+                let displaySize = false;
 
                 if (stat.stats_number_type == "percent") {
-                  displayType = "Percent";
+                  displaySize = false;
                 } else if (stat.stats_number_type == "billions") {
-                  displayType = "Billion";
-                } else if (stat.stats_number_type == "Millions") {
-                  displayType = "Million";
+                  displaySize = "Billion";
+                } else if (stat.stats_number_type == "millions") {
+                  displaySize = "Million";
+                }
+
+                const statType = stat.stats_number_type_2;
+                let displayType = false;
+
+                if (stat.stats_number_type_2 == "percent") {
+                  displayType = "%";
+                } else if (stat.stats_number_type_2 == "money") {
+                  displayType = "$";
+                } else if (stat.stats_number_type_2 == "year") {
+                  displayType = false;
+                } else if (stat.stats_number_type_2 == "num") {
+                  displayType = false;
                 }
 
                 return (
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
+                      {displayType &&
+                        displayType == "$" && <i>{displayType}</i>}
                       <p>{stat.stat_number}</p>
+                      {displayType &&
+                        displayType == "%" && <i>{displayType}</i>}
                     </div>
-                    {displayType && (
-                      <div className="np-keystats__stat--type">
-                        <p>{displayType}</p>
-                      </div>
-                    )}
+                    <div className="np-keystats__stat--type">
+                      {displaySize && <p>{displaySize}</p>}
+                    </div>
                     <div className="np-keystats__stat--description">
                       <p>{stat.stat_description}</p>
                     </div>
@@ -574,26 +605,42 @@ class KeyStats extends Component {
                 </svg>
               </div>
               {keyOpportunity.map((stat, index) => {
-                const statType = stat.stats_number_type;
-                let displayType = false;
+                const statSize = stat.stats_number_type;
+                let displaySize = false;
 
                 if (stat.stats_number_type == "percent") {
-                  displayType = "Percent";
+                  displaySize = false;
                 } else if (stat.stats_number_type == "billions") {
-                  displayType = "Billion";
-                } else if (stat.stats_number_type == "Millions") {
-                  displayType = "Million";
+                  displaySize = "Billion";
+                } else if (stat.stats_number_type == "millions") {
+                  displaySize = "Million";
                 }
+
+                const statType = stat.stats_number_type_2;
+                let displayType = false;
+
+                if (stat.stats_number_type_2 == "percent") {
+                  displayType = "%";
+                } else if (stat.stats_number_type_2 == "money") {
+                  displayType = "$";
+                } else if (stat.stats_number_type_2 == "year") {
+                  displayType = false;
+                } else if (stat.stats_number_type_2 == "num") {
+                  displayType = false;
+                }
+
                 return (
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
+                      {displayType &&
+                        displayType == "$" && <i>{displayType}</i>}
                       <p>{stat.stat_number}</p>
+                      {displayType &&
+                        displayType == "%" && <i>{displayType}</i>}
                     </div>
-                    {displayType && (
-                      <div className="np-keystats__stat--type">
-                        <p>{displayType}</p>
-                      </div>
-                    )}
+                    <div className="np-keystats__stat--type">
+                      {displaySize && <p>{displaySize}</p>}
+                    </div>
                     <div className="np-keystats__stat--description">
                       <p>{stat.stat_description}</p>
                     </div>

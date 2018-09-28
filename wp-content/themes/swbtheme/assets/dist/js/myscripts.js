@@ -81917,15 +81917,28 @@ var KeyStats = function (_Component) {
                 )
               ),
               keyAdvantage.map(function (stat, index) {
-                var statType = stat.stats_number_type;
-                var displayType = false;
+                var statSize = stat.stats_number_type;
+                var displaySize = false;
 
                 if (stat.stats_number_type == "percent") {
-                  displayType = "Percent";
+                  displaySize = false;
                 } else if (stat.stats_number_type == "billions") {
-                  displayType = "Billion";
-                } else if (stat.stats_number_type == "Millions") {
-                  displayType = "Million";
+                  displaySize = "Billion";
+                } else if (stat.stats_number_type == "millions") {
+                  displaySize = "Million";
+                }
+
+                var statType = stat.stats_number_type_2;
+                var displayType = false;
+
+                if (stat.stats_number_type_2 == "percent") {
+                  displayType = "%";
+                } else if (stat.stats_number_type_2 == "money") {
+                  displayType = "$";
+                } else if (stat.stats_number_type_2 == "year") {
+                  displayType = false;
+                } else if (stat.stats_number_type_2 == "num") {
+                  displayType = false;
                 }
 
                 return _react2.default.createElement(
@@ -81934,19 +81947,29 @@ var KeyStats = function (_Component) {
                   _react2.default.createElement(
                     "div",
                     { className: "np-keystats__stat--number" },
+                    displayType && displayType == "$" && _react2.default.createElement(
+                      "i",
+                      null,
+                      displayType
+                    ),
                     _react2.default.createElement(
                       "p",
                       null,
                       stat.stat_number
-                    )
-                  ),
-                  displayType && _react2.default.createElement(
-                    "div",
-                    { className: "np-keystats__stat--type" },
-                    _react2.default.createElement(
-                      "p",
+                    ),
+                    displayType && displayType == "%" && _react2.default.createElement(
+                      "i",
                       null,
                       displayType
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "div",
+                    { className: "np-keystats__stat--type" },
+                    displaySize && _react2.default.createElement(
+                      "p",
+                      null,
+                      displaySize
                     )
                   ),
                   _react2.default.createElement(
@@ -82029,15 +82052,28 @@ var KeyStats = function (_Component) {
                 )
               ),
               keyIndustry.map(function (stat, index) {
-                var statType = stat.stats_number_type;
-                var displayType = false;
+                var statSize = stat.stats_number_type;
+                var displaySize = false;
 
                 if (stat.stats_number_type == "percent") {
-                  displayType = "Percent";
+                  displaySize = false;
                 } else if (stat.stats_number_type == "billions") {
-                  displayType = "Billion";
-                } else if (stat.stats_number_type == "Millions") {
-                  displayType = "Million";
+                  displaySize = "Billion";
+                } else if (stat.stats_number_type == "millions") {
+                  displaySize = "Million";
+                }
+
+                var statType = stat.stats_number_type_2;
+                var displayType = false;
+
+                if (stat.stats_number_type_2 == "percent") {
+                  displayType = "%";
+                } else if (stat.stats_number_type_2 == "money") {
+                  displayType = "$";
+                } else if (stat.stats_number_type_2 == "year") {
+                  displayType = false;
+                } else if (stat.stats_number_type_2 == "num") {
+                  displayType = false;
                 }
 
                 return _react2.default.createElement(
@@ -82046,19 +82082,29 @@ var KeyStats = function (_Component) {
                   _react2.default.createElement(
                     "div",
                     { className: "np-keystats__stat--number" },
+                    displayType && displayType == "$" && _react2.default.createElement(
+                      "i",
+                      null,
+                      displayType
+                    ),
                     _react2.default.createElement(
                       "p",
                       null,
                       stat.stat_number
-                    )
-                  ),
-                  displayType && _react2.default.createElement(
-                    "div",
-                    { className: "np-keystats__stat--type" },
-                    _react2.default.createElement(
-                      "p",
+                    ),
+                    displayType && displayType == "%" && _react2.default.createElement(
+                      "i",
                       null,
                       displayType
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "div",
+                    { className: "np-keystats__stat--type" },
+                    displaySize && _react2.default.createElement(
+                      "p",
+                      null,
+                      displaySize
                     )
                   ),
                   _react2.default.createElement(
@@ -82186,35 +82232,59 @@ var KeyStats = function (_Component) {
                 )
               ),
               keyOpportunity.map(function (stat, index) {
-                var statType = stat.stats_number_type;
-                var displayType = false;
+                var statSize = stat.stats_number_type;
+                var displaySize = false;
 
                 if (stat.stats_number_type == "percent") {
-                  displayType = "Percent";
+                  displaySize = false;
                 } else if (stat.stats_number_type == "billions") {
-                  displayType = "Billion";
-                } else if (stat.stats_number_type == "Millions") {
-                  displayType = "Million";
+                  displaySize = "Billion";
+                } else if (stat.stats_number_type == "millions") {
+                  displaySize = "Million";
                 }
+
+                var statType = stat.stats_number_type_2;
+                var displayType = false;
+
+                if (stat.stats_number_type_2 == "percent") {
+                  displayType = "%";
+                } else if (stat.stats_number_type_2 == "money") {
+                  displayType = "$";
+                } else if (stat.stats_number_type_2 == "year") {
+                  displayType = false;
+                } else if (stat.stats_number_type_2 == "num") {
+                  displayType = false;
+                }
+
                 return _react2.default.createElement(
                   "div",
                   { className: "np-keystats__stat", key: index },
                   _react2.default.createElement(
                     "div",
                     { className: "np-keystats__stat--number" },
+                    displayType && displayType == "$" && _react2.default.createElement(
+                      "i",
+                      null,
+                      displayType
+                    ),
                     _react2.default.createElement(
                       "p",
                       null,
                       stat.stat_number
-                    )
-                  ),
-                  displayType && _react2.default.createElement(
-                    "div",
-                    { className: "np-keystats__stat--type" },
-                    _react2.default.createElement(
-                      "p",
+                    ),
+                    displayType && displayType == "%" && _react2.default.createElement(
+                      "i",
                       null,
                       displayType
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "div",
+                    { className: "np-keystats__stat--type" },
+                    displaySize && _react2.default.createElement(
+                      "p",
+                      null,
+                      displaySize
                     )
                   ),
                   _react2.default.createElement(

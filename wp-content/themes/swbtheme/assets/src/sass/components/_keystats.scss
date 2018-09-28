@@ -126,6 +126,7 @@
       font-family: $font-family--secondary;
       text-align: center;
       p {
+        display: inline;
         margin: 0;
         font-size: 5rem;
 
@@ -136,9 +137,22 @@
           font-size: 4rem;
         }
       }
+      i {
+        display: inline;
+        margin: 0;
+        font-size: 2.5rem;
+
+        @include bp(bp-m) {
+          font-size: 3rem;
+        }
+        @include bp(bp-m) {
+          font-size: 2rem;
+        }
+      }
     }
 
     &--type {
+      min-height: 2.5rem;
       font-family: $font-family--secondary;
       text-align: center;
       p {
