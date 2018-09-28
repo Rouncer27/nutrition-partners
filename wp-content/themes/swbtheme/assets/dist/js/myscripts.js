@@ -81830,7 +81830,7 @@ var KeyStats = function (_Component) {
               { className: "np-keystats__stats--advantage" },
               _react2.default.createElement(
                 "div",
-                null,
+                { className: "np-keystats__stats--advantage--title" },
                 _react2.default.createElement(
                   "h3",
                   null,
@@ -81993,7 +81993,7 @@ var KeyStats = function (_Component) {
               { className: "np-keystats__stats--industry" },
               _react2.default.createElement(
                 "div",
-                null,
+                { className: "np-keystats__stats--industry--title" },
                 _react2.default.createElement(
                   "h3",
                   null,
@@ -82121,7 +82121,7 @@ var KeyStats = function (_Component) {
               { className: "np-keystats__stats--opportunity" },
               _react2.default.createElement(
                 "div",
-                null,
+                { className: "np-keystats__stats--opportunity--title" },
                 _react2.default.createElement(
                   "h3",
                   null,

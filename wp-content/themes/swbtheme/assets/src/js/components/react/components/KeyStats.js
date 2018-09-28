@@ -288,7 +288,7 @@ class KeyStats extends Component {
           </div>
           <div className="np-keystats__stats">
             <div className="np-keystats__stats--advantage">
-              <div>
+              <div className="np-keystats__stats--advantage--title">
                 <h3>Nutrition Partner Advantage</h3>
               </div>
               <div className="np-keystats__stats--advantage--header">
@@ -420,7 +420,7 @@ class KeyStats extends Component {
             </div>
 
             <div className="np-keystats__stats--industry">
-              <div>
+              <div className="np-keystats__stats--industry--title">
                 <h3>The Industry</h3>
               </div>
               <div className="np-keystats__stats--industry--header">
@@ -522,7 +522,7 @@ class KeyStats extends Component {
             </div>
 
             <div className="np-keystats__stats--opportunity">
-              <div>
+              <div className="np-keystats__stats--opportunity--title">
                 <h3>The Opportunity</h3>
               </div>
               <div className="np-keystats__stats--opportunity--header">
