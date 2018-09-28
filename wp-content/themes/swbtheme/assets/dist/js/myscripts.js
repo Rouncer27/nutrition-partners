@@ -81709,28 +81709,62 @@ var KeyStats = function (_Component) {
         ease: Power0.easeNone
       }, "start");
     }
+
+    //   Number.prototype.numberFormat = function(decimals, dec_point, thousands_sep) {
+    //     dec_point = typeof dec_point !== 'undefined' ? dec_point : '.';
+    //     thousands_sep = typeof thousands_sep !== 'undefined' ? thousands_sep : ',';
+
+    //     var parts = this.toFixed(decimals).split('.');
+    //     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+    //     return parts.join(dec_point);
+    // }
+
+    // var counter = { var: 0 };
+    // var tal = document.getElementById("tal");
+
+    //  TweenMax.to(counter, 5, {
+    //       var: 6340874,
+    //       onUpdate: function () {
+    //           var nwc = counter.var.numberFormat(2);
+    //           tal.innerHTML = nwc;
+    //       },
+    //       ease:Circ.easeOut
+    //   });
+
   }, {
     key: "countTheStatsUp",
     value: function countTheStatsUp(statArray) {
       statArray.forEach(function (stat) {
         var statTL = new TimelineMax();
         var statCon = new _scrollmagic2.default.Controller();
-        var statFinal = parseInt(stat.querySelector(".np-keystats__stat--number p").innerText, 10);
-        //const statPlusSign = stat.querySelector('.special-stat-plus');
+        var statContainer = stat.querySelector(".np-keystats__stat--number p");
+        var statFinal = parseFloat(stat.querySelector(".np-keystats__stat--number p").innerText);
         var statNum = stat.querySelector(".np-keystats__stat--number p");
         var statStart = { score: 0 };
+        var statTween = new TimelineMax();
 
         var countNumbersUp = function countNumbersUp(statStart, statFinal) {
           statNum.innerHTML = statStart.score;
-          //hideThePlusSign();
-
-          var statTween = TweenLite.to(statStart, 1.75, {
-            score: "+=" + statFinal,
-            roundProps: "score",
-            onUpdate: updateHandler,
-            ease: Power4.easeOut
-            //onComplete: addThePlus
-          });
+          if (statFinal % 1 === 0) {
+            statTween.to(statStart, 1.75, {
+              score: statFinal.toFixed(2),
+              onUpdate: function onUpdate() {
+                var nwc = statStart.score.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                statContainer.innerHTML = nwc;
+              },
+              ease: Circ.easeOut
+            });
+          } else {
+            statTween.to(statStart, 1.75, {
+              score: statFinal.toFixed(2),
+              onUpdate: function onUpdate() {
+                var nwc = statStart.score.toFixed(1).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                statContainer.innerHTML = nwc;
+              },
+              ease: Circ.easeOut
+            });
+          }
 
           var statScene = new _scrollmagic2.default.Scene({
             triggerElement: stat,
@@ -81783,6 +81817,15 @@ var KeyStats = function (_Component) {
             _react2.default.createElement(
               "div",
               { className: "np-keystats__stats--advantage" },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "h3",
+                  null,
+                  "Nutrition Partner Advantage"
+                )
+              ),
               _react2.default.createElement(
                 "div",
                 { className: "np-keystats__stats--advantage--header" },
@@ -81874,6 +81917,17 @@ var KeyStats = function (_Component) {
                 )
               ),
               keyAdvantage.map(function (stat, index) {
+                var statType = stat.stats_number_type;
+                var displayType = false;
+
+                if (stat.stats_number_type == "percent") {
+                  displayType = "Percent";
+                } else if (stat.stats_number_type == "billions") {
+                  displayType = "Billion";
+                } else if (stat.stats_number_type == "Millions") {
+                  displayType = "Million";
+                }
+
                 return _react2.default.createElement(
                   "div",
                   { className: "np-keystats__stat", key: index },
@@ -81884,6 +81938,15 @@ var KeyStats = function (_Component) {
                       "p",
                       null,
                       stat.stat_number
+                    )
+                  ),
+                  displayType && _react2.default.createElement(
+                    "div",
+                    { className: "np-keystats__stat--type" },
+                    _react2.default.createElement(
+                      "p",
+                      null,
+                      displayType
                     )
                   ),
                   _react2.default.createElement(
@@ -81901,6 +81964,15 @@ var KeyStats = function (_Component) {
             _react2.default.createElement(
               "div",
               { className: "np-keystats__stats--industry" },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "h3",
+                  null,
+                  "The Industry"
+                )
+              ),
               _react2.default.createElement(
                 "div",
                 { className: "np-keystats__stats--industry--header" },
@@ -81957,6 +82029,17 @@ var KeyStats = function (_Component) {
                 )
               ),
               keyIndustry.map(function (stat, index) {
+                var statType = stat.stats_number_type;
+                var displayType = false;
+
+                if (stat.stats_number_type == "percent") {
+                  displayType = "Percent";
+                } else if (stat.stats_number_type == "billions") {
+                  displayType = "Billion";
+                } else if (stat.stats_number_type == "Millions") {
+                  displayType = "Million";
+                }
+
                 return _react2.default.createElement(
                   "div",
                   { className: "np-keystats__stat", key: index },
@@ -81967,6 +82050,15 @@ var KeyStats = function (_Component) {
                       "p",
                       null,
                       stat.stat_number
+                    )
+                  ),
+                  displayType && _react2.default.createElement(
+                    "div",
+                    { className: "np-keystats__stat--type" },
+                    _react2.default.createElement(
+                      "p",
+                      null,
+                      displayType
                     )
                   ),
                   _react2.default.createElement(
@@ -81984,6 +82076,15 @@ var KeyStats = function (_Component) {
             _react2.default.createElement(
               "div",
               { className: "np-keystats__stats--opportunity" },
+              _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                  "h3",
+                  null,
+                  "The Opportunity"
+                )
+              ),
               _react2.default.createElement(
                 "div",
                 { className: "np-keystats__stats--opportunity--header" },
@@ -82085,6 +82186,16 @@ var KeyStats = function (_Component) {
                 )
               ),
               keyOpportunity.map(function (stat, index) {
+                var statType = stat.stats_number_type;
+                var displayType = false;
+
+                if (stat.stats_number_type == "percent") {
+                  displayType = "Percent";
+                } else if (stat.stats_number_type == "billions") {
+                  displayType = "Billion";
+                } else if (stat.stats_number_type == "Millions") {
+                  displayType = "Million";
+                }
                 return _react2.default.createElement(
                   "div",
                   { className: "np-keystats__stat", key: index },
@@ -82095,6 +82206,15 @@ var KeyStats = function (_Component) {
                       "p",
                       null,
                       stat.stat_number
+                    )
+                  ),
+                  displayType && _react2.default.createElement(
+                    "div",
+                    { className: "np-keystats__stat--type" },
+                    _react2.default.createElement(
+                      "p",
+                      null,
+                      displayType
                     )
                   ),
                   _react2.default.createElement(

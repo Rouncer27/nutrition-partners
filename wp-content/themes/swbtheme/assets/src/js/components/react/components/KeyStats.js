@@ -163,29 +163,67 @@ class KeyStats extends Component {
       );
   }
 
+  //   Number.prototype.numberFormat = function(decimals, dec_point, thousands_sep) {
+  //     dec_point = typeof dec_point !== 'undefined' ? dec_point : '.';
+  //     thousands_sep = typeof thousands_sep !== 'undefined' ? thousands_sep : ',';
+
+  //     var parts = this.toFixed(decimals).split('.');
+  //     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, thousands_sep);
+
+  //     return parts.join(dec_point);
+  // }
+
+  // var counter = { var: 0 };
+  // var tal = document.getElementById("tal");
+
+  //  TweenMax.to(counter, 5, {
+  //       var: 6340874,
+  //       onUpdate: function () {
+  //           var nwc = counter.var.numberFormat(2);
+  //           tal.innerHTML = nwc;
+  //       },
+  //       ease:Circ.easeOut
+  //   });
+
   countTheStatsUp(statArray) {
     statArray.forEach(stat => {
       const statTL = new TimelineMax();
       const statCon = new ScrollMagic.Controller();
-      const statFinal = parseInt(
-        stat.querySelector(".np-keystats__stat--number p").innerText,
-        10
+      const statContainer = stat.querySelector(".np-keystats__stat--number p");
+      const statFinal = parseFloat(
+        stat.querySelector(".np-keystats__stat--number p").innerText
       );
-      //const statPlusSign = stat.querySelector('.special-stat-plus');
       const statNum = stat.querySelector(".np-keystats__stat--number p");
       const statStart = { score: 0 };
+      const statTween = new TimelineMax();
 
       const countNumbersUp = (statStart, statFinal) => {
         statNum.innerHTML = statStart.score;
-        //hideThePlusSign();
-
-        const statTween = TweenLite.to(statStart, 1.75, {
-          score: `+=${statFinal}`,
-          roundProps: "score",
-          onUpdate: updateHandler,
-          ease: Power4.easeOut
-          //onComplete: addThePlus
-        });
+        if (statFinal % 1 === 0) {
+          statTween.to(statStart, 1.75, {
+            score: statFinal.toFixed(2),
+            onUpdate: function() {
+              var nwc = statStart.score
+                .toFixed(0)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              statContainer.innerHTML = nwc;
+            },
+            ease: Circ.easeOut
+          });
+        } else {
+          statTween.to(statStart, 1.75, {
+            score: statFinal.toFixed(2),
+            onUpdate: function() {
+              var nwc = statStart.score
+                .toFixed(1)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              statContainer.innerHTML = nwc;
+            },
+            ease: Circ.easeOut
+          });
+        }
 
         const statScene = new ScrollMagic.Scene({
           triggerElement: stat,
@@ -239,6 +277,9 @@ class KeyStats extends Component {
           </div>
           <div className="np-keystats__stats">
             <div className="np-keystats__stats--advantage">
+              <div>
+                <h3>Nutrition Partner Advantage</h3>
+              </div>
               <div className="np-keystats__stats--advantage--header">
                 <svg id="Layer_1" data-name="Layer 1" viewBox="0 0 250 250">
                   <defs />
@@ -320,11 +361,27 @@ class KeyStats extends Component {
                 </svg>
               </div>
               {keyAdvantage.map((stat, index) => {
+                const statType = stat.stats_number_type;
+                let displayType = false;
+
+                if (stat.stats_number_type == "percent") {
+                  displayType = "Percent";
+                } else if (stat.stats_number_type == "billions") {
+                  displayType = "Billion";
+                } else if (stat.stats_number_type == "Millions") {
+                  displayType = "Million";
+                }
+
                 return (
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       <p>{stat.stat_number}</p>
                     </div>
+                    {displayType && (
+                      <div className="np-keystats__stat--type">
+                        <p>{displayType}</p>
+                      </div>
+                    )}
                     <div className="np-keystats__stat--description">
                       <p>{stat.stat_description}</p>
                     </div>
@@ -334,6 +391,9 @@ class KeyStats extends Component {
             </div>
 
             <div className="np-keystats__stats--industry">
+              <div>
+                <h3>The Industry</h3>
+              </div>
               <div className="np-keystats__stats--industry--header">
                 <svg
                   id="Layer_1"
@@ -386,11 +446,27 @@ class KeyStats extends Component {
               </div>
 
               {keyIndustry.map((stat, index) => {
+                const statType = stat.stats_number_type;
+                let displayType = false;
+
+                if (stat.stats_number_type == "percent") {
+                  displayType = "Percent";
+                } else if (stat.stats_number_type == "billions") {
+                  displayType = "Billion";
+                } else if (stat.stats_number_type == "Millions") {
+                  displayType = "Million";
+                }
+
                 return (
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       <p>{stat.stat_number}</p>
                     </div>
+                    {displayType && (
+                      <div className="np-keystats__stat--type">
+                        <p>{displayType}</p>
+                      </div>
+                    )}
                     <div className="np-keystats__stat--description">
                       <p>{stat.stat_description}</p>
                     </div>
@@ -400,6 +476,9 @@ class KeyStats extends Component {
             </div>
 
             <div className="np-keystats__stats--opportunity">
+              <div>
+                <h3>The Opportunity</h3>
+              </div>
               <div className="np-keystats__stats--opportunity--header">
                 <svg
                   id="Layer_1"
@@ -495,11 +574,26 @@ class KeyStats extends Component {
                 </svg>
               </div>
               {keyOpportunity.map((stat, index) => {
+                const statType = stat.stats_number_type;
+                let displayType = false;
+
+                if (stat.stats_number_type == "percent") {
+                  displayType = "Percent";
+                } else if (stat.stats_number_type == "billions") {
+                  displayType = "Billion";
+                } else if (stat.stats_number_type == "Millions") {
+                  displayType = "Million";
+                }
                 return (
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       <p>{stat.stat_number}</p>
                     </div>
+                    {displayType && (
+                      <div className="np-keystats__stat--type">
+                        <p>{displayType}</p>
+                      </div>
+                    )}
                     <div className="np-keystats__stat--description">
                       <p>{stat.stat_description}</p>
                     </div>
