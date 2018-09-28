@@ -400,14 +400,10 @@ class KeyStats extends Component {
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       {displayType &&
-                        displayType == "$" && (
-                          <i className="np-stat-dollar">{displayType}</i>
-                        )}
+                        displayType == "$" && <i className="np-stat-dollar" />}
                       <p>{stat.stat_number}</p>
                       {displayType &&
-                        displayType == "%" && (
-                          <i className="np-stat-percent">{displayType}</i>
-                        )}
+                        displayType == "%" && <i className="np-stat-percent" />}
                       {displayType &&
                         displayType == "year" && <i className="np-stat-year" />}
                     </div>
@@ -507,14 +503,10 @@ class KeyStats extends Component {
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       {displayType &&
-                        displayType == "$" && (
-                          <i className="np-stat-dollar">{displayType}</i>
-                        )}
+                        displayType == "$" && <i className="np-stat-dollar" />}
                       <p>{stat.stat_number}</p>
                       {displayType &&
-                        displayType == "%" && (
-                          <i className="np-stat-percent">{displayType}</i>
-                        )}
+                        displayType == "%" && <i className="np-stat-percent" />}
                       {displayType &&
                         displayType == "year" && <i className="np-stat-year" />}
                     </div>
@@ -656,14 +648,10 @@ class KeyStats extends Component {
                   <div className="np-keystats__stat" key={index}>
                     <div className="np-keystats__stat--number">
                       {displayType &&
-                        displayType == "$" && (
-                          <i className="np-stat-dollar">{displayType}</i>
-                        )}
+                        displayType == "$" && <i className="np-stat-dollar" />}
                       <p>{stat.stat_number}</p>
                       {displayType &&
-                        displayType == "%" && (
-                          <i className="np-stat-percent">{displayType}</i>
-                        )}
+                        displayType == "%" && <i className="np-stat-percent" />}
                       {displayType &&
                         displayType == "year" && <i className="np-stat-year" />}
                     </div>

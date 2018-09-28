@@ -149,6 +149,20 @@
           font-size: 2rem;
         }
       }
+
+      .np-stat-dollar {
+        &::before {
+          @include fontAwesome();
+          content: "\f155";
+        }
+      }
+
+      .np-stat-percent {
+        &::before {
+          @include fontAwesome();
+          content: "\f295";
+        }
+      }
     }
 
     &--type {

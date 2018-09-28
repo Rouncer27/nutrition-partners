@@ -81958,21 +81958,13 @@ var KeyStats = function (_Component) {
                   _react2.default.createElement(
                     "div",
                     { className: "np-keystats__stat--number" },
-                    displayType && displayType == "$" && _react2.default.createElement(
-                      "i",
-                      { className: "np-stat-dollar" },
-                      displayType
-                    ),
+                    displayType && displayType == "$" && _react2.default.createElement("i", { className: "np-stat-dollar" }),
                     _react2.default.createElement(
                       "p",
                       null,
                       stat.stat_number
                     ),
-                    displayType && displayType == "%" && _react2.default.createElement(
-                      "i",
-                      { className: "np-stat-percent" },
-                      displayType
-                    ),
+                    displayType && displayType == "%" && _react2.default.createElement("i", { className: "np-stat-percent" }),
                     displayType && displayType == "year" && _react2.default.createElement("i", { className: "np-stat-year" })
                   ),
                   _react2.default.createElement(
@@ -82094,21 +82086,13 @@ var KeyStats = function (_Component) {
                   _react2.default.createElement(
                     "div",
                     { className: "np-keystats__stat--number" },
-                    displayType && displayType == "$" && _react2.default.createElement(
-                      "i",
-                      { className: "np-stat-dollar" },
-                      displayType
-                    ),
+                    displayType && displayType == "$" && _react2.default.createElement("i", { className: "np-stat-dollar" }),
                     _react2.default.createElement(
                       "p",
                       null,
                       stat.stat_number
                     ),
-                    displayType && displayType == "%" && _react2.default.createElement(
-                      "i",
-                      { className: "np-stat-percent" },
-                      displayType
-                    ),
+                    displayType && displayType == "%" && _react2.default.createElement("i", { className: "np-stat-percent" }),
                     displayType && displayType == "year" && _react2.default.createElement("i", { className: "np-stat-year" })
                   ),
                   _react2.default.createElement(
@@ -82275,21 +82259,13 @@ var KeyStats = function (_Component) {
                   _react2.default.createElement(
                     "div",
                     { className: "np-keystats__stat--number" },
-                    displayType && displayType == "$" && _react2.default.createElement(
-                      "i",
-                      { className: "np-stat-dollar" },
-                      displayType
-                    ),
+                    displayType && displayType == "$" && _react2.default.createElement("i", { className: "np-stat-dollar" }),
                     _react2.default.createElement(
                       "p",
                       null,
                       stat.stat_number
                     ),
-                    displayType && displayType == "%" && _react2.default.createElement(
-                      "i",
-                      { className: "np-stat-percent" },
-                      displayType
-                    ),
+                    displayType && displayType == "%" && _react2.default.createElement("i", { className: "np-stat-percent" }),
                     displayType && displayType == "year" && _react2.default.createElement("i", { className: "np-stat-year" })
                   ),
                   _react2.default.createElement(
