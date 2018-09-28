@@ -82083,7 +82083,7 @@ var KeyStats = function (_Component) {
                 } else if (stat.stats_number_type_2 == "money") {
                   displayType = "$";
                 } else if (stat.stats_number_type_2 == "year") {
-                  displayType = false;
+                  displayType = "year";
                 } else if (stat.stats_number_type_2 == "num") {
                   displayType = false;
                 }
@@ -82108,7 +82108,8 @@ var KeyStats = function (_Component) {
                       "i",
                       { className: "np-stat-percent" },
                       displayType
-                    )
+                    ),
+                    displayType && displayType == "year" && _react2.default.createElement("i", { className: "np-stat-year" })
                   ),
                   _react2.default.createElement(
                     "div",
@@ -82263,7 +82264,7 @@ var KeyStats = function (_Component) {
                 } else if (stat.stats_number_type_2 == "money") {
                   displayType = "$";
                 } else if (stat.stats_number_type_2 == "year") {
-                  displayType = false;
+                  displayType = "year";
                 } else if (stat.stats_number_type_2 == "num") {
                   displayType = false;
                 }
@@ -82288,7 +82289,8 @@ var KeyStats = function (_Component) {
                       "i",
                       { className: "np-stat-percent" },
                       displayType
-                    )
+                    ),
+                    displayType && displayType == "year" && _react2.default.createElement("i", { className: "np-stat-year" })
                   ),
                   _react2.default.createElement(
                     "div",

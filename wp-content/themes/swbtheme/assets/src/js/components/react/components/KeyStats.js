@@ -498,7 +498,7 @@ class KeyStats extends Component {
                 } else if (stat.stats_number_type_2 == "money") {
                   displayType = "$";
                 } else if (stat.stats_number_type_2 == "year") {
-                  displayType = false;
+                  displayType = "year";
                 } else if (stat.stats_number_type_2 == "num") {
                   displayType = false;
                 }
@@ -515,6 +515,8 @@ class KeyStats extends Component {
                         displayType == "%" && (
                           <i className="np-stat-percent">{displayType}</i>
                         )}
+                      {displayType &&
+                        displayType == "year" && <i className="np-stat-year" />}
                     </div>
                     <div className="np-keystats__stat--type">
                       {displaySize && <p>{displaySize}</p>}
@@ -645,7 +647,7 @@ class KeyStats extends Component {
                 } else if (stat.stats_number_type_2 == "money") {
                   displayType = "$";
                 } else if (stat.stats_number_type_2 == "year") {
-                  displayType = false;
+                  displayType = "year";
                 } else if (stat.stats_number_type_2 == "num") {
                   displayType = false;
                 }
@@ -662,6 +664,8 @@ class KeyStats extends Component {
                         displayType == "%" && (
                           <i className="np-stat-percent">{displayType}</i>
                         )}
+                      {displayType &&
+                        displayType == "year" && <i className="np-stat-year" />}
                     </div>
                     <div className="np-keystats__stat--type">
                       {displaySize && <p>{displaySize}</p>}
