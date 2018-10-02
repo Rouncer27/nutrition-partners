@@ -29,7 +29,13 @@
     width: 100%;
 
     &--logo {
+      width: calc(50% - 5rem);
+      margin: 1rem 2.5rem;
       @include bp(bp-m) {
+        width: calc(33% - 5rem);
+        margin: 3rem 2.5rem;
+      }
+      @include bp(bp-l) {
         width: calc(20% - 5rem);
         margin: 1rem 2.5rem;
       }

@@ -19,6 +19,7 @@ export default class Contact extends Component {
     this.setPageAPIURL = this.setPageAPIURL.bind(this);
     this.getEnglishMenuItems = this.getEnglishMenuItems.bind(this);
     this.getFrenchMenuItems = this.getFrenchMenuItems.bind(this);
+    this.getSiteSettings = this.getSiteSettings.bind(this);
 
     this.state = {
       browserLang: "",
@@ -27,6 +28,7 @@ export default class Contact extends Component {
       pageID: "",
       pageData: {},
       siteOptions: {},
+      siteSettings: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
     };
@@ -47,12 +49,24 @@ export default class Contact extends Component {
         };
       },
       () => {
+        this.getSiteSettings();
         this.getPageData();
         this.getEnglishMenuItems();
         this.getFrenchMenuItems();
         this.getOptionsData();
       }
     );
+  }
+
+  getSiteSettings() {
+    axios.get(`${this.state.pageApiUrl}/wp-json/`).then(res => {
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          siteSettings: res.data
+        };
+      });
+    });
   }
 
   // Get the base for all API calls
@@ -142,6 +156,7 @@ export default class Contact extends Component {
       Object.keys(this.state.pageData).length > 0 &&
       Object.keys(this.state.siteOptions).length > 0 &&
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
+      Object.keys(this.state.siteSettings).length > 0 &&
       Object.keys(this.state.siteMainFrenchMenu).length > 0;
     let acf;
     if (renderComponent) {
@@ -159,6 +174,7 @@ export default class Contact extends Component {
               siteMainEnglishMenu={this.state.siteMainEnglishMenu}
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
+              siteSettings={this.state.siteSettings}
             />
             <Hero acf={acf} />
             <TitleWithContent browserLang={this.state.browserLang} acf={acf} />

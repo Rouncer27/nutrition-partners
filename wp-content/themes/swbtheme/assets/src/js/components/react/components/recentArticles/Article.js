@@ -2,8 +2,6 @@ import React from "react";
 import moment from "moment";
 
 export default props => {
-  console.log(props);
-
   const mainImg = props.post.acf.featured_image
     ? props.post.acf.featured_image.sizes.mainblogpage
     : props.defaultImg;

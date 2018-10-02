@@ -24,6 +24,11 @@ class Header extends Component {
     const frMenuItems = siteMainFrenchMenu.items;
     const mainMenuItem = browserLang === "en" ? enMenuItems : frMenuItems;
 
+    const siteURL = this.props.siteSettings ? this.props.siteSettings.url : "#";
+    const siteDescription = this.props.siteSettings
+      ? this.props.siteSettings.description
+      : "";
+
     return (
       <header
         className="siteheader"
@@ -39,7 +44,7 @@ class Header extends Component {
             <div className="mainlogo">
               <h1 itemProp="name">
                 <span>nutrition Partners</span>
-                <a itemProp="url" href="#">
+                <a itemProp="url" href={siteURL}>
                   <img itemProp="image" src={headerLogo} alt={headerLogoAlt} />
                 </a>
               </h1>
@@ -64,7 +69,7 @@ class Header extends Component {
               <div className="mainlogo">
                 <h1 itemProp="name">
                   <span>Nutrition Partners</span>
-                  <a itemProp="url" href="//localhost:3000/nutritionpartners">
+                  <a itemProp="url" href={siteURL}>
                     <img
                       itemProp="image"
                       src={headerLogo}
@@ -73,7 +78,7 @@ class Header extends Component {
                   </a>
                 </h1>
                 <p itemProp="description">
-                  <span>Just another WordPress site</span>
+                  <span>{siteDescription}</span>
                 </p>
               </div>{" "}
               <div className="menu-main-menu-container">

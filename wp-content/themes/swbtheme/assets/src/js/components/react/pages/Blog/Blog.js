@@ -21,6 +21,7 @@ class Blog extends Component {
     this.getBlogPosts = this.getBlogPosts.bind(this);
     this.loadMore = this.loadMore.bind(this);
     this.getNewsletterCats = this.getNewsletterCats.bind(this);
+    this.getSiteSettings = this.getSiteSettings.bind(this);
 
     this.state = {
       browserLang: "",
@@ -33,6 +34,7 @@ class Blog extends Component {
       loadMoreBtn: false,
       postsLoading: false,
       siteOptions: {},
+      siteSettings: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {}
     };
@@ -53,6 +55,7 @@ class Blog extends Component {
         };
       },
       () => {
+        this.getSiteSettings();
         this.getPageData();
         this.getBlogPosts();
         this.getNewsletterCats();
@@ -61,6 +64,17 @@ class Blog extends Component {
         this.getOptionsData();
       }
     );
+  }
+
+  getSiteSettings() {
+    axios.get(`${this.state.pageApiUrl}/wp-json/`).then(res => {
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          siteSettings: res.data
+        };
+      });
+    });
   }
 
   // Get the base for all API calls
@@ -255,6 +269,7 @@ class Blog extends Component {
       Object.keys(this.state.blogPosts).length > 0 &&
       Object.keys(this.state.siteOptions).length > 0 &&
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
+      Object.keys(this.state.siteSettings).length > 0 &&
       Object.keys(this.state.siteMainFrenchMenu).length > 0;
     let acf;
     if (renderComponent) {
@@ -271,6 +286,7 @@ class Blog extends Component {
               siteMainEnglishMenu={this.state.siteMainEnglishMenu}
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
+              siteSettings={this.state.siteSettings}
             />
             <Hero acf={acf} />
             <BlogIntro acf={acf} browserLang={this.state.browserLang} />

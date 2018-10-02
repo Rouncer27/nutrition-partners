@@ -29,6 +29,7 @@ export default class Home extends Component {
     this.getPostsData = this.getPostsData.bind(this);
     this.getEnglishMenuItems = this.getEnglishMenuItems.bind(this);
     this.getFrenchMenuItems = this.getFrenchMenuItems.bind(this);
+    this.getSiteSettings = this.getSiteSettings.bind(this);
 
     this.state = {
       browserLang: "",
@@ -40,6 +41,7 @@ export default class Home extends Component {
       siteOptions: {},
       siteMainEnglishMenu: {},
       siteMainFrenchMenu: {},
+      siteSettings: {},
       slides: [],
       activeSlider: "",
       activeQuebecSlider: ""
@@ -77,6 +79,7 @@ export default class Home extends Component {
         };
       },
       () => {
+        this.getSiteSettings();
         this.getPageData();
         this.getPostsData();
         this.getEnglishMenuItems();
@@ -84,6 +87,17 @@ export default class Home extends Component {
         this.getOptionsData();
       }
     );
+  }
+
+  getSiteSettings() {
+    axios.get(`${this.state.pageApiUrl}/wp-json/`).then(res => {
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          siteSettings: res.data
+        };
+      });
+    });
   }
 
   // Get the english menu items. //
@@ -214,6 +228,7 @@ export default class Home extends Component {
       Object.keys(this.state.siteOptions).length > 0 &&
       Object.keys(this.state.siteMainEnglishMenu).length > 0 &&
       Object.keys(this.state.siteMainFrenchMenu).length > 0 &&
+      Object.keys(this.state.siteSettings).length > 0 &&
       this.state.postsData.length > 0;
 
     // const renderComponent = false;
@@ -228,6 +243,7 @@ export default class Home extends Component {
               pageData={this.state.pageData}
               siteMainEnglishMenu={this.state.siteMainEnglishMenu}
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
+              siteSettings={this.state.siteSettings}
               siteOptions={this.state.siteOptions}
             />
             <Featured
