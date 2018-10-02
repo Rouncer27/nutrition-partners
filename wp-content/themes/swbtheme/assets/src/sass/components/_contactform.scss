@@ -28,6 +28,8 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
+    margin: 0 auto;
+
     @include bp(bp-m) {
       max-width: 75rem;
     }
