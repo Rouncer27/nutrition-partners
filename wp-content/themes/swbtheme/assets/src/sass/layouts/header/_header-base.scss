@@ -25,7 +25,8 @@
   .swbmainnav {
     width: 100%;
     @include bp(bp-m) {
-      width: 100%;
+      width: 90%;
+      margin: 0 auto;
     }
 
     @include bp(bp-l) {

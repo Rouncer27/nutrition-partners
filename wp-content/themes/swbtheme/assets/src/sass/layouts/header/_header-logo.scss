@@ -7,6 +7,10 @@
 
   @include bp(bp-m) {
     max-width: 30rem;
+    margin: 0 auto 4rem;
+  }
+
+  @include bp(bp-l) {
     margin: 0 auto;
   }
 
