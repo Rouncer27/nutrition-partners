@@ -1,7 +1,6 @@
 import React from "react";
 
 const LocationMaps = props => {
-  console.log(props);
   const maps = props.acf._np_location_maps;
   const lang = props.browserLang;
 
@@ -10,7 +9,6 @@ const LocationMaps = props => {
       <div className="np-maps__wrapper">
         <div className="np-maps__content">
           {maps.map((map, index) => {
-            console.log(map);
             const mapURL =
               lang === "en" ? map.google_map_url_en : map.google_map_url_fr;
             const mapImgSrc =
@@ -26,7 +24,7 @@ const LocationMaps = props => {
             const mapPhone = lang === "en" ? map.phone_en : map.phone_fr;
 
             return (
-              <div className="np-maps__location">
+              <div key={index} className="np-maps__location">
                 <div className="np-maps__location--image">
                   <a target="_blank" href={mapURL}>
                     <img src={mapImgSrc} alt="Location" />

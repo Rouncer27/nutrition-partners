@@ -84843,7 +84843,6 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var LocationMaps = function LocationMaps(props) {
-  console.log(props);
   var maps = props.acf._np_location_maps;
   var lang = props.browserLang;
 
@@ -84857,7 +84856,6 @@ var LocationMaps = function LocationMaps(props) {
         "div",
         { className: "np-maps__content" },
         maps.map(function (map, index) {
-          console.log(map);
           var mapURL = lang === "en" ? map.google_map_url_en : map.google_map_url_fr;
           var mapImgSrc = lang === "en" ? map.screen_shot_en.sizes.contained : map.screen_shot_fr.sizes.contained;
           var mapTitle = lang === "en" ? map.location_title_en : map.location_title_fr;
@@ -84867,7 +84865,7 @@ var LocationMaps = function LocationMaps(props) {
 
           return _react2.default.createElement(
             "div",
-            { className: "np-maps__location" },
+            { key: index, className: "np-maps__location" },
             _react2.default.createElement(
               "div",
               { className: "np-maps__location--image" },
