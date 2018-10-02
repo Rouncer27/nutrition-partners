@@ -84523,7 +84523,6 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var FormFields = function FormFields(props) {
-  console.log(props);
   var formTitle = props.lang === "en" ? "Let's start talking today." : "Commençons à parler aujourd'hui.";
   var fNameLabel = props.lang === "en" ? "First Name" : "Prénom";
   var lNameLabel = props.lang === "en" ? "Last Name" : "Nom de famille";

@@ -1,7 +1,6 @@
 import React from "react";
 
 const FormFields = props => {
-  console.log(props);
   const formTitle =
     props.lang === "en"
       ? "Let's start talking today."
