@@ -83361,6 +83361,7 @@ var KeyStats = function (_Component) {
       var indIcon = document.querySelector(".np-keystats__stats--industry--header svg");
 
       if (indIcon !== null) {
+        console.log(indIcon);
         this.animateTheHand(indIcon);
       }
 

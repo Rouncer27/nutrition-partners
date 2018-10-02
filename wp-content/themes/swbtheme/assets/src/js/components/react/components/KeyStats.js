@@ -58,6 +58,7 @@ class KeyStats extends Component {
     );
 
     if (indIcon !== null) {
+      console.log(indIcon);
       this.animateTheHand(indIcon);
     }
 
