@@ -131,8 +131,16 @@
           text-transform: uppercase;
 
           &:hover {
-            color: $strongred;
+            color: $color-shadow2;
           }
+        }
+      }
+
+      li.current-menu-item {
+        background-color: $color-primary;
+
+        a {
+          color: $white;
         }
       }
 
