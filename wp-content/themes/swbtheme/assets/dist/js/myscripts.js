@@ -83361,7 +83361,6 @@ var KeyStats = function (_Component) {
       var indIcon = document.querySelector(".np-keystats__stats--industry--header svg");
 
       if (indIcon !== null) {
-        console.log(indIcon);
         this.animateTheHand(indIcon);
       }
 
@@ -83409,7 +83408,7 @@ var KeyStats = function (_Component) {
       var seedCon = new _scrollmagic2.default.Controller();
 
       seedTL.staggerFromTo(handSeeds, 0.25, { y: -30, autoAlpha: 0 }, { y: 0, autoAlpha: 1 }, 0.15);
-
+      console.log(icon);
       var seedScene = new _scrollmagic2.default.Scene({
         triggerElement: icon,
         offset: 0,

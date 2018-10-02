@@ -58,7 +58,6 @@ class KeyStats extends Component {
     );
 
     if (indIcon !== null) {
-      console.log(indIcon);
       this.animateTheHand(indIcon);
     }
 
@@ -112,7 +111,7 @@ class KeyStats extends Component {
       { y: 0, autoAlpha: 1 },
       0.15
     );
-
+    console.log(icon);
     const seedScene = new ScrollMagic.Scene({
       triggerElement: icon,
       offset: 0,
