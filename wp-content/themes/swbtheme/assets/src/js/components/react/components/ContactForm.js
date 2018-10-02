@@ -49,15 +49,14 @@ class ContactForm extends Component {
     bodyFormData.set("email", this.state.email);
     bodyFormData.set("message", this.state.message);
     const baseURL = this.props.getBaseURL();
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    // const config = { headers: { "Content-Type": "multipart/form-data" } };
     axios
       .post(
         `${baseURL}/wp-json/contact-form-7/v1/contact-forms/422/feedback`,
-        bodyFormData,
-        config
+        bodyFormData
+        // config
       )
       .then(res => {
-        console.log(res.data);
         if (res.data.status === "mail_sent") {
           this.emailWasSent(res.data.message);
         } else if (res.data.status === "validation_failed") {

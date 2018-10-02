@@ -84416,9 +84416,10 @@ var ContactForm = function (_Component) {
       bodyFormData.set("email", this.state.email);
       bodyFormData.set("message", this.state.message);
       var baseURL = this.props.getBaseURL();
-      var config = { headers: { "Content-Type": "multipart/form-data" } };
-      _axios2.default.post(baseURL + "/wp-json/contact-form-7/v1/contact-forms/422/feedback", bodyFormData, config).then(function (res) {
-        console.log(res.data);
+      // const config = { headers: { "Content-Type": "multipart/form-data" } };
+      _axios2.default.post(baseURL + "/wp-json/contact-form-7/v1/contact-forms/422/feedback", bodyFormData
+      // config
+      ).then(function (res) {
         if (res.data.status === "mail_sent") {
           _this2.emailWasSent(res.data.message);
         } else if (res.data.status === "validation_failed") {
