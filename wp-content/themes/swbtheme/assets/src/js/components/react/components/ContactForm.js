@@ -43,18 +43,18 @@ class ContactForm extends Component {
     });
 
     const bodyFormData = new FormData();
-    bodyFormData.set("first-name", this.state.firstname);
-    bodyFormData.set("last-name", this.state.lastname);
-    bodyFormData.set("phone", this.state.phone);
-    bodyFormData.set("email", this.state.email);
-    bodyFormData.set("message", this.state.message);
+    bodyFormData.append("first-name", this.state.firstname);
+    bodyFormData.append("last-name", this.state.lastname);
+    bodyFormData.append("phone", this.state.phone);
+    bodyFormData.append("email", this.state.email);
+    bodyFormData.append("message", this.state.message);
     const baseURL = this.props.getBaseURL();
-    // const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const config = { headers: { "Content-Type": "multipart/form-data" } };
     axios
       .post(
         `${baseURL}/wp-json/contact-form-7/v1/contact-forms/422/feedback`,
-        bodyFormData
-        // config
+        bodyFormData,
+        config
       )
       .then(res => {
         if (res.data.status === "mail_sent") {
@@ -69,7 +69,6 @@ class ContactForm extends Component {
   }
 
   emailWasSent(mess) {
-    console.log(mess);
     this.setState(prevState => {
       return {
         submitting: !prevState.submitting,

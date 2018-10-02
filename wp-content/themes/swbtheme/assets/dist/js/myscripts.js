@@ -84410,16 +84410,14 @@ var ContactForm = function (_Component) {
       });
 
       var bodyFormData = new FormData();
-      bodyFormData.set("first-name", this.state.firstname);
-      bodyFormData.set("last-name", this.state.lastname);
-      bodyFormData.set("phone", this.state.phone);
-      bodyFormData.set("email", this.state.email);
-      bodyFormData.set("message", this.state.message);
+      bodyFormData.append("first-name", this.state.firstname);
+      bodyFormData.append("last-name", this.state.lastname);
+      bodyFormData.append("phone", this.state.phone);
+      bodyFormData.append("email", this.state.email);
+      bodyFormData.append("message", this.state.message);
       var baseURL = this.props.getBaseURL();
-      // const config = { headers: { "Content-Type": "multipart/form-data" } };
-      _axios2.default.post(baseURL + "/wp-json/contact-form-7/v1/contact-forms/422/feedback", bodyFormData
-      // config
-      ).then(function (res) {
+      var config = { headers: { "Content-Type": "multipart/form-data" } };
+      _axios2.default.post(baseURL + "/wp-json/contact-form-7/v1/contact-forms/422/feedback", bodyFormData, config).then(function (res) {
         if (res.data.status === "mail_sent") {
           _this2.emailWasSent(res.data.message);
         } else if (res.data.status === "validation_failed") {
@@ -84432,7 +84430,6 @@ var ContactForm = function (_Component) {
   }, {
     key: "emailWasSent",
     value: function emailWasSent(mess) {
-      console.log(mess);
       this.setState(function (prevState) {
         return {
           submitting: !prevState.submitting,
