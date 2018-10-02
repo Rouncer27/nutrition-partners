@@ -17,7 +17,7 @@ class Testimonials extends Component {
   componentDidMount() {
     if (this.props.baseApiUrl) {
       axios
-        .get(`${this.props.baseApiUrl}/wp-json/wp/v2/testimonial`)
+        .get(`${this.props.baseApiUrl}/wp-json/wp/v2/testimonial/?per_page=20`)
         .then(res => {
           this.setState(prevState => {
             return {
@@ -43,6 +43,7 @@ class Testimonials extends Component {
       slidesToScroll: 1,
       customPaging: i => <div> </div>
     };
+    let counter = 0;
     return (
       <div className="np-testimonials">
         <div className="np-testimonials__wrapper">
@@ -50,14 +51,17 @@ class Testimonials extends Component {
             <h2>{testimonialTitle}</h2>
           </div>
           <Slider className="np-testimonials__slider" {...settings}>
-            {this.state.testimonials.map(test => {
-              return (
-                <Testimonial
-                  key={test.id}
-                  testimonial={test}
-                  browserLang={browserLang}
-                />
-              );
+            {this.state.testimonials.map((test, index) => {
+              if (counter < 5) {
+                counter++;
+                return (
+                  <Testimonial
+                    key={test.id}
+                    testimonial={test}
+                    browserLang={browserLang}
+                  />
+                );
+              }
             })}
           </Slider>
         </div>

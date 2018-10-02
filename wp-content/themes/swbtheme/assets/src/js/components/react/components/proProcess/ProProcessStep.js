@@ -22,6 +22,7 @@ class ProProcessStep extends Component {
 
     this.setTheScene = this.setTheScene.bind(this);
     this.animateStep = this.animateStep.bind(this);
+    this.mobileTabletReset = this.mobileTabletReset.bind(this);
 
     this.state = {
       thisStep: false,
@@ -43,7 +44,12 @@ class ProProcessStep extends Component {
         };
       },
       () => {
-        this.setTheScene(this.state.thisStep);
+        const mq = window.matchMedia("(min-width: 1025px)").matches;
+        if (mq) {
+          this.setTheScene(this.state.thisStep);
+        } else {
+          this.mobileTabletReset(this.state.thisStep);
+        }
       }
     );
   }
@@ -121,6 +127,24 @@ class ProProcessStep extends Component {
       .fromTo(content, 0.5, { y: 100 }, { y: 0, autoAlpha: 1 }, "+=0.5");
   }
 
+  mobileTabletReset(step) {
+    const number = step.querySelector(".np-ourpro__step--number");
+    const icon = step.querySelector(".np-ourpro__step--icon");
+    const content = step.querySelector(".np-ourpro__step--contentwrap");
+    TweenMax.set(number, { autoAlpha: 1 });
+    TweenMax.set(icon, { autoAlpha: 1 });
+    TweenMax.set(content, { autoAlpha: 1 });
+    number.removeEventListener("click", this.props.changeActiveStep);
+    this.setState(prevState => {
+      return {
+        listening: false,
+        animating: true
+      };
+    });
+    this.props.changeActiveStep();
+    this.animateStep(this.state.thisStep);
+  }
+
   render() {
     const contentRequired =
       this.props.step.content_req === "yes" ? true : false;
@@ -128,6 +152,11 @@ class ProProcessStep extends Component {
 
     const stepIcon = this.props.step.icon;
     const stepTitle = this.props.step.title;
+
+    const activeClassName = this.state.listening ? " np-step-active" : "";
+    const completeClassName = this.state.animating ? " np-step-done" : "";
+    const numPeriod = this.state.animating ? "." : "";
+
     return (
       <div className="np-ourpro__step">
         <div className={`np-ourpro__step--icon np-ourpro__step--${stepIcon}`}>
@@ -148,8 +177,10 @@ class ProProcessStep extends Component {
             <AnimalsIcon animating={this.state.animating} />
           )}
         </div>
-        <div className="np-ourpro__step--number">
-          <p>{`${this.props.index + 1}.`}</p>
+        <div
+          className={`np-ourpro__step--number${activeClassName}${completeClassName}`}
+        >
+          <p>{`${this.props.index + 1}${numPeriod}`}</p>
         </div>
         <div className="np-ourpro__step--contentwrap">
           <div className="np-ourpro__step--title">

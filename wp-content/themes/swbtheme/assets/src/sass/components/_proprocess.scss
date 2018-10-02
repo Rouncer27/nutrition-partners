@@ -1,11 +1,17 @@
-@keyframes dash {
-  80% {
-    stroke-dashoffset: 0;
-    fill: transparent;
-  }
+// @keyframes dash {
+//   80% {
+//     stroke-dashoffset: 0;
+//     fill: transparent;
+//   }
 
-  100% {
-    fill: #9ec988;
+//   100% {
+//     fill: #9ec988;
+//   }
+// }
+
+@keyframes pulse {
+  to {
+    box-shadow: 0 0 0 2.5rem rgba($color-shadow, 0);
   }
 }
 
@@ -53,13 +59,22 @@
     position: relative;
     flex-wrap: wrap;
     justify-content: center;
-    width: 50%;
+    width: 100%;
     margin-bottom: 5rem;
     padding: 0 1rem;
 
     @include bp(bp-m) {
       width: 25%;
+      margin-top: 0;
       padding: 0 3rem;
+    }
+
+    &:nth-of-type(1) {
+      margin-top: 10rem;
+
+      @include bp(bp-m) {
+        margin-top: 0;
+      }
     }
 
     &--wrapper {
@@ -79,28 +94,92 @@
       position: absolute;
       top: 5rem;
       right: auto;
-      left: auto;
+      left: 15rem;
       margin: 0 auto;
+
+      @include bp(bp-m) {
+        top: 2.5rem;
+        left: 11rem;
+      }
+
+      @include bp(bp-l) {
+        position: absolute;
+        top: 5rem;
+        right: auto;
+        left: auto;
+      }
 
       p {
         display: inline-block;
         margin: 0 auto;
+        transform: scale(0.8);
         color: rgba($silverRust, 0.5);
         font-family: $font-family--primary;
-        font-size: 5rem;
+        font-size: 4rem;
         font-weight: bold;
+        opacity: 0.5;
+
+        @include bp(bp-m) {
+          font-size: 3.5rem;
+        }
+
+        @include bp(bp-l) {
+          font-size: 5rem;
+        }
+      }
+    }
+
+    &--number.np-step-active {
+      top: 3rem;
+      width: 7.5rem;
+      height: 7.5rem;
+      text-align: center;
+
+      p {
+        width: 7.5rem;
+        height: 7.5rem;
+        transform: scale(1.5);
+        transition: all 0.3s ease;
+        border: 0.1rem solid $color-primary;
+        border-radius: 50%;
+        color: $color-primary;
+        box-shadow: 0 0 0 0 rgba($color-primary, 0.7);
+        cursor: pointer;
+        opacity: 1;
+        animation: pulse 2.5s infinite cubic-bezier(0.66, 0, 0, 1);
+
+        &:hover {
+          color: $white;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &--number.np-step-done {
+      p {
+        transform: scale(1);
+        color: rgba($silverRust, 0.85);
+        opacity: 1;
       }
     }
 
     &--icon {
-      width: 100%;
+      width: 80%;
       margin-bottom: 3rem;
+
+      @include bp(bp-m) {
+        width: 100%;
+      }
 
       svg {
         display: block;
-        width: 100%;
+        width: 80%;
         max-width: 12.5rem;
         margin: 0 auto;
+
+        @include bp(bp-m) {
+          width: 100%;
+        }
 
         .np-pro-outline {
           circle {
@@ -244,9 +323,25 @@
       }
     }
 
+    &--contentwrap {
+      width: 100%;
+      text-align: center;
+
+      @include bp(bp-m) {
+        text-align: left;
+      }
+    }
+
     &--title {
+      width: 100%;
+
       h3 {
         color: $white;
+        font-size: 2rem;
+
+        @include bp(bp-m) {
+          font-size: 1.8rem;
+        }
 
         @include bp(bp-l) {
           font-size: 1.4rem;
@@ -256,8 +351,15 @@
     }
 
     &--content {
+      width: 100%;
+
       p {
         color: $white;
+        font-size: 1.4rem;
+
+        @include bp(bp-m) {
+          font-size: 1.8rem;
+        }
 
         @include bp(bp-l) {
           font-size: 1.2rem;
@@ -267,8 +369,14 @@
     }
 
     &--list {
+      width: 100%;
       li {
         color: $white;
+        font-size: 1.4rem;
+
+        @include bp(bp-m) {
+          font-size: 1.8rem;
+        }
 
         @include bp(bp-l) {
           font-size: 1.2rem;

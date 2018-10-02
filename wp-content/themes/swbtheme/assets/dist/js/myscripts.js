@@ -76378,7 +76378,7 @@ var Testimonials = function (_Component) {
       var _this2 = this;
 
       if (this.props.baseApiUrl) {
-        _axios2.default.get(this.props.baseApiUrl + "/wp-json/wp/v2/testimonial").then(function (res) {
+        _axios2.default.get(this.props.baseApiUrl + "/wp-json/wp/v2/testimonial/?per_page=20").then(function (res) {
           _this2.setState(function (prevState) {
             return _extends({}, prevState, {
               testimonials: res.data
@@ -76410,6 +76410,7 @@ var Testimonials = function (_Component) {
           );
         }
       };
+      var counter = 0;
       return _react2.default.createElement(
         "div",
         { className: "np-testimonials" },
@@ -76428,12 +76429,15 @@ var Testimonials = function (_Component) {
           _react2.default.createElement(
             _reactSlick2.default,
             _extends({ className: "np-testimonials__slider" }, settings),
-            this.state.testimonials.map(function (test) {
-              return _react2.default.createElement(_Testimonial2.default, {
-                key: test.id,
-                testimonial: test,
-                browserLang: browserLang
-              });
+            this.state.testimonials.map(function (test, index) {
+              if (counter < 5) {
+                counter++;
+                return _react2.default.createElement(_Testimonial2.default, {
+                  key: test.id,
+                  testimonial: test,
+                  browserLang: browserLang
+                });
+              }
             })
           )
         )
@@ -81329,6 +81333,7 @@ var ProProcessStep = function (_Component) {
 
     _this.setTheScene = _this.setTheScene.bind(_this);
     _this.animateStep = _this.animateStep.bind(_this);
+    _this.mobileTabletReset = _this.mobileTabletReset.bind(_this);
 
     _this.state = {
       thisStep: false,
@@ -81353,7 +81358,12 @@ var ProProcessStep = function (_Component) {
           stepIndex: _this2.props.index
         };
       }, function () {
-        _this2.setTheScene(_this2.state.thisStep);
+        var mq = window.matchMedia("(min-width: 1025px)").matches;
+        if (mq) {
+          _this2.setTheScene(_this2.state.thisStep);
+        } else {
+          _this2.mobileTabletReset(_this2.state.thisStep);
+        }
       });
     }
   }, {
@@ -81420,6 +81430,25 @@ var ProProcessStep = function (_Component) {
       stepAnimationTimeLine.to(number, 0.5, { x: -100 }).fromTo(content, 0.5, { y: 100 }, { y: 0, autoAlpha: 1 }, "+=0.5");
     }
   }, {
+    key: "mobileTabletReset",
+    value: function mobileTabletReset(step) {
+      var number = step.querySelector(".np-ourpro__step--number");
+      var icon = step.querySelector(".np-ourpro__step--icon");
+      var content = step.querySelector(".np-ourpro__step--contentwrap");
+      _TweenMax.TweenMax.set(number, { autoAlpha: 1 });
+      _TweenMax.TweenMax.set(icon, { autoAlpha: 1 });
+      _TweenMax.TweenMax.set(content, { autoAlpha: 1 });
+      number.removeEventListener("click", this.props.changeActiveStep);
+      this.setState(function (prevState) {
+        return {
+          listening: false,
+          animating: true
+        };
+      });
+      this.props.changeActiveStep();
+      this.animateStep(this.state.thisStep);
+    }
+  }, {
     key: "render",
     value: function render() {
       var contentRequired = this.props.step.content_req === "yes" ? true : false;
@@ -81427,6 +81456,11 @@ var ProProcessStep = function (_Component) {
 
       var stepIcon = this.props.step.icon;
       var stepTitle = this.props.step.title;
+
+      var activeClassName = this.state.listening ? " np-step-active" : "";
+      var completeClassName = this.state.animating ? " np-step-done" : "";
+      var numPeriod = this.state.animating ? "." : "";
+
       return _react2.default.createElement(
         "div",
         { className: "np-ourpro__step" },
@@ -81444,11 +81478,13 @@ var ProProcessStep = function (_Component) {
         ),
         _react2.default.createElement(
           "div",
-          { className: "np-ourpro__step--number" },
+          {
+            className: "np-ourpro__step--number" + activeClassName + completeClassName
+          },
           _react2.default.createElement(
             "p",
             null,
-            this.props.index + 1 + "."
+            "" + (this.props.index + 1) + numPeriod
           )
         ),
         _react2.default.createElement(
