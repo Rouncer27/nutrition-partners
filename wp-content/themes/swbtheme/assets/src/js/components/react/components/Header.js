@@ -61,7 +61,7 @@ class Header extends Component {
               className="swbmainnav__checkbox"
               id="navi-toggle"
             />
-            >
+
             <label htmlFor="navi-toggle" className="swbmainnav__button">
               <span className="swbmainnav__icon">&nbsp;</span>
             </label>

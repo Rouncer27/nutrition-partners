@@ -14,6 +14,10 @@
   &__meta {
     width: 100%;
     @include bp(bp-m) {
+      width: 100%;
+    }
+
+    @include bp(bp-l) {
       width: 40%;
     }
   }
@@ -21,7 +25,11 @@
   .swbmainnav {
     width: 100%;
     @include bp(bp-m) {
-      width: 50%;
+      width: 100%;
+    }
+
+    @include bp(bp-l) {
+      width: 60%;
     }
   }
 }

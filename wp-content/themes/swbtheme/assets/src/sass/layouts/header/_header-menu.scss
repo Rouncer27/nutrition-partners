@@ -19,6 +19,18 @@
         font-size: 1.4rem;
         text-align: center;
 
+        @include bp(bp-m) {
+          margin-right: 1rem;
+          margin-left: 1rem;
+          font-size: 1.8rem;
+        }
+
+        @include bp(bp-l) {
+          margin-right: 0.5rem;
+          margin-left: 0.5rem;
+          font-size: 1.6rem;
+        }
+
         // The anchor tags inisde the list items. //
         a {
           display: block;
@@ -26,7 +38,16 @@
           transition: all $trns-duration linear;
           color: $white;
           font-family: $font-family--accent;
+          font-size: 1em;
           text-transform: uppercase;
+
+          @include bp(bp-m) {
+            padding: 1rem 0.5rem;
+          }
+
+          @include bp(bp-l) {
+            padding: 1rem;
+          }
 
           &::after {
             display: block;

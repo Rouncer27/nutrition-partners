@@ -36,6 +36,10 @@
     align-self: center;
 
     @include bp(bp-m) {
+      width: 25%;
+    }
+
+    @include bp(bp-l) {
       width: 20%;
     }
   }
@@ -46,7 +50,11 @@
 
     @include bp(bp-m) {
       display: block;
-      width: 40%;
+      width: 65%;
+    }
+
+    @include bp(bp-l) {
+      width: 60%;
     }
   }
 
@@ -86,6 +94,11 @@
         @include bp(bp-m) {
           padding: 1rem 0.5rem;
           font-size: 1.4rem;
+        }
+
+        @include bp(bp-l) {
+          padding: 1rem 0.5rem;
+          font-size: 1.6rem;
         }
       }
     }

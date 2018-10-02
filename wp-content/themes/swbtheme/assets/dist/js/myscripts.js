@@ -19902,7 +19902,6 @@ var Header = function (_Component) {
               className: "swbmainnav__checkbox",
               id: "navi-toggle"
             }),
-            ">",
             _react2.default.createElement(
               "label",
               { htmlFor: "navi-toggle", className: "swbmainnav__button" },

@@ -4,7 +4,14 @@
 
   &__wrapper {
     @include container-base(flex);
-    width: 80rem;
+
+    @include bp(bp-m) {
+      width: 70rem;
+    }
+
+    @include bp(bp-l) {
+      width: 80rem;
+    }
   }
 
   &__title {
