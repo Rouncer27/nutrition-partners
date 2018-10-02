@@ -119,6 +119,11 @@
         left: auto;
       }
 
+      @media screen and (-ms-high-contrast: active),
+        screen and (-ms-high-contrast: none) {
+        left: 40%;
+      }
+
       p {
         display: inline-block;
         margin: 0 auto;
