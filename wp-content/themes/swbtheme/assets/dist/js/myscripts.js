@@ -84367,7 +84367,7 @@ var Featured = function (_Component) {
                       "np-active-slide-menu-item": _this2.state.activeSlider === slide.en_title.toLowerCase()
                     })
                   },
-                  slide.en_title.toLowerCase()
+                  _this2.props.browserLang === "en" ? slide.en_title.toLowerCase() : slide.fr_title.toLowerCase()
                 );
               })
             )

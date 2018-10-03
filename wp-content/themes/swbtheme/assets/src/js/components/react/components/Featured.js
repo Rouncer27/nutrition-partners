@@ -66,7 +66,9 @@ class Featured extends Component {
                       }
                     )}
                   >
-                    {slide.en_title.toLowerCase()}
+                    {this.props.browserLang === "en"
+                      ? slide.en_title.toLowerCase()
+                      : slide.fr_title.toLowerCase()}
                   </li>
                 );
               })}
