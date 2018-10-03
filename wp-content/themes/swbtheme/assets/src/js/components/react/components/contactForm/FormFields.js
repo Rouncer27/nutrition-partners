@@ -6,10 +6,9 @@ const FormFields = props => {
       ? "Let's start talking today."
       : "Commençons à parler aujourd'hui.";
   const fNameLabel = props.lang === "en" ? "First Name" : "Prénom";
-  const lNameLabel = props.lang === "en" ? "Last Name" : "Nom de famille";
-  const phoneLabel =
-    props.lang === "en" ? "Phone Number" : "Numéro de téléphone";
-  const emailLabel = props.lang === "en" ? "Email Address" : "Adresse e-mail";
+  const lNameLabel = props.lang === "en" ? "Last Name" : "Nom";
+  const phoneLabel = props.lang === "en" ? "Phone Number" : "Téléphone";
+  const emailLabel = props.lang === "en" ? "Email" : "Courriel";
   const messageLabel = props.lang === "en" ? "Message" : "Message";
   const submitLabel = props.lang === "en" ? "Submit" : "Soumettre";
   const requiredLabel =

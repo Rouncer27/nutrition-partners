@@ -84223,6 +84223,7 @@ var LauguageButton = function LauguageButton(_ref) {
   var browserLang = _ref.browserLang,
       switchTheLang = _ref.switchTheLang;
 
+  var lang = browserLang === "en" ? false : true;
   return _react2.default.createElement(
     "div",
     { className: "np-langbtn" },
@@ -84232,8 +84233,9 @@ var LauguageButton = function LauguageButton(_ref) {
       "English / French",
       _react2.default.createElement("input", {
         type: "checkbox",
-        className: "ios-switch green  bigswitch",
-        onChange: switchTheLang
+        className: "ios-switch green bigswitch",
+        onChange: switchTheLang,
+        checked: lang
       }),
       _react2.default.createElement(
         "div",
@@ -94812,9 +94814,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var FormFields = function FormFields(props) {
   var formTitle = props.lang === "en" ? "Let's start talking today." : "Commençons à parler aujourd'hui.";
   var fNameLabel = props.lang === "en" ? "First Name" : "Prénom";
-  var lNameLabel = props.lang === "en" ? "Last Name" : "Nom de famille";
-  var phoneLabel = props.lang === "en" ? "Phone Number" : "Numéro de téléphone";
-  var emailLabel = props.lang === "en" ? "Email Address" : "Adresse e-mail";
+  var lNameLabel = props.lang === "en" ? "Last Name" : "Nom";
+  var phoneLabel = props.lang === "en" ? "Phone Number" : "Téléphone";
+  var emailLabel = props.lang === "en" ? "Email" : "Courriel";
   var messageLabel = props.lang === "en" ? "Message" : "Message";
   var submitLabel = props.lang === "en" ? "Submit" : "Soumettre";
   var requiredLabel = props.lang === "en" ? "Required fields are followed by" : "Les champs obligatoires sont suivis par";
@@ -95150,6 +95152,8 @@ var LocationMaps = function LocationMaps(props) {
           var mapStreet = lang === "en" ? map.street_address_en : map.street_address_fr;
           var mapPhone = lang === "en" ? map.phone_en : map.phone_fr;
 
+          var phoneLabel = lang === "en" ? "Phone" : "Tél";
+
           return _react2.default.createElement(
             "div",
             { key: index, className: "np-maps__location" },
@@ -95191,7 +95195,8 @@ var LocationMaps = function LocationMaps(props) {
               _react2.default.createElement(
                 "p",
                 null,
-                "Phone: ",
+                phoneLabel,
+                ": ",
                 _react2.default.createElement(
                   "a",
                   { href: "tel:1+" + mapPhone },

@@ -23,6 +23,8 @@ const LocationMaps = props => {
               lang === "en" ? map.street_address_en : map.street_address_fr;
             const mapPhone = lang === "en" ? map.phone_en : map.phone_fr;
 
+            const phoneLabel = lang === "en" ? "Phone" : "Tél";
+
             return (
               <div key={index} className="np-maps__location">
                 <div className="np-maps__location--image">
@@ -39,7 +41,7 @@ const LocationMaps = props => {
                 </div>
                 <div className="np-maps__location--contact">
                   <p>
-                    Phone: <a href={`tel:1+${mapPhone}`}>{mapPhone}</a>
+                    {phoneLabel}: <a href={`tel:1+${mapPhone}`}>{mapPhone}</a>
                   </p>
                 </div>
               </div>

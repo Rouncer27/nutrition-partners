@@ -2,20 +2,16 @@ import React from "react";
 import classnames from "classnames";
 
 const LauguageButton = ({ browserLang, switchTheLang }) => {
+  const lang = browserLang === "en" ? false : true;
   return (
     <div className="np-langbtn">
-      {/* <button
-        className={classnames("tgl-btn", {
-          active: browserLang === "en"
-        })}
-        onClick={switchTheLang}
-      /> */}
       <label>
         English / French
         <input
           type="checkbox"
-          className="ios-switch green  bigswitch"
+          className="ios-switch green bigswitch"
           onChange={switchTheLang}
+          checked={lang}
         />
         <div>
           <div />
