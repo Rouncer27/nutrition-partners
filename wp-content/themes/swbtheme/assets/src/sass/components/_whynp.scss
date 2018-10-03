@@ -42,6 +42,8 @@
 
     h2 {
       @include mainTitle();
+      word-break: break-all;
+      hyphens: auto;
 
       @include bp(bp-l) {
         text-align: left;
