@@ -1,9 +1,21 @@
 import React, { Component } from "react";
+import $ from "jquery";
 
 import Menu from "./Menu";
 import LauguageButton from "./LauguageButton";
 
 class Header extends Component {
+  componentDidMount() {
+    const type = window.location.hash.substr(1);
+    if (type !== "") {
+      $("html, body").animate(
+        {
+          scrollTop: $(`#${type}`).offset().top
+        },
+        1000
+      );
+    }
+  }
   render() {
     const {
       siteMainEnglishMenu,

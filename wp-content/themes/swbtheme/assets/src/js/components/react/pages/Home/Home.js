@@ -264,6 +264,7 @@ export default class Home extends Component {
             <Process
               browserLang={this.state.browserLang}
               pageData={this.state.pageData}
+              siteSettings={this.state.siteSettings}
             />
             <RecentArticles
               browserLang={this.state.browserLang}

@@ -12,6 +12,8 @@ const Process = props => {
   const ourProcessTitle = props.browserLang === "en" ? enTitle : frTitle;
   const processDisplay = props.browserLang === "en" ? enSteps : frSteps;
 
+  const siteURL = props.siteSettings ? props.siteSettings.url : "#";
+
   return (
     <div className="np-process">
       <div className="np-process__wrapper">
@@ -41,6 +43,11 @@ const Process = props => {
                 </div>
               );
             })}
+        </div>
+        <div className="np-process__btnlink">
+          <a href={`${siteURL}/products/#np-our-process`}>
+            Full Progressive Process
+          </a>
         </div>
       </div>
       <div className="np-process__bgone" />

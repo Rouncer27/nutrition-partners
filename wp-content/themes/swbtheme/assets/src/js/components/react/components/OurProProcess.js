@@ -70,6 +70,7 @@ class OurProProcess extends Component {
               );
             })}
           </div>
+          <div id="np-our-process" />
         </div>
       </div>
     );

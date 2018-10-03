@@ -197,4 +197,35 @@
       }
     }
   }
+
+  &__btnlink {
+    a {
+      display: inline-block;
+      position: relative;
+      padding-bottom: 0.25rem;
+      transition: all 0.3s ease;
+      color: $color-secondary;
+      font-family: $font-family--accent;
+      font-size: 2rem;
+      text-transform: uppercase;
+      box-shadow: 0 0.25rem 0 $color-primary;
+
+      @include bp(bp-m) {
+        font-size: 1.6rem;
+      }
+
+      &::after {
+        @include fontAwesome();
+        position: absolute;
+        top: 0.1rem;
+        right: -2rem;
+        font-weight: normal;
+        content: "\f061";
+      }
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
 }
