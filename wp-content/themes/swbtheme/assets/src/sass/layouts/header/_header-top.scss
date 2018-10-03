@@ -1,0 +1,75 @@
+.np-siteheader__backtop {
+  display: flex;
+  position: fixed;
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: -12.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: auto !important;
+  height: 4rem !important;
+  margin: 0 auto;
+  transition: all 0.3s ease-out;
+  border: 0.2rem solid $color-shadow2;
+  background-color: rgba($color-primary, 0.9);
+  text-align: center;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  z-index: 500;
+
+  @include bp(bp-m) {
+    top: auto;
+    right: -6.5rem;
+    bottom: 5rem;
+    left: auto;
+    width: 6rem !important;
+    height: 6rem !important;
+    border-radius: 50%;
+    background-color: rgba($color-primary, 0.75);
+  }
+
+  @include bp(bp-l) {
+    width: 6rem !important;
+    height: 6rem !important;
+  }
+
+  &::after {
+    @include fontAwesome();
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $white;
+    font-size: 2.5rem;
+    line-height: 0;
+    content: "\f077";
+  }
+
+  &:hover {
+    background-color: rgba($color-primary, 1);
+    cursor: pointer;
+  }
+}
+
+.np-siteheader__backtop.visable-active {
+  top: auto;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+
+  @include bp(bp-m) {
+    top: auto;
+    right: 1.5rem;
+    bottom: 2.5rem;
+    left: auto;
+  }
+
+  @include bp(bp-l) {
+    right: 2rem;
+    bottom: 5rem;
+  }
+}

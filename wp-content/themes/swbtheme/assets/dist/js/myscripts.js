@@ -4741,50 +4741,6 @@ if (process.env.NODE_ENV !== 'production') {
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(5)(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__(3);
-var IE8_DOM_DEFINE = __webpack_require__(154);
-var toPrimitive = __webpack_require__(34);
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__(9) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.15 ToLength
-var toInteger = __webpack_require__(36);
-var min = Math.min;
-module.exports = function (it) {
-  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-};
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * ScrollMagic v2.0.5 (2015-04-29)
  * The javascript library for magical scroll interactions.
@@ -7571,6 +7527,50 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 }));
 
 /***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(5)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(3);
+var IE8_DOM_DEFINE = __webpack_require__(154);
+var toPrimitive = __webpack_require__(34);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(10) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.15 ToLength
+var toInteger = __webpack_require__(36);
+var min = Math.min;
+module.exports = function (it) {
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+
+/***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
@@ -7762,6 +7762,686 @@ process.umask = function() { return 0; };
 
 /***/ }),
 /* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+ * ScrollMagic v2.0.5 (2015-04-29)
+ * The javascript library for magical scroll interactions.
+ * (c) 2015 Jan Paepke (@janpaepke)
+ * Project Website: http://scrollmagic.io
+ * 
+ * @version 2.0.5
+ * @license Dual licensed under MIT license and GPL.
+ * @author Jan Paepke - e-mail@janpaepke.de
+ *
+ * @file Debug Extension for ScrollMagic.
+ */
+/**
+ * This plugin was formerly known as the ScrollMagic debug extension.
+ *
+ * It enables you to add visual indicators to your page, to be able to see exactly when a scene is triggered.
+ *
+ * To have access to this extension, please include `plugins/debug.addIndicators.js`.
+ * @mixin debug.addIndicators
+ */
+(function (root, factory) {
+	if (true) {
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(9)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else if (typeof exports === 'object') {
+		// CommonJS
+		factory(require('scrollmagic'));
+	} else {
+		// no browser global export needed, just execute
+		factory(root.ScrollMagic || (root.jQuery && root.jQuery.ScrollMagic));
+	}
+}(this, function (ScrollMagic) {
+	"use strict";
+	var NAMESPACE = "debug.addIndicators";
+
+	var
+	console = window.console || {},
+		err = Function.prototype.bind.call(console.error || console.log ||
+		function () {}, console);
+	if (!ScrollMagic) {
+		err("(" + NAMESPACE + ") -> ERROR: The ScrollMagic main module could not be found. Please make sure it's loaded before this plugin or use an asynchronous loader like requirejs.");
+	}
+
+	// plugin settings
+	var
+	FONT_SIZE = "0.85em",
+		ZINDEX = "9999",
+		EDGE_OFFSET = 15; // minimum edge distance, added to indentation
+
+	// overall vars
+	var
+	_util = ScrollMagic._util,
+		_autoindex = 0;
+
+
+
+	ScrollMagic.Scene.extend(function () {
+		var
+		Scene = this,
+			_indicator;
+
+		var log = function () {
+			if (Scene._log) { // not available, when main source minified
+				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ")", "->");
+				Scene._log.apply(this, arguments);
+			}
+		};
+
+		/**
+		 * Add visual indicators for a ScrollMagic.Scene.  
+		 * @memberof! debug.addIndicators#
+		 *
+		 * @example
+		 * // add basic indicators
+		 * scene.addIndicators()
+		 *
+		 * // passing options
+		 * scene.addIndicators({name: "pin scene", colorEnd: "#FFFFFF"});
+		 *
+		 * @param {object} [options] - An object containing one or more options for the indicators.
+		 * @param {(string|object)} [options.parent=undefined] - A selector, DOM Object or a jQuery object that the indicators should be added to.  
+		 If undefined, the controller's container will be used.
+		 * @param {number} [options.name=""] - This string will be displayed at the start and end indicators of the scene for identification purposes. If no name is supplied an automatic index will be used.
+		 * @param {number} [options.indent=0] - Additional position offset for the indicators (useful, when having multiple scenes starting at the same position).
+		 * @param {string} [options.colorStart=green] - CSS color definition for the start indicator.
+		 * @param {string} [options.colorEnd=red] - CSS color definition for the end indicator.
+		 * @param {string} [options.colorTrigger=blue] - CSS color definition for the trigger indicator.
+		 */
+		Scene.addIndicators = function (options) {
+			if (!_indicator) {
+				var
+				DEFAULT_OPTIONS = {
+					name: "",
+					indent: 0,
+					parent: undefined,
+					colorStart: "green",
+					colorEnd: "red",
+					colorTrigger: "blue",
+				};
+
+				options = _util.extend({}, DEFAULT_OPTIONS, options);
+
+				_autoindex++;
+				_indicator = new Indicator(Scene, options);
+
+				Scene.on("add.plugin_addIndicators", _indicator.add);
+				Scene.on("remove.plugin_addIndicators", _indicator.remove);
+				Scene.on("destroy.plugin_addIndicators", Scene.removeIndicators);
+
+				// it the scene already has a controller we can start right away.
+				if (Scene.controller()) {
+					_indicator.add();
+				}
+			}
+			return Scene;
+		};
+
+		/**
+		 * Removes visual indicators from a ScrollMagic.Scene.
+		 * @memberof! debug.addIndicators#
+		 *
+		 * @example
+		 * // remove previously added indicators
+		 * scene.removeIndicators()
+		 *
+		 */
+		Scene.removeIndicators = function () {
+			if (_indicator) {
+				_indicator.remove();
+				this.off("*.plugin_addIndicators");
+				_indicator = undefined;
+			}
+			return Scene;
+		};
+
+	});
+
+
+/*
+	 * ----------------------------------------------------------------
+	 * Extension for controller to store and update related indicators
+	 * ----------------------------------------------------------------
+	 */
+	// add option to globally auto-add indicators to scenes
+	/**
+	 * Every ScrollMagic.Controller instance now accepts an additional option.  
+	 * See {@link ScrollMagic.Controller} for a complete list of the standard options.
+	 * @memberof! debug.addIndicators#
+	 * @method new ScrollMagic.Controller(options)
+	 * @example
+	 * // make a controller and add indicators to all scenes attached
+	 * var controller = new ScrollMagic.Controller({addIndicators: true});
+	 * // this scene will automatically have indicators added to it
+	 * new ScrollMagic.Scene()
+	 *                .addTo(controller);
+	 *
+	 * @param {object} [options] - Options for the Controller.
+	 * @param {boolean} [options.addIndicators=false] - If set to `true` every scene that is added to the controller will automatically get indicators added to it.
+	 */
+	ScrollMagic.Controller.addOption("addIndicators", false);
+	// extend Controller
+	ScrollMagic.Controller.extend(function () {
+		var
+		Controller = this,
+			_info = Controller.info(),
+			_container = _info.container,
+			_isDocument = _info.isDocument,
+			_vertical = _info.vertical,
+			_indicators = { // container for all indicators and methods
+				groups: []
+			};
+
+		var log = function () {
+			if (Controller._log) { // not available, when main source minified
+				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ")", "->");
+				Controller._log.apply(this, arguments);
+			}
+		};
+		if (Controller._indicators) {
+			log(2, "WARNING: Scene already has a property '_indicators', which will be overwritten by plugin.");
+		}
+
+		// add indicators container
+		this._indicators = _indicators;
+/*
+			needed updates:
+			+++++++++++++++
+			start/end position on scene shift (handled in Indicator class)
+			trigger parameters on triggerHook value change (handled in Indicator class)
+			bounds position on container scroll or resize (to keep alignment to bottom/right)
+			trigger position on container resize, window resize (if container isn't document) and window scroll (if container isn't document)
+		*/
+
+		// event handler for when associated bounds markers need to be repositioned
+		var handleBoundsPositionChange = function () {
+			_indicators.updateBoundsPositions();
+		};
+
+		// event handler for when associated trigger groups need to be repositioned
+		var handleTriggerPositionChange = function () {
+			_indicators.updateTriggerGroupPositions();
+		};
+
+		_container.addEventListener("resize", handleTriggerPositionChange);
+		if (!_isDocument) {
+			window.addEventListener("resize", handleTriggerPositionChange);
+			window.addEventListener("scroll", handleTriggerPositionChange);
+		}
+		// update all related bounds containers
+		_container.addEventListener("resize", handleBoundsPositionChange);
+		_container.addEventListener("scroll", handleBoundsPositionChange);
+
+
+		// updates the position of the bounds container to aligned to the right for vertical containers and to the bottom for horizontal
+		this._indicators.updateBoundsPositions = function (specificIndicator) {
+			var // constant for all bounds
+			groups = specificIndicator ? [_util.extend({}, specificIndicator.triggerGroup, {
+				members: [specificIndicator]
+			})] : // create a group with only one element
+			_indicators.groups,
+				// use all
+				g = groups.length,
+				css = {},
+				paramPos = _vertical ? "left" : "top",
+				paramDimension = _vertical ? "width" : "height",
+				edge = _vertical ? _util.get.scrollLeft(_container) + _util.get.width(_container) - EDGE_OFFSET : _util.get.scrollTop(_container) + _util.get.height(_container) - EDGE_OFFSET,
+				b, triggerSize, group;
+			while (g--) { // group loop
+				group = groups[g];
+				b = group.members.length;
+				triggerSize = _util.get[paramDimension](group.element.firstChild);
+				while (b--) { // indicators loop
+					css[paramPos] = edge - triggerSize;
+					_util.css(group.members[b].bounds, css);
+				}
+			}
+		};
+
+		// updates the positions of all trigger groups attached to a controller or a specific one, if provided
+		this._indicators.updateTriggerGroupPositions = function (specificGroup) {
+			var // constant vars
+			groups = specificGroup ? [specificGroup] : _indicators.groups,
+				i = groups.length,
+				container = _isDocument ? document.body : _container,
+				containerOffset = _isDocument ? {
+					top: 0,
+					left: 0
+				} : _util.get.offset(container, true),
+				edge = _vertical ? _util.get.width(_container) - EDGE_OFFSET : _util.get.height(_container) - EDGE_OFFSET,
+				paramDimension = _vertical ? "width" : "height",
+				paramTransform = _vertical ? "Y" : "X";
+			var // changing vars
+			group, elem, pos, elemSize, transform;
+			while (i--) {
+				group = groups[i];
+				elem = group.element;
+				pos = group.triggerHook * Controller.info("size");
+				elemSize = _util.get[paramDimension](elem.firstChild.firstChild);
+				transform = pos > elemSize ? "translate" + paramTransform + "(-100%)" : "";
+
+				_util.css(elem, {
+					top: containerOffset.top + (_vertical ? pos : edge - group.members[0].options.indent),
+					left: containerOffset.left + (_vertical ? edge - group.members[0].options.indent : pos)
+				});
+				_util.css(elem.firstChild.firstChild, {
+					"-ms-transform": transform,
+					"-webkit-transform": transform,
+					"transform": transform
+				});
+			}
+		};
+
+		// updates the label for the group to contain the name, if it only has one member
+		this._indicators.updateTriggerGroupLabel = function (group) {
+			var
+			text = "trigger" + (group.members.length > 1 ? "" : " " + group.members[0].options.name),
+				elem = group.element.firstChild.firstChild,
+				doUpdate = elem.textContent !== text;
+			if (doUpdate) {
+				elem.textContent = text;
+				if (_vertical) { // bounds position is dependent on text length, so update
+					_indicators.updateBoundsPositions();
+				}
+			}
+		};
+
+		// add indicators if global option is set
+		this.addScene = function (newScene) {
+
+			if (this._options.addIndicators && newScene instanceof ScrollMagic.Scene && newScene.controller() === Controller) {
+				newScene.addIndicators();
+			}
+			// call original destroy method
+			this.$super.addScene.apply(this, arguments);
+		};
+
+		// remove all previously set listeners on destroy
+		this.destroy = function () {
+			_container.removeEventListener("resize", handleTriggerPositionChange);
+			if (!_isDocument) {
+				window.removeEventListener("resize", handleTriggerPositionChange);
+				window.removeEventListener("scroll", handleTriggerPositionChange);
+			}
+			_container.removeEventListener("resize", handleBoundsPositionChange);
+			_container.removeEventListener("scroll", handleBoundsPositionChange);
+			// call original destroy method
+			this.$super.destroy.apply(this, arguments);
+		};
+		return Controller;
+
+	});
+
+/*
+	 * ----------------------------------------------------------------
+	 * Internal class for the construction of Indicators
+	 * ----------------------------------------------------------------
+	 */
+	var Indicator = function (Scene, options) {
+		var
+		Indicator = this,
+			_elemBounds = TPL.bounds(),
+			_elemStart = TPL.start(options.colorStart),
+			_elemEnd = TPL.end(options.colorEnd),
+			_boundsContainer = options.parent && _util.get.elements(options.parent)[0],
+			_vertical, _ctrl;
+
+		var log = function () {
+			if (Scene._log) { // not available, when main source minified
+				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ")", "->");
+				Scene._log.apply(this, arguments);
+			}
+		};
+
+		options.name = options.name || _autoindex;
+
+		// prepare bounds elements
+		_elemStart.firstChild.textContent += " " + options.name;
+		_elemEnd.textContent += " " + options.name;
+		_elemBounds.appendChild(_elemStart);
+		_elemBounds.appendChild(_elemEnd);
+
+		// set public variables
+		Indicator.options = options;
+		Indicator.bounds = _elemBounds;
+		// will be set later
+		Indicator.triggerGroup = undefined;
+
+		// add indicators to DOM
+		this.add = function () {
+			_ctrl = Scene.controller();
+			_vertical = _ctrl.info("vertical");
+
+			var isDocument = _ctrl.info("isDocument");
+
+			if (!_boundsContainer) {
+				// no parent supplied or doesnt exist
+				_boundsContainer = isDocument ? document.body : _ctrl.info("container"); // check if window/document (then use body)
+			}
+			if (!isDocument && _util.css(_boundsContainer, "position") === 'static') {
+				// position mode needed for correct positioning of indicators
+				_util.css(_boundsContainer, {
+					position: "relative"
+				});
+			}
+
+			// add listeners for updates
+			Scene.on("change.plugin_addIndicators", handleTriggerParamsChange);
+			Scene.on("shift.plugin_addIndicators", handleBoundsParamsChange);
+
+			// updates trigger & bounds (will add elements if needed)
+			updateTriggerGroup();
+			updateBounds();
+
+			setTimeout(function () { // do after all execution is finished otherwise sometimes size calculations are off
+				_ctrl._indicators.updateBoundsPositions(Indicator);
+			}, 0);
+
+			log(3, "added indicators");
+		};
+
+		// remove indicators from DOM
+		this.remove = function () {
+			if (Indicator.triggerGroup) { // if not set there's nothing to remove
+				Scene.off("change.plugin_addIndicators", handleTriggerParamsChange);
+				Scene.off("shift.plugin_addIndicators", handleBoundsParamsChange);
+
+				if (Indicator.triggerGroup.members.length > 1) {
+					// just remove from memberlist of old group
+					var group = Indicator.triggerGroup;
+					group.members.splice(group.members.indexOf(Indicator), 1);
+					_ctrl._indicators.updateTriggerGroupLabel(group);
+					_ctrl._indicators.updateTriggerGroupPositions(group);
+					Indicator.triggerGroup = undefined;
+				} else {
+					// remove complete group
+					removeTriggerGroup();
+				}
+				removeBounds();
+
+				log(3, "removed indicators");
+			}
+		};
+
+/*
+		 * ----------------------------------------------------------------
+		 * internal Event Handlers
+		 * ----------------------------------------------------------------
+		 */
+
+		// event handler for when bounds params change
+		var handleBoundsParamsChange = function () {
+			updateBounds();
+		};
+
+		// event handler for when trigger params change
+		var handleTriggerParamsChange = function (e) {
+			if (e.what === "triggerHook") {
+				updateTriggerGroup();
+			}
+		};
+
+/*
+		 * ----------------------------------------------------------------
+		 * Bounds (start / stop) management
+		 * ----------------------------------------------------------------
+		 */
+
+		// adds an new bounds elements to the array and to the DOM
+		var addBounds = function () {
+			var v = _ctrl.info("vertical");
+			// apply stuff we didn't know before...
+			_util.css(_elemStart.firstChild, {
+				"border-bottom-width": v ? 1 : 0,
+				"border-right-width": v ? 0 : 1,
+				"bottom": v ? -1 : options.indent,
+				"right": v ? options.indent : -1,
+				"padding": v ? "0 8px" : "2px 4px",
+			});
+			_util.css(_elemEnd, {
+				"border-top-width": v ? 1 : 0,
+				"border-left-width": v ? 0 : 1,
+				"top": v ? "100%" : "",
+				"right": v ? options.indent : "",
+				"bottom": v ? "" : options.indent,
+				"left": v ? "" : "100%",
+				"padding": v ? "0 8px" : "2px 4px"
+			});
+			// append
+			_boundsContainer.appendChild(_elemBounds);
+		};
+
+		// remove bounds from list and DOM
+		var removeBounds = function () {
+			_elemBounds.parentNode.removeChild(_elemBounds);
+		};
+
+		// update the start and end positions of the scene
+		var updateBounds = function () {
+			if (_elemBounds.parentNode !== _boundsContainer) {
+				addBounds(); // Add Bounds elements (start/end)
+			}
+			var css = {};
+			css[_vertical ? "top" : "left"] = Scene.triggerPosition();
+			css[_vertical ? "height" : "width"] = Scene.duration();
+			_util.css(_elemBounds, css);
+			_util.css(_elemEnd, {
+				display: Scene.duration() > 0 ? "" : "none"
+			});
+		};
+
+/*
+		 * ----------------------------------------------------------------
+		 * trigger and trigger group management
+		 * ----------------------------------------------------------------
+		 */
+
+		// adds an new trigger group to the array and to the DOM
+		var addTriggerGroup = function () {
+			var triggerElem = TPL.trigger(options.colorTrigger); // new trigger element
+			var css = {};
+			css[_vertical ? "right" : "bottom"] = 0;
+			css[_vertical ? "border-top-width" : "border-left-width"] = 1;
+			_util.css(triggerElem.firstChild, css);
+			_util.css(triggerElem.firstChild.firstChild, {
+				padding: _vertical ? "0 8px 3px 8px" : "3px 4px"
+			});
+			document.body.appendChild(triggerElem); // directly add to body
+			var newGroup = {
+				triggerHook: Scene.triggerHook(),
+				element: triggerElem,
+				members: [Indicator]
+			};
+			_ctrl._indicators.groups.push(newGroup);
+			Indicator.triggerGroup = newGroup;
+			// update right away
+			_ctrl._indicators.updateTriggerGroupLabel(newGroup);
+			_ctrl._indicators.updateTriggerGroupPositions(newGroup);
+		};
+
+		var removeTriggerGroup = function () {
+			_ctrl._indicators.groups.splice(_ctrl._indicators.groups.indexOf(Indicator.triggerGroup), 1);
+			Indicator.triggerGroup.element.parentNode.removeChild(Indicator.triggerGroup.element);
+			Indicator.triggerGroup = undefined;
+		};
+
+		// updates the trigger group -> either join existing or add new one
+/*	
+		 * Logic:
+		 * 1 if a trigger group exist, check if it's in sync with Scene settings – if so, nothing else needs to happen
+		 * 2 try to find an existing one that matches Scene parameters
+		 * 	 2.1 If a match is found check if already assigned to an existing group
+		 *			 If so:
+		 *       A: it was the last member of existing group -> kill whole group
+		 *       B: the existing group has other members -> just remove from member list
+		 *	 2.2 Assign to matching group
+		 * 3 if no new match could be found, check if assigned to existing group
+		 *   A: yes, and it's the only member -> just update parameters and positions and keep using this group
+		 *   B: yes but there are other members -> remove from member list and create a new one
+		 *   C: no, so create a new one
+		 */
+		var updateTriggerGroup = function () {
+			var
+			triggerHook = Scene.triggerHook(),
+				closeEnough = 0.0001;
+
+			// Have a group, check if it still matches
+			if (Indicator.triggerGroup) {
+				if (Math.abs(Indicator.triggerGroup.triggerHook - triggerHook) < closeEnough) {
+					// _util.log(0, "trigger", options.name, "->", "no need to change, still in sync");
+					return; // all good
+				}
+			}
+			// Don't have a group, check if a matching one exists
+			// _util.log(0, "trigger", options.name, "->", "out of sync!");
+			var
+			groups = _ctrl._indicators.groups,
+				group, i = groups.length;
+			while (i--) {
+				group = groups[i];
+				if (Math.abs(group.triggerHook - triggerHook) < closeEnough) {
+					// found a match!
+					// _util.log(0, "trigger", options.name, "->", "found match");
+					if (Indicator.triggerGroup) { // do I have an old group that is out of sync?
+						if (Indicator.triggerGroup.members.length === 1) { // is it the only remaining group?
+							// _util.log(0, "trigger", options.name, "->", "kill");
+							// was the last member, remove the whole group
+							removeTriggerGroup();
+						} else {
+							Indicator.triggerGroup.members.splice(Indicator.triggerGroup.members.indexOf(Indicator), 1); // just remove from memberlist of old group
+							_ctrl._indicators.updateTriggerGroupLabel(Indicator.triggerGroup);
+							_ctrl._indicators.updateTriggerGroupPositions(Indicator.triggerGroup);
+							// _util.log(0, "trigger", options.name, "->", "removing from previous member list");
+						}
+					}
+					// join new group
+					group.members.push(Indicator);
+					Indicator.triggerGroup = group;
+					_ctrl._indicators.updateTriggerGroupLabel(group);
+					return;
+				}
+			}
+
+			// at this point I am obviously out of sync and don't match any other group
+			if (Indicator.triggerGroup) {
+				if (Indicator.triggerGroup.members.length === 1) {
+					// _util.log(0, "trigger", options.name, "->", "updating existing");
+					// out of sync but i'm the only member => just change and update
+					Indicator.triggerGroup.triggerHook = triggerHook;
+					_ctrl._indicators.updateTriggerGroupPositions(Indicator.triggerGroup);
+					return;
+				} else {
+					// _util.log(0, "trigger", options.name, "->", "removing from previous member list");
+					Indicator.triggerGroup.members.splice(Indicator.triggerGroup.members.indexOf(Indicator), 1); // just remove from memberlist of old group
+					_ctrl._indicators.updateTriggerGroupLabel(Indicator.triggerGroup);
+					_ctrl._indicators.updateTriggerGroupPositions(Indicator.triggerGroup);
+					Indicator.triggerGroup = undefined; // need a brand new group...
+				}
+			}
+			// _util.log(0, "trigger", options.name, "->", "add a new one");
+			// did not find any match, make new trigger group
+			addTriggerGroup();
+		};
+	};
+
+/*
+	 * ----------------------------------------------------------------
+	 * Templates for the indicators
+	 * ----------------------------------------------------------------
+	 */
+	var TPL = {
+		start: function (color) {
+			// inner element (for bottom offset -1, while keeping top position 0)
+			var inner = document.createElement("div");
+			inner.textContent = "start";
+			_util.css(inner, {
+				position: "absolute",
+				overflow: "visible",
+				"border-width": 0,
+				"border-style": "solid",
+				color: color,
+				"border-color": color
+			});
+			var e = document.createElement('div');
+			// wrapper
+			_util.css(e, {
+				position: "absolute",
+				overflow: "visible",
+				width: 0,
+				height: 0
+			});
+			e.appendChild(inner);
+			return e;
+		},
+		end: function (color) {
+			var e = document.createElement('div');
+			e.textContent = "end";
+			_util.css(e, {
+				position: "absolute",
+				overflow: "visible",
+				"border-width": 0,
+				"border-style": "solid",
+				color: color,
+				"border-color": color
+			});
+			return e;
+		},
+		bounds: function () {
+			var e = document.createElement('div');
+			_util.css(e, {
+				position: "absolute",
+				overflow: "visible",
+				"white-space": "nowrap",
+				"pointer-events": "none",
+				"font-size": FONT_SIZE
+			});
+			e.style.zIndex = ZINDEX;
+			return e;
+		},
+		trigger: function (color) {
+			// inner to be above or below line but keep position
+			var inner = document.createElement('div');
+			inner.textContent = "trigger";
+			_util.css(inner, {
+				position: "relative",
+			});
+			// inner wrapper for right: 0 and main element has no size
+			var w = document.createElement('div');
+			_util.css(w, {
+				position: "absolute",
+				overflow: "visible",
+				"border-width": 0,
+				"border-style": "solid",
+				color: color,
+				"border-color": color
+			});
+			w.appendChild(inner);
+			// wrapper
+			var e = document.createElement('div');
+			_util.css(e, {
+				position: "fixed",
+				overflow: "visible",
+				"white-space": "nowrap",
+				"pointer-events": "none",
+				"font-size": FONT_SIZE
+			});
+			e.style.zIndex = ZINDEX;
+			e.appendChild(w);
+			return e;
+		},
+	};
+
+}));
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15766,7 +16446,7 @@ if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); } //necessary in case Tween
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15804,7 +16484,7 @@ var _createEmotion = Object(__WEBPACK_IMPORTED_MODULE_0_create_emotion__["a" /* 
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(42)))
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16836,7 +17516,7 @@ var createEventHandler = createEventHandlerWithConfig(config);
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(13)))
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -16869,7 +17549,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 (function (root, factory) {
 	if (true) {
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(12), __webpack_require__(14), __webpack_require__(665)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(9), __webpack_require__(15), __webpack_require__(665)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -17154,686 +17834,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 }));
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * ScrollMagic v2.0.5 (2015-04-29)
- * The javascript library for magical scroll interactions.
- * (c) 2015 Jan Paepke (@janpaepke)
- * Project Website: http://scrollmagic.io
- * 
- * @version 2.0.5
- * @license Dual licensed under MIT license and GPL.
- * @author Jan Paepke - e-mail@janpaepke.de
- *
- * @file Debug Extension for ScrollMagic.
- */
-/**
- * This plugin was formerly known as the ScrollMagic debug extension.
- *
- * It enables you to add visual indicators to your page, to be able to see exactly when a scene is triggered.
- *
- * To have access to this extension, please include `plugins/debug.addIndicators.js`.
- * @mixin debug.addIndicators
- */
-(function (root, factory) {
-	if (true) {
-		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(12)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else if (typeof exports === 'object') {
-		// CommonJS
-		factory(require('scrollmagic'));
-	} else {
-		// no browser global export needed, just execute
-		factory(root.ScrollMagic || (root.jQuery && root.jQuery.ScrollMagic));
-	}
-}(this, function (ScrollMagic) {
-	"use strict";
-	var NAMESPACE = "debug.addIndicators";
-
-	var
-	console = window.console || {},
-		err = Function.prototype.bind.call(console.error || console.log ||
-		function () {}, console);
-	if (!ScrollMagic) {
-		err("(" + NAMESPACE + ") -> ERROR: The ScrollMagic main module could not be found. Please make sure it's loaded before this plugin or use an asynchronous loader like requirejs.");
-	}
-
-	// plugin settings
-	var
-	FONT_SIZE = "0.85em",
-		ZINDEX = "9999",
-		EDGE_OFFSET = 15; // minimum edge distance, added to indentation
-
-	// overall vars
-	var
-	_util = ScrollMagic._util,
-		_autoindex = 0;
-
-
-
-	ScrollMagic.Scene.extend(function () {
-		var
-		Scene = this,
-			_indicator;
-
-		var log = function () {
-			if (Scene._log) { // not available, when main source minified
-				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ")", "->");
-				Scene._log.apply(this, arguments);
-			}
-		};
-
-		/**
-		 * Add visual indicators for a ScrollMagic.Scene.  
-		 * @memberof! debug.addIndicators#
-		 *
-		 * @example
-		 * // add basic indicators
-		 * scene.addIndicators()
-		 *
-		 * // passing options
-		 * scene.addIndicators({name: "pin scene", colorEnd: "#FFFFFF"});
-		 *
-		 * @param {object} [options] - An object containing one or more options for the indicators.
-		 * @param {(string|object)} [options.parent=undefined] - A selector, DOM Object or a jQuery object that the indicators should be added to.  
-		 If undefined, the controller's container will be used.
-		 * @param {number} [options.name=""] - This string will be displayed at the start and end indicators of the scene for identification purposes. If no name is supplied an automatic index will be used.
-		 * @param {number} [options.indent=0] - Additional position offset for the indicators (useful, when having multiple scenes starting at the same position).
-		 * @param {string} [options.colorStart=green] - CSS color definition for the start indicator.
-		 * @param {string} [options.colorEnd=red] - CSS color definition for the end indicator.
-		 * @param {string} [options.colorTrigger=blue] - CSS color definition for the trigger indicator.
-		 */
-		Scene.addIndicators = function (options) {
-			if (!_indicator) {
-				var
-				DEFAULT_OPTIONS = {
-					name: "",
-					indent: 0,
-					parent: undefined,
-					colorStart: "green",
-					colorEnd: "red",
-					colorTrigger: "blue",
-				};
-
-				options = _util.extend({}, DEFAULT_OPTIONS, options);
-
-				_autoindex++;
-				_indicator = new Indicator(Scene, options);
-
-				Scene.on("add.plugin_addIndicators", _indicator.add);
-				Scene.on("remove.plugin_addIndicators", _indicator.remove);
-				Scene.on("destroy.plugin_addIndicators", Scene.removeIndicators);
-
-				// it the scene already has a controller we can start right away.
-				if (Scene.controller()) {
-					_indicator.add();
-				}
-			}
-			return Scene;
-		};
-
-		/**
-		 * Removes visual indicators from a ScrollMagic.Scene.
-		 * @memberof! debug.addIndicators#
-		 *
-		 * @example
-		 * // remove previously added indicators
-		 * scene.removeIndicators()
-		 *
-		 */
-		Scene.removeIndicators = function () {
-			if (_indicator) {
-				_indicator.remove();
-				this.off("*.plugin_addIndicators");
-				_indicator = undefined;
-			}
-			return Scene;
-		};
-
-	});
-
-
-/*
-	 * ----------------------------------------------------------------
-	 * Extension for controller to store and update related indicators
-	 * ----------------------------------------------------------------
-	 */
-	// add option to globally auto-add indicators to scenes
-	/**
-	 * Every ScrollMagic.Controller instance now accepts an additional option.  
-	 * See {@link ScrollMagic.Controller} for a complete list of the standard options.
-	 * @memberof! debug.addIndicators#
-	 * @method new ScrollMagic.Controller(options)
-	 * @example
-	 * // make a controller and add indicators to all scenes attached
-	 * var controller = new ScrollMagic.Controller({addIndicators: true});
-	 * // this scene will automatically have indicators added to it
-	 * new ScrollMagic.Scene()
-	 *                .addTo(controller);
-	 *
-	 * @param {object} [options] - Options for the Controller.
-	 * @param {boolean} [options.addIndicators=false] - If set to `true` every scene that is added to the controller will automatically get indicators added to it.
-	 */
-	ScrollMagic.Controller.addOption("addIndicators", false);
-	// extend Controller
-	ScrollMagic.Controller.extend(function () {
-		var
-		Controller = this,
-			_info = Controller.info(),
-			_container = _info.container,
-			_isDocument = _info.isDocument,
-			_vertical = _info.vertical,
-			_indicators = { // container for all indicators and methods
-				groups: []
-			};
-
-		var log = function () {
-			if (Controller._log) { // not available, when main source minified
-				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ")", "->");
-				Controller._log.apply(this, arguments);
-			}
-		};
-		if (Controller._indicators) {
-			log(2, "WARNING: Scene already has a property '_indicators', which will be overwritten by plugin.");
-		}
-
-		// add indicators container
-		this._indicators = _indicators;
-/*
-			needed updates:
-			+++++++++++++++
-			start/end position on scene shift (handled in Indicator class)
-			trigger parameters on triggerHook value change (handled in Indicator class)
-			bounds position on container scroll or resize (to keep alignment to bottom/right)
-			trigger position on container resize, window resize (if container isn't document) and window scroll (if container isn't document)
-		*/
-
-		// event handler for when associated bounds markers need to be repositioned
-		var handleBoundsPositionChange = function () {
-			_indicators.updateBoundsPositions();
-		};
-
-		// event handler for when associated trigger groups need to be repositioned
-		var handleTriggerPositionChange = function () {
-			_indicators.updateTriggerGroupPositions();
-		};
-
-		_container.addEventListener("resize", handleTriggerPositionChange);
-		if (!_isDocument) {
-			window.addEventListener("resize", handleTriggerPositionChange);
-			window.addEventListener("scroll", handleTriggerPositionChange);
-		}
-		// update all related bounds containers
-		_container.addEventListener("resize", handleBoundsPositionChange);
-		_container.addEventListener("scroll", handleBoundsPositionChange);
-
-
-		// updates the position of the bounds container to aligned to the right for vertical containers and to the bottom for horizontal
-		this._indicators.updateBoundsPositions = function (specificIndicator) {
-			var // constant for all bounds
-			groups = specificIndicator ? [_util.extend({}, specificIndicator.triggerGroup, {
-				members: [specificIndicator]
-			})] : // create a group with only one element
-			_indicators.groups,
-				// use all
-				g = groups.length,
-				css = {},
-				paramPos = _vertical ? "left" : "top",
-				paramDimension = _vertical ? "width" : "height",
-				edge = _vertical ? _util.get.scrollLeft(_container) + _util.get.width(_container) - EDGE_OFFSET : _util.get.scrollTop(_container) + _util.get.height(_container) - EDGE_OFFSET,
-				b, triggerSize, group;
-			while (g--) { // group loop
-				group = groups[g];
-				b = group.members.length;
-				triggerSize = _util.get[paramDimension](group.element.firstChild);
-				while (b--) { // indicators loop
-					css[paramPos] = edge - triggerSize;
-					_util.css(group.members[b].bounds, css);
-				}
-			}
-		};
-
-		// updates the positions of all trigger groups attached to a controller or a specific one, if provided
-		this._indicators.updateTriggerGroupPositions = function (specificGroup) {
-			var // constant vars
-			groups = specificGroup ? [specificGroup] : _indicators.groups,
-				i = groups.length,
-				container = _isDocument ? document.body : _container,
-				containerOffset = _isDocument ? {
-					top: 0,
-					left: 0
-				} : _util.get.offset(container, true),
-				edge = _vertical ? _util.get.width(_container) - EDGE_OFFSET : _util.get.height(_container) - EDGE_OFFSET,
-				paramDimension = _vertical ? "width" : "height",
-				paramTransform = _vertical ? "Y" : "X";
-			var // changing vars
-			group, elem, pos, elemSize, transform;
-			while (i--) {
-				group = groups[i];
-				elem = group.element;
-				pos = group.triggerHook * Controller.info("size");
-				elemSize = _util.get[paramDimension](elem.firstChild.firstChild);
-				transform = pos > elemSize ? "translate" + paramTransform + "(-100%)" : "";
-
-				_util.css(elem, {
-					top: containerOffset.top + (_vertical ? pos : edge - group.members[0].options.indent),
-					left: containerOffset.left + (_vertical ? edge - group.members[0].options.indent : pos)
-				});
-				_util.css(elem.firstChild.firstChild, {
-					"-ms-transform": transform,
-					"-webkit-transform": transform,
-					"transform": transform
-				});
-			}
-		};
-
-		// updates the label for the group to contain the name, if it only has one member
-		this._indicators.updateTriggerGroupLabel = function (group) {
-			var
-			text = "trigger" + (group.members.length > 1 ? "" : " " + group.members[0].options.name),
-				elem = group.element.firstChild.firstChild,
-				doUpdate = elem.textContent !== text;
-			if (doUpdate) {
-				elem.textContent = text;
-				if (_vertical) { // bounds position is dependent on text length, so update
-					_indicators.updateBoundsPositions();
-				}
-			}
-		};
-
-		// add indicators if global option is set
-		this.addScene = function (newScene) {
-
-			if (this._options.addIndicators && newScene instanceof ScrollMagic.Scene && newScene.controller() === Controller) {
-				newScene.addIndicators();
-			}
-			// call original destroy method
-			this.$super.addScene.apply(this, arguments);
-		};
-
-		// remove all previously set listeners on destroy
-		this.destroy = function () {
-			_container.removeEventListener("resize", handleTriggerPositionChange);
-			if (!_isDocument) {
-				window.removeEventListener("resize", handleTriggerPositionChange);
-				window.removeEventListener("scroll", handleTriggerPositionChange);
-			}
-			_container.removeEventListener("resize", handleBoundsPositionChange);
-			_container.removeEventListener("scroll", handleBoundsPositionChange);
-			// call original destroy method
-			this.$super.destroy.apply(this, arguments);
-		};
-		return Controller;
-
-	});
-
-/*
-	 * ----------------------------------------------------------------
-	 * Internal class for the construction of Indicators
-	 * ----------------------------------------------------------------
-	 */
-	var Indicator = function (Scene, options) {
-		var
-		Indicator = this,
-			_elemBounds = TPL.bounds(),
-			_elemStart = TPL.start(options.colorStart),
-			_elemEnd = TPL.end(options.colorEnd),
-			_boundsContainer = options.parent && _util.get.elements(options.parent)[0],
-			_vertical, _ctrl;
-
-		var log = function () {
-			if (Scene._log) { // not available, when main source minified
-				Array.prototype.splice.call(arguments, 1, 0, "(" + NAMESPACE + ")", "->");
-				Scene._log.apply(this, arguments);
-			}
-		};
-
-		options.name = options.name || _autoindex;
-
-		// prepare bounds elements
-		_elemStart.firstChild.textContent += " " + options.name;
-		_elemEnd.textContent += " " + options.name;
-		_elemBounds.appendChild(_elemStart);
-		_elemBounds.appendChild(_elemEnd);
-
-		// set public variables
-		Indicator.options = options;
-		Indicator.bounds = _elemBounds;
-		// will be set later
-		Indicator.triggerGroup = undefined;
-
-		// add indicators to DOM
-		this.add = function () {
-			_ctrl = Scene.controller();
-			_vertical = _ctrl.info("vertical");
-
-			var isDocument = _ctrl.info("isDocument");
-
-			if (!_boundsContainer) {
-				// no parent supplied or doesnt exist
-				_boundsContainer = isDocument ? document.body : _ctrl.info("container"); // check if window/document (then use body)
-			}
-			if (!isDocument && _util.css(_boundsContainer, "position") === 'static') {
-				// position mode needed for correct positioning of indicators
-				_util.css(_boundsContainer, {
-					position: "relative"
-				});
-			}
-
-			// add listeners for updates
-			Scene.on("change.plugin_addIndicators", handleTriggerParamsChange);
-			Scene.on("shift.plugin_addIndicators", handleBoundsParamsChange);
-
-			// updates trigger & bounds (will add elements if needed)
-			updateTriggerGroup();
-			updateBounds();
-
-			setTimeout(function () { // do after all execution is finished otherwise sometimes size calculations are off
-				_ctrl._indicators.updateBoundsPositions(Indicator);
-			}, 0);
-
-			log(3, "added indicators");
-		};
-
-		// remove indicators from DOM
-		this.remove = function () {
-			if (Indicator.triggerGroup) { // if not set there's nothing to remove
-				Scene.off("change.plugin_addIndicators", handleTriggerParamsChange);
-				Scene.off("shift.plugin_addIndicators", handleBoundsParamsChange);
-
-				if (Indicator.triggerGroup.members.length > 1) {
-					// just remove from memberlist of old group
-					var group = Indicator.triggerGroup;
-					group.members.splice(group.members.indexOf(Indicator), 1);
-					_ctrl._indicators.updateTriggerGroupLabel(group);
-					_ctrl._indicators.updateTriggerGroupPositions(group);
-					Indicator.triggerGroup = undefined;
-				} else {
-					// remove complete group
-					removeTriggerGroup();
-				}
-				removeBounds();
-
-				log(3, "removed indicators");
-			}
-		};
-
-/*
-		 * ----------------------------------------------------------------
-		 * internal Event Handlers
-		 * ----------------------------------------------------------------
-		 */
-
-		// event handler for when bounds params change
-		var handleBoundsParamsChange = function () {
-			updateBounds();
-		};
-
-		// event handler for when trigger params change
-		var handleTriggerParamsChange = function (e) {
-			if (e.what === "triggerHook") {
-				updateTriggerGroup();
-			}
-		};
-
-/*
-		 * ----------------------------------------------------------------
-		 * Bounds (start / stop) management
-		 * ----------------------------------------------------------------
-		 */
-
-		// adds an new bounds elements to the array and to the DOM
-		var addBounds = function () {
-			var v = _ctrl.info("vertical");
-			// apply stuff we didn't know before...
-			_util.css(_elemStart.firstChild, {
-				"border-bottom-width": v ? 1 : 0,
-				"border-right-width": v ? 0 : 1,
-				"bottom": v ? -1 : options.indent,
-				"right": v ? options.indent : -1,
-				"padding": v ? "0 8px" : "2px 4px",
-			});
-			_util.css(_elemEnd, {
-				"border-top-width": v ? 1 : 0,
-				"border-left-width": v ? 0 : 1,
-				"top": v ? "100%" : "",
-				"right": v ? options.indent : "",
-				"bottom": v ? "" : options.indent,
-				"left": v ? "" : "100%",
-				"padding": v ? "0 8px" : "2px 4px"
-			});
-			// append
-			_boundsContainer.appendChild(_elemBounds);
-		};
-
-		// remove bounds from list and DOM
-		var removeBounds = function () {
-			_elemBounds.parentNode.removeChild(_elemBounds);
-		};
-
-		// update the start and end positions of the scene
-		var updateBounds = function () {
-			if (_elemBounds.parentNode !== _boundsContainer) {
-				addBounds(); // Add Bounds elements (start/end)
-			}
-			var css = {};
-			css[_vertical ? "top" : "left"] = Scene.triggerPosition();
-			css[_vertical ? "height" : "width"] = Scene.duration();
-			_util.css(_elemBounds, css);
-			_util.css(_elemEnd, {
-				display: Scene.duration() > 0 ? "" : "none"
-			});
-		};
-
-/*
-		 * ----------------------------------------------------------------
-		 * trigger and trigger group management
-		 * ----------------------------------------------------------------
-		 */
-
-		// adds an new trigger group to the array and to the DOM
-		var addTriggerGroup = function () {
-			var triggerElem = TPL.trigger(options.colorTrigger); // new trigger element
-			var css = {};
-			css[_vertical ? "right" : "bottom"] = 0;
-			css[_vertical ? "border-top-width" : "border-left-width"] = 1;
-			_util.css(triggerElem.firstChild, css);
-			_util.css(triggerElem.firstChild.firstChild, {
-				padding: _vertical ? "0 8px 3px 8px" : "3px 4px"
-			});
-			document.body.appendChild(triggerElem); // directly add to body
-			var newGroup = {
-				triggerHook: Scene.triggerHook(),
-				element: triggerElem,
-				members: [Indicator]
-			};
-			_ctrl._indicators.groups.push(newGroup);
-			Indicator.triggerGroup = newGroup;
-			// update right away
-			_ctrl._indicators.updateTriggerGroupLabel(newGroup);
-			_ctrl._indicators.updateTriggerGroupPositions(newGroup);
-		};
-
-		var removeTriggerGroup = function () {
-			_ctrl._indicators.groups.splice(_ctrl._indicators.groups.indexOf(Indicator.triggerGroup), 1);
-			Indicator.triggerGroup.element.parentNode.removeChild(Indicator.triggerGroup.element);
-			Indicator.triggerGroup = undefined;
-		};
-
-		// updates the trigger group -> either join existing or add new one
-/*	
-		 * Logic:
-		 * 1 if a trigger group exist, check if it's in sync with Scene settings – if so, nothing else needs to happen
-		 * 2 try to find an existing one that matches Scene parameters
-		 * 	 2.1 If a match is found check if already assigned to an existing group
-		 *			 If so:
-		 *       A: it was the last member of existing group -> kill whole group
-		 *       B: the existing group has other members -> just remove from member list
-		 *	 2.2 Assign to matching group
-		 * 3 if no new match could be found, check if assigned to existing group
-		 *   A: yes, and it's the only member -> just update parameters and positions and keep using this group
-		 *   B: yes but there are other members -> remove from member list and create a new one
-		 *   C: no, so create a new one
-		 */
-		var updateTriggerGroup = function () {
-			var
-			triggerHook = Scene.triggerHook(),
-				closeEnough = 0.0001;
-
-			// Have a group, check if it still matches
-			if (Indicator.triggerGroup) {
-				if (Math.abs(Indicator.triggerGroup.triggerHook - triggerHook) < closeEnough) {
-					// _util.log(0, "trigger", options.name, "->", "no need to change, still in sync");
-					return; // all good
-				}
-			}
-			// Don't have a group, check if a matching one exists
-			// _util.log(0, "trigger", options.name, "->", "out of sync!");
-			var
-			groups = _ctrl._indicators.groups,
-				group, i = groups.length;
-			while (i--) {
-				group = groups[i];
-				if (Math.abs(group.triggerHook - triggerHook) < closeEnough) {
-					// found a match!
-					// _util.log(0, "trigger", options.name, "->", "found match");
-					if (Indicator.triggerGroup) { // do I have an old group that is out of sync?
-						if (Indicator.triggerGroup.members.length === 1) { // is it the only remaining group?
-							// _util.log(0, "trigger", options.name, "->", "kill");
-							// was the last member, remove the whole group
-							removeTriggerGroup();
-						} else {
-							Indicator.triggerGroup.members.splice(Indicator.triggerGroup.members.indexOf(Indicator), 1); // just remove from memberlist of old group
-							_ctrl._indicators.updateTriggerGroupLabel(Indicator.triggerGroup);
-							_ctrl._indicators.updateTriggerGroupPositions(Indicator.triggerGroup);
-							// _util.log(0, "trigger", options.name, "->", "removing from previous member list");
-						}
-					}
-					// join new group
-					group.members.push(Indicator);
-					Indicator.triggerGroup = group;
-					_ctrl._indicators.updateTriggerGroupLabel(group);
-					return;
-				}
-			}
-
-			// at this point I am obviously out of sync and don't match any other group
-			if (Indicator.triggerGroup) {
-				if (Indicator.triggerGroup.members.length === 1) {
-					// _util.log(0, "trigger", options.name, "->", "updating existing");
-					// out of sync but i'm the only member => just change and update
-					Indicator.triggerGroup.triggerHook = triggerHook;
-					_ctrl._indicators.updateTriggerGroupPositions(Indicator.triggerGroup);
-					return;
-				} else {
-					// _util.log(0, "trigger", options.name, "->", "removing from previous member list");
-					Indicator.triggerGroup.members.splice(Indicator.triggerGroup.members.indexOf(Indicator), 1); // just remove from memberlist of old group
-					_ctrl._indicators.updateTriggerGroupLabel(Indicator.triggerGroup);
-					_ctrl._indicators.updateTriggerGroupPositions(Indicator.triggerGroup);
-					Indicator.triggerGroup = undefined; // need a brand new group...
-				}
-			}
-			// _util.log(0, "trigger", options.name, "->", "add a new one");
-			// did not find any match, make new trigger group
-			addTriggerGroup();
-		};
-	};
-
-/*
-	 * ----------------------------------------------------------------
-	 * Templates for the indicators
-	 * ----------------------------------------------------------------
-	 */
-	var TPL = {
-		start: function (color) {
-			// inner element (for bottom offset -1, while keeping top position 0)
-			var inner = document.createElement("div");
-			inner.textContent = "start";
-			_util.css(inner, {
-				position: "absolute",
-				overflow: "visible",
-				"border-width": 0,
-				"border-style": "solid",
-				color: color,
-				"border-color": color
-			});
-			var e = document.createElement('div');
-			// wrapper
-			_util.css(e, {
-				position: "absolute",
-				overflow: "visible",
-				width: 0,
-				height: 0
-			});
-			e.appendChild(inner);
-			return e;
-		},
-		end: function (color) {
-			var e = document.createElement('div');
-			e.textContent = "end";
-			_util.css(e, {
-				position: "absolute",
-				overflow: "visible",
-				"border-width": 0,
-				"border-style": "solid",
-				color: color,
-				"border-color": color
-			});
-			return e;
-		},
-		bounds: function () {
-			var e = document.createElement('div');
-			_util.css(e, {
-				position: "absolute",
-				overflow: "visible",
-				"white-space": "nowrap",
-				"pointer-events": "none",
-				"font-size": FONT_SIZE
-			});
-			e.style.zIndex = ZINDEX;
-			return e;
-		},
-		trigger: function (color) {
-			// inner to be above or below line but keep position
-			var inner = document.createElement('div');
-			inner.textContent = "trigger";
-			_util.css(inner, {
-				position: "relative",
-			});
-			// inner wrapper for right: 0 and main element has no size
-			var w = document.createElement('div');
-			_util.css(w, {
-				position: "absolute",
-				overflow: "visible",
-				"border-width": 0,
-				"border-style": "solid",
-				color: color,
-				"border-color": color
-			});
-			w.appendChild(inner);
-			// wrapper
-			var e = document.createElement('div');
-			_util.css(e, {
-				position: "fixed",
-				overflow: "visible",
-				"white-space": "nowrap",
-				"pointer-events": "none",
-				"font-size": FONT_SIZE
-			});
-			e.style.zIndex = ZINDEX;
-			e.appendChild(w);
-			return e;
-		},
-	};
-
-}));
-
-/***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17858,9 +17858,9 @@ module.exports = function (it) {
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(10);
+var dP = __webpack_require__(11);
 var createDesc = __webpack_require__(50);
-module.exports = __webpack_require__(9) ? function (object, key, value) {
+module.exports = __webpack_require__(10) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -17964,7 +17964,7 @@ var has = __webpack_require__(24);
 var IE8_DOM_DEFINE = __webpack_require__(154);
 var gOPD = Object.getOwnPropertyDescriptor;
 
-exports.f = __webpack_require__(9) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+exports.f = __webpack_require__(10) ? gOPD : function getOwnPropertyDescriptor(O, P) {
   O = toIObject(O);
   P = toPrimitive(P, true);
   if (IE8_DOM_DEFINE) try {
@@ -18470,7 +18470,7 @@ module.exports = function (KEY, exec) {
 var ctx = __webpack_require__(31);
 var IObject = __webpack_require__(75);
 var toObject = __webpack_require__(19);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var asc = __webpack_require__(127);
 module.exports = function (TYPE, $create) {
   var IS_MAP = TYPE == 1;
@@ -18650,7 +18650,7 @@ module.exports = g;
 
 "use strict";
 
-if (__webpack_require__(9)) {
+if (__webpack_require__(10)) {
   var LIBRARY = __webpack_require__(47);
   var global = __webpack_require__(4);
   var fails = __webpack_require__(5);
@@ -18663,7 +18663,7 @@ if (__webpack_require__(9)) {
   var hide = __webpack_require__(21);
   var redefineAll = __webpack_require__(59);
   var toInteger = __webpack_require__(36);
-  var toLength = __webpack_require__(11);
+  var toLength = __webpack_require__(12);
   var toIndex = __webpack_require__(180);
   var toAbsoluteIndex = __webpack_require__(53);
   var toPrimitive = __webpack_require__(34);
@@ -18687,7 +18687,7 @@ if (__webpack_require__(9)) {
   var setSpecies = __webpack_require__(56);
   var arrayFill = __webpack_require__(128);
   var arrayCopyWithin = __webpack_require__(170);
-  var $DP = __webpack_require__(10);
+  var $DP = __webpack_require__(11);
   var $GOPD = __webpack_require__(26);
   var dP = $DP.f;
   var gOPD = $GOPD.f;
@@ -19203,7 +19203,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 var META = __webpack_require__(51)('meta');
 var isObject = __webpack_require__(6);
 var has = __webpack_require__(24);
-var setDesc = __webpack_require__(10).f;
+var setDesc = __webpack_require__(11).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
@@ -19405,8 +19405,8 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 "use strict";
 
 var global = __webpack_require__(4);
-var dP = __webpack_require__(10);
-var DESCRIPTORS = __webpack_require__(9);
+var dP = __webpack_require__(11);
+var DESCRIPTORS = __webpack_require__(10);
 var SPECIES = __webpack_require__(7)('species');
 
 module.exports = function (KEY) {
@@ -19437,7 +19437,7 @@ var ctx = __webpack_require__(31);
 var call = __webpack_require__(168);
 var isArrayIter = __webpack_require__(124);
 var anObject = __webpack_require__(3);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var getIterFn = __webpack_require__(126);
 var BREAK = {};
 var RETURN = {};
@@ -19485,7 +19485,7 @@ module.exports = function (it, key) {
 /* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(10).f;
+var def = __webpack_require__(11).f;
 var has = __webpack_require__(24);
 var TAG = __webpack_require__(7)('toStringTag');
 
@@ -19808,6 +19808,12 @@ var _jquery = __webpack_require__(658);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _scrollmagic = __webpack_require__(9);
+
+var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
+
+__webpack_require__(14);
+
 var _Menu = __webpack_require__(152);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -19827,20 +19833,55 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Header = function (_Component) {
   _inherits(Header, _Component);
 
-  function Header() {
+  function Header(props) {
     _classCallCheck(this, Header);
 
-    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
+
+    _this.backToTopButtonInit = _this.backToTopButtonInit.bind(_this);
+    _this.scrollToTop = _this.scrollToTop.bind(_this);
+    return _this;
   }
 
   _createClass(Header, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var backToTopBtn = document.querySelector(".np-siteheader__backtop");
+      // This is the scroll to the top button. //
+      this.backToTopButtonInit(backToTopBtn);
+      backToTopBtn.addEventListener("click", this.scrollToTop);
+
+      // This is the scroll to #ID on page load. //
       var type = window.location.hash.substr(1);
       if (type !== "") {
         (0, _jquery2.default)("html, body").animate({
           scrollTop: (0, _jquery2.default)("#" + type).offset().top
         }, 1000);
+      }
+    }
+  }, {
+    key: "backToTopButtonInit",
+    value: function backToTopButtonInit(btn) {
+      var mainHeader = document.querySelector(".siteheader");
+
+      var backToTopCont = new _scrollmagic2.default.Controller();
+      var backToTopBtnScene = new _scrollmagic2.default.Scene({
+        triggerElement: mainHeader,
+        offset: 800,
+        duration: 0,
+        triggerHook: 0.5,
+        reverse: true
+      }).addTo(backToTopCont).setClassToggle(btn, "visable-active");
+    }
+  }, {
+    key: "scrollToTop",
+    value: function scrollToTop() {
+      var timeOut = void 0;
+      if (document.body.scrollTop != 0 || document.documentElement.scrollTop != 0) {
+        window.scrollBy(0, -50);
+        timeOut = setTimeout(this.scrollToTop, 10);
+      } else {
+        clearTimeout(timeOut);
       }
     }
   }, {
@@ -19972,7 +20013,8 @@ var Header = function (_Component) {
               _react2.default.createElement("div", { className: "mobile-background" })
             )
           )
-        )
+        ),
+        _react2.default.createElement("div", { className: "np-siteheader__backtop" })
       );
     }
   }]);
@@ -20279,7 +20321,7 @@ var store = global[SHARED] || (global[SHARED] = {});
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = __webpack_require__(25);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var toAbsoluteIndex = __webpack_require__(53);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
@@ -22030,7 +22072,7 @@ var global = __webpack_require__(4);
 var core = __webpack_require__(30);
 var LIBRARY = __webpack_require__(47);
 var wksExt = __webpack_require__(155);
-var defineProperty = __webpack_require__(10).f;
+var defineProperty = __webpack_require__(11).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
@@ -22337,7 +22379,7 @@ module.exports = function (it) {
 
 "use strict";
 
-var $defineProperty = __webpack_require__(10);
+var $defineProperty = __webpack_require__(11);
 var createDesc = __webpack_require__(50);
 
 module.exports = function (object, index, value) {
@@ -22381,7 +22423,7 @@ module.exports = function (original, length) {
 
 var toObject = __webpack_require__(19);
 var toAbsoluteIndex = __webpack_require__(53);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 module.exports = function fill(value /* , start = 0, end = @length */) {
   var O = toObject(this);
   var length = toLength(O.length);
@@ -22632,7 +22674,7 @@ module.exports.f = function (C) {
 "use strict";
 
 var global = __webpack_require__(4);
-var DESCRIPTORS = __webpack_require__(9);
+var DESCRIPTORS = __webpack_require__(10);
 var LIBRARY = __webpack_require__(47);
 var $typed = __webpack_require__(94);
 var hide = __webpack_require__(21);
@@ -22640,10 +22682,10 @@ var redefineAll = __webpack_require__(59);
 var fails = __webpack_require__(5);
 var anInstance = __webpack_require__(57);
 var toInteger = __webpack_require__(36);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var toIndex = __webpack_require__(180);
 var gOPN = __webpack_require__(55).f;
-var dP = __webpack_require__(10).f;
+var dP = __webpack_require__(11).f;
 var arrayFill = __webpack_require__(128);
 var setToStringTag = __webpack_require__(61);
 var ARRAY_BUFFER = 'ArrayBuffer';
@@ -23669,7 +23711,7 @@ exports.default = TitleWithContent;
 /* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(9) && !__webpack_require__(5)(function () {
+module.exports = !__webpack_require__(10) && !__webpack_require__(5)(function () {
   return Object.defineProperty(__webpack_require__(108)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -23708,11 +23750,11 @@ module.exports = function (object, names) {
 /* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(10);
+var dP = __webpack_require__(11);
 var anObject = __webpack_require__(3);
 var getKeys = __webpack_require__(52);
 
-module.exports = __webpack_require__(9) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(10) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -23959,7 +24001,7 @@ module.exports = function (iterator, fn, value, entries) {
 var aFunction = __webpack_require__(20);
 var toObject = __webpack_require__(19);
 var IObject = __webpack_require__(75);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 
 module.exports = function (that, callbackfn, aLen, memo, isRight) {
   aFunction(callbackfn);
@@ -23995,7 +24037,7 @@ module.exports = function (that, callbackfn, aLen, memo, isRight) {
 
 var toObject = __webpack_require__(19);
 var toAbsoluteIndex = __webpack_require__(53);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 
 module.exports = [].copyWithin || function copyWithin(target /* = 0 */, start /* = 0, end = @length */) {
   var O = toObject(this);
@@ -24033,7 +24075,7 @@ module.exports = function (done, value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 21.2.5.3 get RegExp.prototype.flags()
-if (__webpack_require__(9) && /./g.flags != 'g') __webpack_require__(10).f(RegExp.prototype, 'flags', {
+if (__webpack_require__(10) && /./g.flags != 'g') __webpack_require__(11).f(RegExp.prototype, 'flags', {
   configurable: true,
   get: __webpack_require__(89)
 });
@@ -24102,7 +24144,7 @@ module.exports = __webpack_require__(93)(MAP, function (get) {
 
 "use strict";
 
-var dP = __webpack_require__(10).f;
+var dP = __webpack_require__(11).f;
 var create = __webpack_require__(54);
 var redefineAll = __webpack_require__(59);
 var ctx = __webpack_require__(31);
@@ -24111,7 +24153,7 @@ var forOf = __webpack_require__(58);
 var $iterDefine = __webpack_require__(120);
 var step = __webpack_require__(171);
 var setSpecies = __webpack_require__(56);
-var DESCRIPTORS = __webpack_require__(9);
+var DESCRIPTORS = __webpack_require__(10);
 var fastKey = __webpack_require__(46).fastKey;
 var validate = __webpack_require__(64);
 var SIZE = DESCRIPTORS ? '_s' : 'size';
@@ -24432,7 +24474,7 @@ module.exports = {
 
 // https://tc39.github.io/ecma262/#sec-toindex
 var toInteger = __webpack_require__(36);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 module.exports = function (it) {
   if (it === undefined) return 0;
   var number = toInteger(it);
@@ -24467,7 +24509,7 @@ module.exports = Reflect && Reflect.ownKeys || function ownKeys(it) {
 // https://tc39.github.io/proposal-flatMap/#sec-FlattenIntoArray
 var isArray = __webpack_require__(86);
 var isObject = __webpack_require__(6);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var ctx = __webpack_require__(31);
 var IS_CONCAT_SPREADABLE = __webpack_require__(7)('isConcatSpreadable');
 
@@ -24509,7 +24551,7 @@ module.exports = flattenIntoArray;
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://github.com/tc39/proposal-string-pad-start-end
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var repeat = __webpack_require__(116);
 var defined = __webpack_require__(35);
 
@@ -39422,15 +39464,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41481,7 +41523,7 @@ module.exports = __webpack_require__(30);
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(4);
 var has = __webpack_require__(24);
-var DESCRIPTORS = __webpack_require__(9);
+var DESCRIPTORS = __webpack_require__(10);
 var $export = __webpack_require__(0);
 var redefine = __webpack_require__(22);
 var META = __webpack_require__(46).KEY;
@@ -41502,7 +41544,7 @@ var createDesc = __webpack_require__(50);
 var _create = __webpack_require__(54);
 var gOPNExt = __webpack_require__(158);
 var $GOPD = __webpack_require__(26);
-var $DP = __webpack_require__(10);
+var $DP = __webpack_require__(11);
 var $keys = __webpack_require__(52);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
@@ -41749,7 +41791,7 @@ $export($export.S, 'Object', { create: __webpack_require__(54) });
 
 var $export = __webpack_require__(0);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(9), 'Object', { defineProperty: __webpack_require__(10).f });
+$export($export.S + $export.F * !__webpack_require__(10), 'Object', { defineProperty: __webpack_require__(11).f });
 
 
 /***/ }),
@@ -41758,7 +41800,7 @@ $export($export.S + $export.F * !__webpack_require__(9), 'Object', { definePrope
 
 var $export = __webpack_require__(0);
 // 19.1.2.3 / 15.2.3.7 Object.defineProperties(O, Properties)
-$export($export.S + $export.F * !__webpack_require__(9), 'Object', { defineProperties: __webpack_require__(157) });
+$export($export.S + $export.F * !__webpack_require__(10), 'Object', { defineProperties: __webpack_require__(157) });
 
 
 /***/ }),
@@ -41973,13 +42015,13 @@ $export($export.P, 'Function', { bind: __webpack_require__(160) });
 /* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(10).f;
+var dP = __webpack_require__(11).f;
 var FProto = Function.prototype;
 var nameRE = /^\s*function ([^ (]*)/;
 var NAME = 'name';
 
 // 19.2.4.2 name
-NAME in FProto || __webpack_require__(9) && dP(FProto, NAME, {
+NAME in FProto || __webpack_require__(10) && dP(FProto, NAME, {
   configurable: true,
   get: function () {
     try {
@@ -42002,7 +42044,7 @@ var getPrototypeOf = __webpack_require__(27);
 var HAS_INSTANCE = __webpack_require__(7)('hasInstance');
 var FunctionProto = Function.prototype;
 // 19.2.3.6 Function.prototype[@@hasInstance](V)
-if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(10).f(FunctionProto, HAS_INSTANCE, { value: function (O) {
+if (!(HAS_INSTANCE in FunctionProto)) __webpack_require__(11).f(FunctionProto, HAS_INSTANCE, { value: function (O) {
   if (typeof this != 'function' || !isObject(O)) return false;
   if (!isObject(this.prototype)) return O instanceof this;
   // for environment w/o native `@@hasInstance` logic enough `instanceof`, but add this:
@@ -42045,7 +42087,7 @@ var toPrimitive = __webpack_require__(34);
 var fails = __webpack_require__(5);
 var gOPN = __webpack_require__(55).f;
 var gOPD = __webpack_require__(26).f;
-var dP = __webpack_require__(10).f;
+var dP = __webpack_require__(11).f;
 var $trim = __webpack_require__(62).trim;
 var NUMBER = 'Number';
 var $Number = global[NUMBER];
@@ -42090,7 +42132,7 @@ if (!$Number(' 0o1') || !$Number('0b1') || $Number('+0x1')) {
       && (BROKEN_COF ? fails(function () { proto.valueOf.call(that); }) : cof(that) != NUMBER)
         ? inheritIfRequired(new Base(toNumber(it)), that, $Number) : toNumber(it);
   };
-  for (var keys = __webpack_require__(9) ? gOPN(Base) : (
+  for (var keys = __webpack_require__(10) ? gOPN(Base) : (
     // ES3:
     'MAX_VALUE,MIN_VALUE,NaN,NEGATIVE_INFINITY,POSITIVE_INFINITY,' +
     // ES6 (in case, if modules with ES6 Number statics required before):
@@ -42670,7 +42712,7 @@ $export($export.S + $export.F * (!!$fromCodePoint && $fromCodePoint.length != 1)
 
 var $export = __webpack_require__(0);
 var toIObject = __webpack_require__(25);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 
 $export($export.S, 'String', {
   // 21.1.2.4 String.raw(callSite, ...substitutions)
@@ -42750,7 +42792,7 @@ $export($export.P, 'String', {
 // 21.1.3.6 String.prototype.endsWith(searchString [, endPosition])
 
 var $export = __webpack_require__(0);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var context = __webpack_require__(122);
 var ENDS_WITH = 'endsWith';
 var $endsWith = ''[ENDS_WITH];
@@ -42808,7 +42850,7 @@ $export($export.P, 'String', {
 // 21.1.3.18 String.prototype.startsWith(searchString [, position ])
 
 var $export = __webpack_require__(0);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var context = __webpack_require__(122);
 var STARTS_WITH = 'startsWith';
 var $startsWith = ''[STARTS_WITH];
@@ -43152,7 +43194,7 @@ var $export = __webpack_require__(0);
 var toObject = __webpack_require__(19);
 var call = __webpack_require__(168);
 var isArrayIter = __webpack_require__(124);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var createProperty = __webpack_require__(125);
 var getIterFn = __webpack_require__(126);
 
@@ -43240,7 +43282,7 @@ var $export = __webpack_require__(0);
 var html = __webpack_require__(112);
 var cof = __webpack_require__(32);
 var toAbsoluteIndex = __webpack_require__(53);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var arraySlice = [].slice;
 
 // fallback for not array-like ES3 strings and DOM objects
@@ -43468,7 +43510,7 @@ $export($export.P + $export.F * (NEGATIVE_ZERO || !__webpack_require__(33)($nati
 var $export = __webpack_require__(0);
 var toIObject = __webpack_require__(25);
 var toInteger = __webpack_require__(36);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var $native = [].lastIndexOf;
 var NEGATIVE_ZERO = !!$native && 1 / [1].lastIndexOf(1, -0) < 0;
 
@@ -43567,7 +43609,7 @@ __webpack_require__(56)('Array');
 
 var global = __webpack_require__(4);
 var inheritIfRequired = __webpack_require__(115);
-var dP = __webpack_require__(10).f;
+var dP = __webpack_require__(11).f;
 var gOPN = __webpack_require__(55).f;
 var isRegExp = __webpack_require__(87);
 var $flags = __webpack_require__(89);
@@ -43579,7 +43621,7 @@ var re2 = /a/g;
 // "new" creates a new object, old webkit buggy here
 var CORRECT_NEW = new $RegExp(re1) !== re1;
 
-if (__webpack_require__(9) && (!CORRECT_NEW || __webpack_require__(5)(function () {
+if (__webpack_require__(10) && (!CORRECT_NEW || __webpack_require__(5)(function () {
   re2[__webpack_require__(7)('match')] = false;
   // RegExp constructor can alter flags and IsRegExp works correct with @@match
   return $RegExp(re1) != re1 || $RegExp(re2) == re2 || $RegExp(re1, 'i') != '/a/i';
@@ -43619,7 +43661,7 @@ __webpack_require__(56)('RegExp');
 __webpack_require__(172);
 var anObject = __webpack_require__(3);
 var $flags = __webpack_require__(89);
-var DESCRIPTORS = __webpack_require__(9);
+var DESCRIPTORS = __webpack_require__(10);
 var TO_STRING = 'toString';
 var $toString = /./[TO_STRING];
 
@@ -44094,7 +44136,7 @@ var $typed = __webpack_require__(94);
 var buffer = __webpack_require__(133);
 var anObject = __webpack_require__(3);
 var toAbsoluteIndex = __webpack_require__(53);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var isObject = __webpack_require__(6);
 var ArrayBuffer = __webpack_require__(4).ArrayBuffer;
 var speciesConstructor = __webpack_require__(91);
@@ -44325,7 +44367,7 @@ $export($export.S + $export.F * (NEW_TARGET_BUG || ARGS_BUG), 'Reflect', {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 26.1.3 Reflect.defineProperty(target, propertyKey, attributes)
-var dP = __webpack_require__(10);
+var dP = __webpack_require__(11);
 var $export = __webpack_require__(0);
 var anObject = __webpack_require__(3);
 var toPrimitive = __webpack_require__(34);
@@ -44526,7 +44568,7 @@ $export($export.S, 'Reflect', {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 26.1.13 Reflect.set(target, propertyKey, V [, receiver])
-var dP = __webpack_require__(10);
+var dP = __webpack_require__(11);
 var gOPD = __webpack_require__(26);
 var getPrototypeOf = __webpack_require__(27);
 var has = __webpack_require__(24);
@@ -44610,7 +44652,7 @@ __webpack_require__(48)('includes');
 var $export = __webpack_require__(0);
 var flattenIntoArray = __webpack_require__(182);
 var toObject = __webpack_require__(19);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var aFunction = __webpack_require__(20);
 var arraySpeciesCreate = __webpack_require__(127);
 
@@ -44639,7 +44681,7 @@ __webpack_require__(48)('flatMap');
 var $export = __webpack_require__(0);
 var flattenIntoArray = __webpack_require__(182);
 var toObject = __webpack_require__(19);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var toInteger = __webpack_require__(36);
 var arraySpeciesCreate = __webpack_require__(127);
 
@@ -44749,7 +44791,7 @@ __webpack_require__(62)('trimRight', function ($trim) {
 // https://tc39.github.io/String.prototype.matchAll/
 var $export = __webpack_require__(0);
 var defined = __webpack_require__(35);
-var toLength = __webpack_require__(11);
+var toLength = __webpack_require__(12);
 var isRegExp = __webpack_require__(87);
 var getFlags = __webpack_require__(89);
 var RegExpProto = RegExp.prototype;
@@ -44858,10 +44900,10 @@ $export($export.S, 'Object', {
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(19);
 var aFunction = __webpack_require__(20);
-var $defineProperty = __webpack_require__(10);
+var $defineProperty = __webpack_require__(11);
 
 // B.2.2.2 Object.prototype.__defineGetter__(P, getter)
-__webpack_require__(9) && $export($export.P + __webpack_require__(95), 'Object', {
+__webpack_require__(10) && $export($export.P + __webpack_require__(95), 'Object', {
   __defineGetter__: function __defineGetter__(P, getter) {
     $defineProperty.f(toObject(this), P, { get: aFunction(getter), enumerable: true, configurable: true });
   }
@@ -44877,10 +44919,10 @@ __webpack_require__(9) && $export($export.P + __webpack_require__(95), 'Object',
 var $export = __webpack_require__(0);
 var toObject = __webpack_require__(19);
 var aFunction = __webpack_require__(20);
-var $defineProperty = __webpack_require__(10);
+var $defineProperty = __webpack_require__(11);
 
 // B.2.2.3 Object.prototype.__defineSetter__(P, setter)
-__webpack_require__(9) && $export($export.P + __webpack_require__(95), 'Object', {
+__webpack_require__(10) && $export($export.P + __webpack_require__(95), 'Object', {
   __defineSetter__: function __defineSetter__(P, setter) {
     $defineProperty.f(toObject(this), P, { set: aFunction(setter), enumerable: true, configurable: true });
   }
@@ -44900,7 +44942,7 @@ var getPrototypeOf = __webpack_require__(27);
 var getOwnPropertyDescriptor = __webpack_require__(26).f;
 
 // B.2.2.4 Object.prototype.__lookupGetter__(P)
-__webpack_require__(9) && $export($export.P + __webpack_require__(95), 'Object', {
+__webpack_require__(10) && $export($export.P + __webpack_require__(95), 'Object', {
   __lookupGetter__: function __lookupGetter__(P) {
     var O = toObject(this);
     var K = toPrimitive(P, true);
@@ -44925,7 +44967,7 @@ var getPrototypeOf = __webpack_require__(27);
 var getOwnPropertyDescriptor = __webpack_require__(26).f;
 
 // B.2.2.5 Object.prototype.__lookupSetter__(P)
-__webpack_require__(9) && $export($export.P + __webpack_require__(95), 'Object', {
+__webpack_require__(10) && $export($export.P + __webpack_require__(95), 'Object', {
   __lookupSetter__: function __lookupSetter__(P) {
     var O = toObject(this);
     var K = toPrimitive(P, true);
@@ -67422,7 +67464,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16), __webpack_require__(211)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17), __webpack_require__(211)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -70842,7 +70884,7 @@ function symbolObservablePonyfill(root) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -71001,7 +71043,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -71161,7 +71203,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -71324,7 +71366,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -71473,7 +71515,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -71643,7 +71685,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -71805,7 +71847,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -71999,7 +72041,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -72174,7 +72216,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -72351,7 +72393,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -72555,7 +72597,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -72719,7 +72761,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -72879,7 +72921,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -73041,7 +73083,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -73206,7 +73248,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -73371,7 +73413,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -73544,7 +73586,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -73703,7 +73745,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(15), __webpack_require__(16), __webpack_require__(211)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(8), __webpack_require__(16), __webpack_require__(17), __webpack_require__(211)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -84511,15 +84553,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -85945,15 +85987,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -90551,15 +90593,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -90814,15 +90856,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -91330,15 +91372,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -91470,15 +91512,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 var _ProProcessStep = __webpack_require__(700);
 
@@ -91604,15 +91646,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 var _HandIcon = __webpack_require__(701);
 
@@ -91880,15 +91922,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92056,15 +92098,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92197,15 +92239,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92354,15 +92396,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92507,15 +92549,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92681,15 +92723,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -92832,15 +92874,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93019,15 +93061,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93213,15 +93255,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93446,15 +93488,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93586,15 +93628,15 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _scrollmagic = __webpack_require__(12);
+var _scrollmagic = __webpack_require__(9);
 
 var _scrollmagic2 = _interopRequireDefault(_scrollmagic);
 
-__webpack_require__(17);
-
 __webpack_require__(18);
 
-var _TweenMax = __webpack_require__(14);
+__webpack_require__(14);
+
+var _TweenMax = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

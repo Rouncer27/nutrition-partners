@@ -1,11 +1,25 @@
 import React, { Component } from "react";
+
 import $ from "jquery";
+import ScrollMagic from "scrollmagic";
+import "debug.addIndicators";
 
 import Menu from "./Menu";
 import LauguageButton from "./LauguageButton";
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.backToTopButtonInit = this.backToTopButtonInit.bind(this);
+    this.scrollToTop = this.scrollToTop.bind(this);
+  }
   componentDidMount() {
+    const backToTopBtn = document.querySelector(".np-siteheader__backtop");
+    // This is the scroll to the top button. //
+    this.backToTopButtonInit(backToTopBtn);
+    backToTopBtn.addEventListener("click", this.scrollToTop);
+
+    // This is the scroll to #ID on page load. //
     const type = window.location.hash.substr(1);
     if (type !== "") {
       $("html, body").animate(
@@ -16,6 +30,35 @@ class Header extends Component {
       );
     }
   }
+
+  backToTopButtonInit(btn) {
+    const mainHeader = document.querySelector(".siteheader");
+
+    const backToTopCont = new ScrollMagic.Controller();
+    const backToTopBtnScene = new ScrollMagic.Scene({
+      triggerElement: mainHeader,
+      offset: 800,
+      duration: 0,
+      triggerHook: 0.5,
+      reverse: true
+    })
+      .addTo(backToTopCont)
+      .setClassToggle(btn, "visable-active");
+  }
+
+  scrollToTop() {
+    let timeOut;
+    if (
+      document.body.scrollTop != 0 ||
+      document.documentElement.scrollTop != 0
+    ) {
+      window.scrollBy(0, -50);
+      timeOut = setTimeout(this.scrollToTop, 10);
+    } else {
+      clearTimeout(timeOut);
+    }
+  }
+
   render() {
     const {
       siteMainEnglishMenu,
@@ -104,6 +147,7 @@ class Header extends Component {
             </div>
           </nav>
         </div>
+        <div className="np-siteheader__backtop" />
       </header>
     );
   }
