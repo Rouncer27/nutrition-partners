@@ -26,7 +26,7 @@ class Featured extends Component {
   }
 
   changeActiveSlide(e) {
-    const clickedItem = e.target.innerText.toLowerCase();
+    const clickedItem = e.target.id.toLowerCase();
     if (clickedItem === this.state.activeSlider) return;
     this.setState(prevState => ({
       ...prevState,
@@ -55,6 +55,7 @@ class Featured extends Component {
               {this.props.slides.map((slide, index) => {
                 return (
                   <li
+                    id={slide.en_title.toLowerCase()}
                     onClick={this.changeActiveSlide}
                     key={index}
                     className={classnames(

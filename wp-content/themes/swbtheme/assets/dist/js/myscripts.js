@@ -84321,7 +84321,7 @@ var Featured = function (_Component) {
   }, {
     key: "changeActiveSlide",
     value: function changeActiveSlide(e) {
-      var clickedItem = e.target.innerText.toLowerCase();
+      var clickedItem = e.target.id.toLowerCase();
       if (clickedItem === this.state.activeSlider) return;
       this.setState(function (prevState) {
         return _extends({}, prevState, {
@@ -84361,6 +84361,7 @@ var Featured = function (_Component) {
                 return _react2.default.createElement(
                   "li",
                   {
+                    id: slide.en_title.toLowerCase(),
                     onClick: _this2.changeActiveSlide,
                     key: index,
                     className: (0, _classnames2.default)("np-slide-menu-item np-slide-menu-" + slide.en_title.toLowerCase(), {
