@@ -100111,7 +100111,7 @@ var SinglePost = function (_Component) {
     value: function getPageData() {
       var _this4 = this;
 
-      _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp/v2/posts/" + this.state.pageID).then(function (result) {
+      _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp/v2/posts/" + this.state.pageID + "?_embed").then(function (result) {
         _this4.setState(function (prevState) {
           return _extends({}, prevState, {
             pageData: result.data
@@ -100243,6 +100243,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
@@ -100253,137 +100255,159 @@ var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Article = function Article(props) {
-  var title = props.browserLang === "en" ? props.acf._np_en_article_title : props.acf._np_fr_article_title;
-  var author = props.pageData.author;
-  var date = (0, _moment2.default)(props.pageData.date).format("LL");
-  var link = props.pageData.link;
-  var content = props.browserLang === "en" ? props.acf._np_en_article_content : props.acf._np_fr_article_content;
-  return _react2.default.createElement(
-    "div",
-    { className: "np-signart" },
-    _react2.default.createElement(
-      "div",
-      { className: "np-signart__wrapper" },
-      _react2.default.createElement(
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Article = function (_Component) {
+  _inherits(Article, _Component);
+
+  function Article(props) {
+    _classCallCheck(this, Article);
+
+    return _possibleConstructorReturn(this, (Article.__proto__ || Object.getPrototypeOf(Article)).call(this, props));
+  }
+
+  _createClass(Article, [{
+    key: "render",
+    value: function render() {
+      var title = this.props.browserLang === "en" ? this.props.acf._np_en_article_title : this.props.acf._np_fr_article_title;
+      var author = this.props.pageData._embedded.author[0].name;
+
+      var date = (0, _moment2.default)(this.props.pageData.date).format("LL");
+      var link = this.props.pageData.link;
+      var content = this.props.browserLang === "en" ? this.props.acf._np_en_article_content : this.props.acf._np_fr_article_content;
+      return _react2.default.createElement(
         "div",
-        { className: "np-signart__meta" },
+        { className: "np-signart" },
         _react2.default.createElement(
           "div",
-          { className: "np-signart__meta--title" },
-          _react2.default.createElement(
-            "h1",
-            null,
-            title
-          )
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: "np-signart__meta--author" },
-          _react2.default.createElement(
-            "p",
-            null,
-            "By ",
-            author,
-            ", Nutrition Partners Inc."
-          ),
-          _react2.default.createElement(
-            "p",
-            null,
-            date
-          ),
-          props.categories.length > 0 && _react2.default.createElement(
-            "p",
-            null,
-            "Filed under:",
-            " ",
-            props.categories.map(function (cat, index) {
-              return _react2.default.createElement(
-                "span",
-                { key: index },
-                _react2.default.createElement(
-                  "a",
-                  { href: cat.link },
-                  cat.name
-                ),
-                ", "
-              );
-            })
-          )
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: "np-signart__meta--share" },
+          { className: "np-signart__wrapper" },
           _react2.default.createElement(
             "div",
-            { className: "socialmedia share-buttons" },
+            { className: "np-signart__meta" },
             _react2.default.createElement(
-              "p",
-              null,
-              "Share"
+              "div",
+              { className: "np-signart__meta--title" },
+              _react2.default.createElement(
+                "h1",
+                null,
+                title
+              )
             ),
             _react2.default.createElement(
-              "ul",
-              { className: "socialmedia__menu socialmedia__menu--single" },
+              "div",
+              { className: "np-signart__meta--author" },
               _react2.default.createElement(
-                "li",
-                { className: "socialmedia__menu--twitter" },
-                _react2.default.createElement("a", {
-                  target: "_blank",
-                  title: "Share on Twitter",
-                  href: "http://twitter.com/intent/tweet?status=" + title + " " + link,
-                  onClick: function onClick(e) {
-                    window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
-                  }
-                })
+                "p",
+                null,
+                "By ",
+                author,
+                ", Nutrition Partners Inc."
               ),
               _react2.default.createElement(
-                "li",
-                { className: "socialmedia__menu--googleplus" },
-                _react2.default.createElement("a", {
-                  target: "_blank",
-                  title: "Share on Google+",
-                  href: "https://plus.google.com/share?url=" + link,
-                  onClick: function onClick(e) {
-                    window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
-                  }
-                })
+                "p",
+                null,
+                date
               ),
-              _react2.default.createElement(
-                "li",
-                { className: "socialmedia__menu--facebook" },
-                _react2.default.createElement("a", {
-                  target: "_blank",
-                  title: "Share on facebook",
-                  href: "http://www.facebook.com/share.php?u=" + link + "&title=" + title,
-                  onClick: function onClick(e) {
-                    window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
-                  }
-                })
-              ),
-              _react2.default.createElement(
-                "li",
-                { className: "socialmedia__menu--linkedin" },
-                _react2.default.createElement("a", {
-                  target: "_blank",
-                  title: "Share on linkedin",
-                  href: "http://www.linkedin.com/shareArticle?mini=true&url=" + link + "&title=" + title,
-                  onClick: function onClick(e) {
-                    window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
-                  }
+              this.props.categories.length > 0 && _react2.default.createElement(
+                "p",
+                null,
+                "Filed under:",
+                " ",
+                this.props.categories.map(function (cat, index) {
+                  return _react2.default.createElement(
+                    "span",
+                    { key: index },
+                    _react2.default.createElement(
+                      "a",
+                      { href: cat.link },
+                      cat.name
+                    ),
+                    ", "
+                  );
                 })
               )
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "np-signart__meta--share" },
+              _react2.default.createElement(
+                "div",
+                { className: "socialmedia share-buttons" },
+                _react2.default.createElement(
+                  "p",
+                  null,
+                  "Share"
+                ),
+                _react2.default.createElement(
+                  "ul",
+                  { className: "socialmedia__menu socialmedia__menu--single" },
+                  _react2.default.createElement(
+                    "li",
+                    { className: "socialmedia__menu--twitter" },
+                    _react2.default.createElement("a", {
+                      target: "_blank",
+                      title: "Share on Twitter",
+                      href: "http://twitter.com/intent/tweet?status=" + title + " " + link,
+                      onClick: function onClick(e) {
+                        window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
+                      }
+                    })
+                  ),
+                  _react2.default.createElement(
+                    "li",
+                    { className: "socialmedia__menu--googleplus" },
+                    _react2.default.createElement("a", {
+                      target: "_blank",
+                      title: "Share on Google+",
+                      href: "https://plus.google.com/share?url=" + link,
+                      onClick: function onClick(e) {
+                        window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
+                      }
+                    })
+                  ),
+                  _react2.default.createElement(
+                    "li",
+                    { className: "socialmedia__menu--facebook" },
+                    _react2.default.createElement("a", {
+                      target: "_blank",
+                      title: "Share on facebook",
+                      href: "http://www.facebook.com/share.php?u=" + link + "&title=" + title,
+                      onClick: function onClick(e) {
+                        window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
+                      }
+                    })
+                  ),
+                  _react2.default.createElement(
+                    "li",
+                    { className: "socialmedia__menu--linkedin" },
+                    _react2.default.createElement("a", {
+                      target: "_blank",
+                      title: "Share on linkedin",
+                      href: "http://www.linkedin.com/shareArticle?mini=true&url=" + link + "&title=" + title,
+                      onClick: function onClick(e) {
+                        window.open(e.target.href, "", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600");
+                      }
+                    })
+                  )
+                )
+              )
             )
-          )
+          ),
+          _react2.default.createElement("div", {
+            className: "np-signart__content swbtheme-wysiwyg",
+            dangerouslySetInnerHTML: { __html: content }
+          })
         )
-      ),
-      _react2.default.createElement("div", {
-        className: "np-signart__content swbtheme-wysiwyg",
-        dangerouslySetInnerHTML: { __html: content }
-      })
-    )
-  );
-};
+      );
+    }
+  }]);
+
+  return Article;
+}(_react.Component);
 
 exports.default = Article;
 

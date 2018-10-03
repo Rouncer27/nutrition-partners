@@ -98,7 +98,11 @@ class SinglePost extends Component {
   // Get this page data. //
   getPageData() {
     axios
-      .get(`${this.state.pageApiUrl}/wp-json/wp/v2/posts/${this.state.pageID}`)
+      .get(
+        `${this.state.pageApiUrl}/wp-json/wp/v2/posts/${
+          this.state.pageID
+        }?_embed`
+      )
       .then(result => {
         this.setState(
           prevState => {
