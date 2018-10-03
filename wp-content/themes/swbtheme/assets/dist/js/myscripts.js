@@ -86714,8 +86714,12 @@ var Testimonials = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Testimonials.__proto__ || Object.getPrototypeOf(Testimonials)).call(this, props));
 
+    _this.generateRandNumber = _this.generateRandNumber.bind(_this);
+    _this.generateRandNumberArray = _this.generateRandNumberArray.bind(_this);
+
     _this.state = {
-      testimonials: []
+      testimonials: [],
+      randNumArray: []
     };
     return _this;
   }
@@ -86731,13 +86735,44 @@ var Testimonials = function (_Component) {
             return _extends({}, prevState, {
               testimonials: res.data
             });
+          }, function () {
+            // Let get a random number between 1 and the number of testimonials we have in the database. //
+            var randNumArray = _this2.generateRandNumberArray();
+            _this2.setState(function (prevState) {
+              return _extends({}, prevState, {
+                randNumArray: randNumArray
+              });
+            });
           });
         });
       }
     }
   }, {
+    key: "generateRandNumber",
+    value: function generateRandNumber() {
+      var randNum = Math.floor(Math.random() * this.state.testimonials.length) + 1;
+      return randNum;
+    }
+  }, {
+    key: "generateRandNumberArray",
+    value: function generateRandNumberArray() {
+      var randNums = [];
+      var stopper = 0;
+      while (randNums.length < 5 && randNums.length <= this.state.testimonials.length - 1 && stopper < 25) {
+        var randNum = this.generateRandNumber();
+        if (randNums.indexOf(randNum) === -1) {
+          randNums.push(randNum);
+        }
+        stopper++;
+      }
+
+      return randNums;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var acf = this.props.pageData.acf;
       var browserLang = this.props.browserLang;
       var enTitle = acf._np_en_testimonials_title;
@@ -86759,6 +86794,7 @@ var Testimonials = function (_Component) {
         }
       };
       var counter = 0;
+
       return _react2.default.createElement(
         "div",
         { className: "np-testimonials" },
@@ -86778,7 +86814,7 @@ var Testimonials = function (_Component) {
             _reactSlick2.default,
             _extends({ className: "np-testimonials__slider" }, settings),
             this.state.testimonials.map(function (test, index) {
-              if (counter < 5) {
+              if (_this3.state.randNumArray.indexOf(index + 1) > -1 && counter < _this3.state.randNumArray.length) {
                 counter++;
                 return _react2.default.createElement(_Testimonial2.default, {
                   key: test.id,

@@ -10,8 +10,12 @@ class Testimonials extends Component {
   constructor(props) {
     super(props);
 
+    this.generateRandNumber = this.generateRandNumber.bind(this);
+    this.generateRandNumberArray = this.generateRandNumberArray.bind(this);
+
     this.state = {
-      testimonials: []
+      testimonials: [],
+      randNumArray: []
     };
   }
   componentDidMount() {
@@ -19,15 +23,52 @@ class Testimonials extends Component {
       axios
         .get(`${this.props.baseApiUrl}/wp-json/wp/v2/testimonial/?per_page=20`)
         .then(res => {
-          this.setState(prevState => {
-            return {
-              ...prevState,
-              testimonials: res.data
-            };
-          });
+          this.setState(
+            prevState => {
+              return {
+                ...prevState,
+                testimonials: res.data
+              };
+            },
+            () => {
+              // Let get a random number between 1 and the number of testimonials we have in the database. //
+              const randNumArray = this.generateRandNumberArray();
+              this.setState(prevState => {
+                return {
+                  ...prevState,
+                  randNumArray
+                };
+              });
+            }
+          );
         });
     }
   }
+
+  generateRandNumber() {
+    const randNum =
+      Math.floor(Math.random() * this.state.testimonials.length) + 1;
+    return randNum;
+  }
+
+  generateRandNumberArray() {
+    const randNums = [];
+    let stopper = 0;
+    while (
+      randNums.length < 5 &&
+      randNums.length <= this.state.testimonials.length - 1 &&
+      stopper < 25
+    ) {
+      const randNum = this.generateRandNumber();
+      if (randNums.indexOf(randNum) === -1) {
+        randNums.push(randNum);
+      }
+      stopper++;
+    }
+
+    return randNums;
+  }
+
   render() {
     const acf = this.props.pageData.acf;
     const browserLang = this.props.browserLang;
@@ -44,6 +85,7 @@ class Testimonials extends Component {
       customPaging: i => <div> </div>
     };
     let counter = 0;
+
     return (
       <div className="np-testimonials">
         <div className="np-testimonials__wrapper">
@@ -52,7 +94,10 @@ class Testimonials extends Component {
           </div>
           <Slider className="np-testimonials__slider" {...settings}>
             {this.state.testimonials.map((test, index) => {
-              if (counter < 5) {
+              if (
+                this.state.randNumArray.indexOf(index + 1) > -1 &&
+                counter < this.state.randNumArray.length
+              ) {
                 counter++;
                 return (
                   <Testimonial
