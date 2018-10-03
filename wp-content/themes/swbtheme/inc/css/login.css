@@ -26,7 +26,7 @@ body.login {
   border-color: #ef6a23;
   border-left-width: 10px;
   background-color: #9bae88; /* switchback green */
-  color: #000;
+  color: #001c71;
   text-transform: uppercase;
 }
 
@@ -65,7 +65,7 @@ body.login {
 }
 
 .login #nav a {
-  background-color: #abc87e; /* switchback green */
+  background-color: #ef6a23; /* switchback green */
   padding: 12px;
   display: block;
   color: #001c71;
@@ -75,9 +75,9 @@ body.login {
 }
 
 .login #nav a:hover {
-  background-color: #9bae88; /* switchback green */
+  background-color: #abc87e; /* switchback green */
   border-left: 10px solid #ef6a23;
-  color: #000;
+  color: #001c71;
 }
 
 .login #backtoblog {
@@ -87,7 +87,7 @@ body.login {
 }
 
 .login #backtoblog a {
-  background-color: #abc87e; /* switchback green */
+  background-color: #ef6a23; /* switchback green */
   padding: 12px;
   display: block;
   color: #001c71;
@@ -97,7 +97,7 @@ body.login {
 }
 
 .login #backtoblog a:hover {
-  background-color: #9bae88; /* switchback green */
+  background-color: #abc87e; /* switchback green */
   border-left: 10px solid #ef6a23;
-  color: #000;
+  color: #001c71;
 }
