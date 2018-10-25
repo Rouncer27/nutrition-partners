@@ -51,6 +51,8 @@ get_header(); ?>
 					<h2>Unsubscribe From Electronic Communications</h2>
 					<p>Subscribers to our e-newsletters can withdraw their consent to receive electronic communications at any time by clicking the unsubscribe link at the bottom of the email, or by notifying <a href="mailto:<?php echo antispambot( $swbEmail ); ?>"><?php echo antispambot( $swbEmail ); ?></a></p>
 					<p>What about spam? You will not receive marketing e-mail from <?php echo bloginfo( 'name' ); ?> unless you have consented to receive it. From time to time we may use e-mail as a way to keep in touch with our existing customers and other interested individuals. However, we do not send ‘spam’ (unsolicited marketing e-mail). If you agree to receive e-mail communications from us, every e-mail message we send you will include an e-mail address to which you can respond. If at any time you decide you do not want to receive marketing e-mail from us, simply let us know and we will remove your name and e-mail address from our marketing lists. We will do the same with your mailing address and telephone number on request.</p>
+					<h2>Your Location</h2>
+					<p>We detect your location to serve up an approrate home page based on location. Once you arrive on the home page you will be propted with a question asking this is acceptable. If it is not we will just display the default setting for location. We use a 3rd party to get location via IP address. <a target="_blank" href="https://ipgeolocation.io/">ipgeolocation</a></p>
 					<p class="swb-questions">For questions or comments regarding this public website privacy statement please contact us by email: <a href="mailto:<?php echo antispambot( $swbEmail ); ?>"><?php echo antispambot( $swbEmail ); ?></a></p>
 				</section>
 			</div>	

@@ -8,8 +8,11 @@ class Footer extends Component {
       pageData,
       siteMainEnglishMenu,
       siteMainFrenchMenu,
-      siteOptions
+      siteOptions,
+      siteSettings
     } = this.props;
+
+    console.log(siteSettings);
 
     const heroImageSrc = pageData.acf._np_footer_image.sizes.fullbackground;
     const heroImageAlt = pageData.acf._np_footer_image.alt;
@@ -46,6 +49,12 @@ class Footer extends Component {
             </div>
 
             <div className="mainfooter__copy">
+              <a
+                className="np-privacy-link"
+                href={`${siteSettings.url}/privacy-policy/`}
+              >
+                Privacy Policy
+              </a>
               <p>
                 Copyright &copy; {copy.getFullYear()}. Made in Airdrie.{" "}
                 <span>

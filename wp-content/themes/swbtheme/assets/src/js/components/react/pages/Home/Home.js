@@ -179,8 +179,17 @@ export default class Home extends Component {
   setUserLocation() {
     const API_KEY = "8e2f5850676548cb8ad0de88a1813fe4";
     const sessionLocation = sessionStorage.getItem("npWebLocation");
+    const sessionPermission = sessionStorage.getItem("npPermission");
+    let confirmed = false;
 
-    if (sessionLocation === null) {
+    if (sessionPermission === null) {
+      confirmed = confirm(
+        "https://nutritionpartners.com wants to use your IP address to get your location. Do you approve?"
+      );
+      sessionStorage.setItem("npPermission", confirmed);
+    }
+
+    if (sessionLocation === null && confirmed) {
       axios
         .get("https://api.ipgeolocation.io/getip")
         .then(result => {
@@ -201,11 +210,27 @@ export default class Home extends Component {
             .catch(err => console.log(err));
         })
         .catch(err => console.log(err));
-    } else {
+    } else if (sessionLocation === null && !confirmed) {
+      sessionStorage.setItem("npWebLocation", "default");
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          userLocation: "default"
+        };
+      });
+    } else if (sessionLocation !== null && sessionLocation !== "") {
       this.setState(prevState => {
         return {
           ...prevState,
           userLocation: sessionLocation.toLowerCase()
+        };
+      });
+    } else {
+      this.setState(prevState => {
+        sessionStorage.setItem("npWebLocation", "default");
+        return {
+          ...prevState,
+          userLocation: "default"
         };
       });
     }
@@ -230,8 +255,6 @@ export default class Home extends Component {
       Object.keys(this.state.siteMainFrenchMenu).length > 0 &&
       Object.keys(this.state.siteSettings).length > 0 &&
       this.state.postsData.length > 0;
-
-    // const renderComponent = false;
 
     return (
       <div className="np-page-root">
@@ -286,6 +309,7 @@ export default class Home extends Component {
               siteMainEnglishMenu={this.state.siteMainEnglishMenu}
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
+              siteSettings={this.state.siteSettings}
             />
           </div>
         ) : (

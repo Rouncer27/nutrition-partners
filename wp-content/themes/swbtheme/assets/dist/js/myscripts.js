@@ -20184,8 +20184,11 @@ var Footer = function (_Component) {
           pageData = _props.pageData,
           siteMainEnglishMenu = _props.siteMainEnglishMenu,
           siteMainFrenchMenu = _props.siteMainFrenchMenu,
-          siteOptions = _props.siteOptions;
+          siteOptions = _props.siteOptions,
+          siteSettings = _props.siteSettings;
 
+
+      console.log(siteSettings);
 
       var heroImageSrc = pageData.acf._np_footer_image.sizes.fullbackground;
       var heroImageAlt = pageData.acf._np_footer_image.alt;
@@ -20234,6 +20237,14 @@ var Footer = function (_Component) {
             _react2.default.createElement(
               "div",
               { className: "mainfooter__copy" },
+              _react2.default.createElement(
+                "a",
+                {
+                  className: "np-privacy-link",
+                  href: siteSettings.url + "/privacy-policy/"
+                },
+                "Privacy Policy"
+              ),
               _react2.default.createElement(
                 "p",
                 null,
@@ -46951,8 +46962,15 @@ var Home = function (_Component) {
 
       var API_KEY = "8e2f5850676548cb8ad0de88a1813fe4";
       var sessionLocation = sessionStorage.getItem("npWebLocation");
+      var sessionPermission = sessionStorage.getItem("npPermission");
+      var confirmed = false;
 
-      if (sessionLocation === null) {
+      if (sessionPermission === null) {
+        confirmed = confirm("https://nutritionpartners.com wants to use your IP address to get your location. Do you approve?");
+        sessionStorage.setItem("npPermission", confirmed);
+      }
+
+      if (sessionLocation === null && confirmed) {
         _axios2.default.get("https://api.ipgeolocation.io/getip").then(function (result) {
           var userIP = result.data.ip;
           _axios2.default.get("https://api.ipgeolocation.io/ipgeo?apiKey=" + API_KEY + "&ip=" + userIP).then(function (result) {
@@ -46968,10 +46986,24 @@ var Home = function (_Component) {
         }).catch(function (err) {
           return console.log(err);
         });
-      } else {
+      } else if (sessionLocation === null && !confirmed) {
+        sessionStorage.setItem("npWebLocation", "default");
+        this.setState(function (prevState) {
+          return _extends({}, prevState, {
+            userLocation: "default"
+          });
+        });
+      } else if (sessionLocation !== null && sessionLocation !== "") {
         this.setState(function (prevState) {
           return _extends({}, prevState, {
             userLocation: sessionLocation.toLowerCase()
+          });
+        });
+      } else {
+        this.setState(function (prevState) {
+          sessionStorage.setItem("npWebLocation", "default");
+          return _extends({}, prevState, {
+            userLocation: "default"
           });
         });
       }
@@ -46994,8 +47026,6 @@ var Home = function (_Component) {
     key: "render",
     value: function render() {
       var renderComponent = Object.keys(this.state.pageData).length > 0 && Object.keys(this.state.siteOptions).length > 0 && Object.keys(this.state.siteMainEnglishMenu).length > 0 && Object.keys(this.state.siteMainFrenchMenu).length > 0 && Object.keys(this.state.siteSettings).length > 0 && this.state.postsData.length > 0;
-
-      // const renderComponent = false;
 
       return _react2.default.createElement(
         "div",
@@ -47051,7 +47081,8 @@ var Home = function (_Component) {
             pageData: this.state.pageData,
             siteMainEnglishMenu: this.state.siteMainEnglishMenu,
             siteMainFrenchMenu: this.state.siteMainFrenchMenu,
-            siteOptions: this.state.siteOptions
+            siteOptions: this.state.siteOptions,
+            siteSettings: this.state.siteSettings
           })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );

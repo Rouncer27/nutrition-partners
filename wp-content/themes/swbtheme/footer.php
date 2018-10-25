@@ -50,6 +50,7 @@
 					<?php swb_footer_nav_menu_header(); ?>
 				</div>
 				<div class="np-footer__copy">
+					<a class="np-privacy-link" href="<?php echo esc_url( home_url('/privacy-policy/') ) ?>">Privacy Policy</a>
 					<p>Copyright &copy; <?php echo date('Y'); ?> <?php bloginfo( 'name' ); ?>. Made in Airdrie. <span>Designed and developed by <a title="Switchback Creative Inc." target="_blank" href="http://switchbackcreative.ca">Switchback Creative Inc.</a></span></p>
 				</div>
 			</div>
