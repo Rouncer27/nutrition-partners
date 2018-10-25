@@ -199,6 +199,7 @@ export default class Products extends Component {
               siteMainEnglishMenu={this.state.siteMainEnglishMenu}
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
               siteOptions={this.state.siteOptions}
+              siteSettings={this.state.siteSettings}
             />
           </div>
         ) : (

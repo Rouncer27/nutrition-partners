@@ -182,7 +182,7 @@ export default class Home extends Component {
     const sessionPermission = sessionStorage.getItem("npPermission");
     let confirmed = false;
 
-    if (sessionPermission === null) {
+    if (sessionPermission === null || sessionPermission === "") {
       confirmed = confirm(
         "https://nutritionpartners.com wants to use your IP address to get your location. Do you approve?"
       );

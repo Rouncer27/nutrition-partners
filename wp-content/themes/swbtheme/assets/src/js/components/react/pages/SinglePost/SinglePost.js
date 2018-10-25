@@ -220,6 +220,7 @@ class SinglePost extends Component {
               pageData={this.state.pageData}
               siteMainEnglishMenu={this.state.siteMainEnglishMenu}
               siteMainFrenchMenu={this.state.siteMainFrenchMenu}
+              siteSettings={this.state.siteSettings}
             />
           </div>
         ) : (

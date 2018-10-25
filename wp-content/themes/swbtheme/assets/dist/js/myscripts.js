@@ -46965,7 +46965,7 @@ var Home = function (_Component) {
       var sessionPermission = sessionStorage.getItem("npPermission");
       var confirmed = false;
 
-      if (sessionPermission === null) {
+      if (sessionPermission === null || sessionPermission === "") {
         confirmed = confirm("https://nutritionpartners.com wants to use your IP address to get your location. Do you approve?");
         sessionStorage.setItem("npPermission", confirmed);
       }
@@ -90628,7 +90628,8 @@ var About = function (_Component) {
             pageData: this.state.pageData,
             siteMainEnglishMenu: this.state.siteMainEnglishMenu,
             siteMainFrenchMenu: this.state.siteMainFrenchMenu,
-            siteOptions: this.state.siteOptions
+            siteOptions: this.state.siteOptions,
+            siteSettings: this.state.siteSettings
           })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );
@@ -91407,7 +91408,8 @@ var Products = function (_Component) {
             pageData: this.state.pageData,
             siteMainEnglishMenu: this.state.siteMainEnglishMenu,
             siteMainFrenchMenu: this.state.siteMainFrenchMenu,
-            siteOptions: this.state.siteOptions
+            siteOptions: this.state.siteOptions,
+            siteSettings: this.state.siteSettings
           })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );
@@ -94695,7 +94697,8 @@ var Contact = function (_Component) {
             pageData: this.state.pageData,
             siteMainEnglishMenu: this.state.siteMainEnglishMenu,
             siteMainFrenchMenu: this.state.siteMainFrenchMenu,
-            siteOptions: this.state.siteOptions
+            siteOptions: this.state.siteOptions,
+            siteSettings: this.state.siteSettings
           })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );
@@ -95677,7 +95680,8 @@ var Blog = function (_Component) {
             pageData: this.state.pageData,
             siteMainEnglishMenu: this.state.siteMainEnglishMenu,
             siteMainFrenchMenu: this.state.siteMainFrenchMenu,
-            siteOptions: this.state.siteOptions
+            siteOptions: this.state.siteOptions,
+            siteSettings: this.state.siteSettings
           })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );
@@ -100251,7 +100255,8 @@ var SinglePost = function (_Component) {
             siteOptions: this.state.siteOptions,
             pageData: this.state.pageData,
             siteMainEnglishMenu: this.state.siteMainEnglishMenu,
-            siteMainFrenchMenu: this.state.siteMainFrenchMenu
+            siteMainFrenchMenu: this.state.siteMainFrenchMenu,
+            siteSettings: this.state.siteSettings
           })
         ) : _react2.default.createElement(_PageLoad2.default, null)
       );
