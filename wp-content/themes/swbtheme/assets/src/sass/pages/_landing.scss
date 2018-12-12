@@ -182,7 +182,7 @@
 
     &--item {
       display: block;
-      margin: 2rem;
+      margin: 2rem auto;
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
@@ -193,8 +193,8 @@
     }
 
     &--chicken {
-      width: calc(21.8rem / 2);
-      height: calc(26.8rem / 2);
+      width: calc(21.8rem / 4);
+      height: calc(26.8rem / 4);
       background-image: url("#{$path--rel}/images/landing/NTP-animal-chicken-02.png");
 
       @include bp(bp-m) {
@@ -204,8 +204,8 @@
     }
 
     &--pig {
-      width: calc(50.1rem / 2);
-      height: calc(29.8rem / 2);
+      width: calc(50.1rem / 4);
+      height: calc(29.8rem / 4);
       background-image: url("#{$path--rel}/images/landing/NTP-animal-pig-02.png");
 
       @include bp(bp-m) {
@@ -215,8 +215,8 @@
     }
 
     &--cow {
-      width: calc(58.4rem / 2);
-      height: calc(38.1rem / 2);
+      width: calc(58.4rem / 4);
+      height: calc(38.1rem / 4);
       background-image: url("#{$path--rel}/images/landing/NTP-animal-cow-02.png");
 
       @include bp(bp-m) {
