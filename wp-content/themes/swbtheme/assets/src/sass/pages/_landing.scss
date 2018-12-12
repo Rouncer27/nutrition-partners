@@ -101,7 +101,12 @@
       margin-bottom: 1rem;
       color: $color-secondary;
       font-family: $font-family--secondary;
+      font-size: 3.6rem;
       font-weight: 800;
+
+      @include bp(bp-m) {
+        font-size: 4rem;
+      }
 
       @include bp(bp-l) {
         font-size: 5rem;
@@ -110,7 +115,12 @@
 
     h4 {
       color: $color-shadow2;
+      font-size: 2rem;
       font-weight: 600;
+
+      @include bp(bp-m) {
+        font-size: 1.8rem;
+      }
 
       @include bp(bp-l) {
         font-size: 2rem;
@@ -118,10 +128,22 @@
     }
 
     ul {
+      padding: 2rem 0;
+
+      @include bp(bp-m) {
+        padding: 1rem 0;
+      }
+
+      @include bp(bp-l) {
+        padding: 0.5rem 0;
+      }
+
       li {
         display: block;
         margin: 0.75rem auto;
         color: rgba($black, 0.8);
+        font-size: 1.6rem;
+
         @include bp(bp-l) {
           font-size: 1.8rem;
         }
