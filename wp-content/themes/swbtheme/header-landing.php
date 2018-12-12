@@ -38,7 +38,7 @@
           
           <div class="swbmainnav landing-opening">
             <h2>Happy Holidays!</h2>
-            <p>Come back in early January to view one more<br/> gift to unwrap...</p>
+            <p>Come back in early January to view one more<span> gift to unwrap...</span></p>
           </div>
 			  </div>
 		  </header>
