@@ -1,4 +1,10 @@
 .landing-opening {
+  text-align: center;
+
+  @include bp(bp-l) {
+    text-align: left;
+  }
+
   h2 {
     margin: 0;
     margin-bottom: 0.75rem;
@@ -24,12 +30,19 @@
   background: linear-gradient(
     to bottom,
     $color-secondary 0%,
-    $color-secondary 30rem,
-    $white 30rem,
+    $color-secondary 15rem,
+    $white 15rem,
     $white 100%
   );
 
   @include bp(bp-m) {
+    background: linear-gradient(
+      to bottom,
+      $color-secondary 0%,
+      $color-secondary 20rem,
+      $white 20rem,
+      $white 100%
+    );
   }
 
   @include bp(bp-l) {
@@ -62,14 +75,20 @@
   &__hero {
     width: 100%;
     height: 100%;
-    min-height: 50rem;
+    min-height: 25rem;
     background-image: url("#{$path--rel}/images/landing/ntp-livestock-production.jpg");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
 
+    @include bp(bp-m) {
+      max-width: 60rem;
+      min-height: 35rem;
+    }
+
     @include bp(bp-l) {
-      min-height: 60rem;
+      max-width: 90rem;
+      min-height: 55rem;
     }
   }
 
@@ -141,28 +160,47 @@
 
     &--item {
       display: block;
-      margin: 0 2rem;
+      margin: 2rem;
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
+
+      @include bp(bp-m) {
+        margin: 0 2rem;
+      }
     }
 
     &--chicken {
-      width: calc(21.8rem / 3);
-      height: calc(26.8rem / 3);
+      width: calc(21.8rem / 2);
+      height: calc(26.8rem / 2);
       background-image: url("#{$path--rel}/images/landing/NTP-animal-chicken-02.png");
+
+      @include bp(bp-m) {
+        width: calc(21.8rem / 3);
+        height: calc(26.8rem / 3);
+      }
     }
 
     &--pig {
-      width: calc(50.1rem / 3);
-      height: calc(29.8rem / 3);
+      width: calc(50.1rem / 2);
+      height: calc(29.8rem / 2);
       background-image: url("#{$path--rel}/images/landing/NTP-animal-pig-02.png");
+
+      @include bp(bp-m) {
+        width: calc(50.1rem / 3);
+        height: calc(29.8rem / 3);
+      }
     }
 
     &--cow {
-      width: calc(58.4rem / 3);
-      height: calc(38.1rem / 3);
+      width: calc(58.4rem / 2);
+      height: calc(38.1rem / 2);
       background-image: url("#{$path--rel}/images/landing/NTP-animal-cow-02.png");
+
+      @include bp(bp-m) {
+        width: calc(58.4rem / 3);
+        height: calc(38.1rem / 3);
+      }
     }
   }
 }
