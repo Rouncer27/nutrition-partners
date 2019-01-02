@@ -68,25 +68,26 @@ export default class Home extends Component {
     let sessionStart = sessionStorage.getItem("npWebLang");
     const apiBaseURL = this.setPageAPIURL();
     this.setUserLocation();
+    console.log("hello");
 
-    this.setState(
-      prevState => {
-        return {
-          ...prevState,
-          browserLang: sessionStart,
-          pageApiUrl: apiBaseURL,
-          pageID: pageID
-        };
-      },
-      () => {
-        this.getSiteSettings();
-        this.getPageData();
-        this.getPostsData();
-        this.getEnglishMenuItems();
-        this.getFrenchMenuItems();
-        this.getOptionsData();
-      }
-    );
+    // this.setState(
+    //   prevState => {
+    //     return {
+    //       ...prevState,
+    //       browserLang: sessionStart,
+    //       pageApiUrl: apiBaseURL,
+    //       pageID: pageID
+    //     };
+    //   },
+    //   () => {
+    //     this.getSiteSettings();
+    //     this.getPageData();
+    //     this.getPostsData();
+    //     this.getEnglishMenuItems();
+    //     this.getFrenchMenuItems();
+    //     this.getOptionsData();
+    //   }
+    // );
   }
 
   getSiteSettings() {
@@ -157,7 +158,6 @@ export default class Home extends Component {
 
   // Get this page data. //
   getPageData() {
-    console.log(this.state.pageApiUrl);
     axios
       .get(`${this.state.pageApiUrl}/wp-json/wp/v2/pages/${this.state.pageID}`)
       .then(result => {
