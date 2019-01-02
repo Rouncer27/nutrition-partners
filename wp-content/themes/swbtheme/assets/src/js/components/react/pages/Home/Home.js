@@ -60,7 +60,6 @@ export default class Home extends Component {
       removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
     }
     const URL = removedPageSlug.join("/");
-    console.log(URL);
     return URL;
   }
 
@@ -158,6 +157,7 @@ export default class Home extends Component {
 
   // Get this page data. //
   getPageData() {
+    console.log(this.state.pageApiUrl);
     axios
       .get(`${this.state.pageApiUrl}/wp-json/wp/v2/pages/${this.state.pageID}`)
       .then(result => {

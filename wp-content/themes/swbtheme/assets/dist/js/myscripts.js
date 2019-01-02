@@ -46825,14 +46825,12 @@ var Home = function (_Component) {
       var ENV = fullURL.some(function (v) {
         return v.indexOf("localhost") >= 0;
       });
-
       if (ENV) {
         removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
       } else {
         removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
       }
       var URL = removedPageSlug.join("/");
-      console.log(URL);
       return URL;
     }
   }, {
@@ -46942,6 +46940,7 @@ var Home = function (_Component) {
     value: function getPageData() {
       var _this8 = this;
 
+      console.log(this.state.pageApiUrl);
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp/v2/pages/" + this.state.pageID).then(function (result) {
         _this8.setState(function (prevState) {
           return _extends({}, prevState, {
