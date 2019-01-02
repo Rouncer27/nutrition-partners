@@ -46822,15 +46822,22 @@ var Home = function (_Component) {
     value: function setPageAPIURL() {
       var fullURL = [].concat(_toConsumableArray(window.location.href.split("/")));
       var removedPageSlug = void 0;
+      var URL = void 0;
       var ENV = fullURL.some(function (v) {
         return v.indexOf("localhost") >= 0;
       });
       if (ENV) {
         removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
+        removedPageSlug = fullURL.slice(1, fullURL.length);
+        URL = "http:/" + removedPageSlug.join("/");
+        console.log(removedPageSlug);
       } else {
         removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
+        removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
+        URL = "https:/" + removedPageSlug.join("/");
+        console.log(removedPageSlug);
       }
-      var URL = removedPageSlug.join("/");
+      console.log(URL);
       return URL;
     }
   }, {
@@ -46842,7 +46849,6 @@ var Home = function (_Component) {
       var sessionStart = sessionStorage.getItem("npWebLang");
       var apiBaseURL = this.setPageAPIURL();
       this.setUserLocation();
-      console.log("hello");
 
       this.setState(function (prevState) {
         return _extends({}, prevState, {
@@ -46851,9 +46857,8 @@ var Home = function (_Component) {
           pageID: pageID
         });
       }, function () {
-        console.log("hello2");
         _this2.getSiteSettings();
-        console.log("hello3");
+
         // this.getPageData();
         // this.getPostsData();
         // this.getEnglishMenuItems();
@@ -46866,8 +46871,8 @@ var Home = function (_Component) {
     value: function getSiteSettings() {
       var _this3 = this;
 
-      console.log(this.state.pageApiUrl + "/wp-json/");
-      _axios2.default.get("https://nutritionpartners.ca/wp-json/").then(function (res) {
+      console.log("" + this.state.pageApiUrl);
+      _axios2.default.get(this.state.pageApiUrl + "wp-json/").then(function (res) {
         _this3.setState(function (prevState) {
           return _extends({}, prevState, {
             siteSettings: res.data
