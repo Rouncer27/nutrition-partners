@@ -60,6 +60,7 @@ export default class Home extends Component {
       removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
     }
     const URL = removedPageSlug.join("/");
+    console.log(URL);
     return URL;
   }
 

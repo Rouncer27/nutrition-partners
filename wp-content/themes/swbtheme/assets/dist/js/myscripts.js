@@ -46825,12 +46825,14 @@ var Home = function (_Component) {
       var ENV = fullURL.some(function (v) {
         return v.indexOf("localhost") >= 0;
       });
+
       if (ENV) {
         removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
       } else {
         removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
       }
       var URL = removedPageSlug.join("/");
+      console.log(URL);
       return URL;
     }
   }, {
