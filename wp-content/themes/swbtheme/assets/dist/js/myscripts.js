@@ -46842,24 +46842,20 @@ var Home = function (_Component) {
       this.setUserLocation();
       console.log("hello");
 
-      // this.setState(
-      //   prevState => {
-      //     return {
-      //       ...prevState,
-      //       browserLang: sessionStart,
-      //       pageApiUrl: apiBaseURL,
-      //       pageID: pageID
-      //     };
-      //   },
-      //   () => {
-      //     this.getSiteSettings();
-      //     this.getPageData();
-      //     this.getPostsData();
-      //     this.getEnglishMenuItems();
-      //     this.getFrenchMenuItems();
-      //     this.getOptionsData();
-      //   }
-      // );
+      this.setState(function (prevState) {
+        return _extends({}, prevState, {
+          browserLang: sessionStart,
+          pageApiUrl: apiBaseURL,
+          pageID: pageID
+        });
+      }, function () {
+        // this.getSiteSettings();
+        // this.getPageData();
+        // this.getPostsData();
+        // this.getEnglishMenuItems();
+        // this.getFrenchMenuItems();
+        // this.getOptionsData();
+      });
     }
   }, {
     key: "getSiteSettings",
