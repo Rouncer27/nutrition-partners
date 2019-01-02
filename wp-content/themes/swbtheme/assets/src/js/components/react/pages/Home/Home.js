@@ -93,6 +93,7 @@ export default class Home extends Component {
   }
 
   getSiteSettings() {
+    console.log(`${this.state.pageApiUrl}/wp-json/`);
     axios.get(`${this.state.pageApiUrl}/wp-json/`).then(res => {
       this.setState(prevState => {
         return {

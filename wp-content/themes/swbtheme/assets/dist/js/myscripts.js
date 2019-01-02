@@ -46866,6 +46866,7 @@ var Home = function (_Component) {
     value: function getSiteSettings() {
       var _this3 = this;
 
+      console.log(this.state.pageApiUrl + "/wp-json/");
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/").then(function (res) {
         _this3.setState(function (prevState) {
           return _extends({}, prevState, {
