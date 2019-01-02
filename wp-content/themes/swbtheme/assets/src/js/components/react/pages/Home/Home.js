@@ -51,20 +51,15 @@ export default class Home extends Component {
   setPageAPIURL() {
     const fullURL = [...window.location.href.split("/")];
     let removedPageSlug;
-    let URL;
     var ENV = fullURL.some(function(v) {
       return v.indexOf("localhost") >= 0;
     });
     if (ENV) {
       removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
-      removedPageSlug = fullURL.slice(1, fullURL.length);
-      URL = `http:/${removedPageSlug.join("/")}`;
-      console.log(removedPageSlug);
     } else {
       removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 3));
-      URL = `${removedPageSlug.join("/")}`;
-      console.log(removedPageSlug);
     }
+    const URL = removedPageSlug.join("/");
     console.log(URL);
     return URL;
   }
@@ -96,7 +91,6 @@ export default class Home extends Component {
   }
 
   getSiteSettings() {
-    console.log(`${this.state.pageApiUrl}`);
     axios.get(`${this.state.pageApiUrl}/wp-json/`).then(res => {
       this.setState(prevState => {
         return {
