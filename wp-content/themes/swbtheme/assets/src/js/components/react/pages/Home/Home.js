@@ -61,9 +61,8 @@ export default class Home extends Component {
       URL = `http:/${removedPageSlug.join("/")}`;
       console.log(removedPageSlug);
     } else {
-      removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
-      removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
-      URL = `https:/${removedPageSlug.join("/")}`;
+      removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 3));
+      URL = `${removedPageSlug.join("/")}`;
       console.log(removedPageSlug);
     }
     console.log(URL);
