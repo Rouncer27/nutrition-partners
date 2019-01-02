@@ -86,12 +86,11 @@ export default class Home extends Component {
       },
       () => {
         this.getSiteSettings();
-
-        // this.getPageData();
-        // this.getPostsData();
-        // this.getEnglishMenuItems();
-        // this.getFrenchMenuItems();
-        // this.getOptionsData();
+        this.getPageData();
+        this.getPostsData();
+        this.getEnglishMenuItems();
+        this.getFrenchMenuItems();
+        this.getOptionsData();
       }
     );
   }

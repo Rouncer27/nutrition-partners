@@ -46857,12 +46857,11 @@ var Home = function (_Component) {
         });
       }, function () {
         _this2.getSiteSettings();
-
-        // this.getPageData();
-        // this.getPostsData();
-        // this.getEnglishMenuItems();
-        // this.getFrenchMenuItems();
-        // this.getOptionsData();
+        _this2.getPageData();
+        _this2.getPostsData();
+        _this2.getEnglishMenuItems();
+        _this2.getFrenchMenuItems();
+        _this2.getOptionsData();
       });
     }
   }, {
