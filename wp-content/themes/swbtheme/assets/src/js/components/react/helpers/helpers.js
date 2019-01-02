@@ -12,7 +12,6 @@ utilities.setPageAPIURL = function() {
     removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 3));
   }
   const URL = removedPageSlug.join("/");
-  console.log(URL);
   return URL;
 };
 

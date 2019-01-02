@@ -5,8 +5,6 @@ import axios from "axios";
 
 import utilities from "../../helpers/helpers";
 
-console.log(utilities);
-
 import PageLoad from "../../components/PageLoad";
 import Header from "../../components/Header";
 import Featured from "../../components/Featured";
@@ -27,7 +25,6 @@ export default class Home extends Component {
 
     this.switchTheLang = this.switchTheLang.bind(this);
     this.setUserLocation = this.setUserLocation.bind(this);
-    //this.setPageAPIURL = this.setPageAPIURL.bind(this);
     this.getPageData = this.getPageData.bind(this);
     this.getOptionsData = this.getOptionsData.bind(this);
     this.getPostsData = this.getPostsData.bind(this);
@@ -51,22 +48,6 @@ export default class Home extends Component {
       activeQuebecSlider: ""
     };
   }
-
-  // setPageAPIURL() {
-  //   const fullURL = [...window.location.href.split("/")];
-  //   let removedPageSlug;
-  //   var ENV = fullURL.some(function(v) {
-  //     return v.indexOf("localhost") >= 0;
-  //   });
-  //   if (ENV) {
-  //     removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
-  //   } else {
-  //     removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 3));
-  //   }
-  //   const URL = removedPageSlug.join("/");
-  //   console.log(URL);
-  //   return URL;
-  // }
 
   componentDidMount() {
     const pageID = document.querySelector(".swb-home-page").dataset.pageid;

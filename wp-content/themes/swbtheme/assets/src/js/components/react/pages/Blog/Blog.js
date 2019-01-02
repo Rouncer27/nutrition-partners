@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import "babel-polyfill";
 import axios from "axios";
 
+import utilities from "../../helpers/helpers";
+
 import PageLoad from "../../components/PageLoad";
 import Header from "../../components/Header";
 import Hero from "../../components/Hero";
@@ -15,7 +17,6 @@ class Blog extends Component {
     super();
 
     this.switchTheLang = this.switchTheLang.bind(this);
-    this.setPageAPIURL = this.setPageAPIURL.bind(this);
     this.getEnglishMenuItems = this.getEnglishMenuItems.bind(this);
     this.getFrenchMenuItems = this.getFrenchMenuItems.bind(this);
     this.getBlogPosts = this.getBlogPosts.bind(this);
@@ -43,7 +44,7 @@ class Blog extends Component {
   componentDidMount() {
     const pageID = document.querySelector(".swb-blog-page").dataset.pageid;
     let sessionStart = sessionStorage.getItem("npWebLang");
-    const apiBaseURL = this.setPageAPIURL();
+    const apiBaseURL = utilities.setPageAPIURL();
 
     this.setState(
       prevState => {
@@ -75,22 +76,6 @@ class Blog extends Component {
         };
       });
     });
-  }
-
-  // Get the base for all API calls
-  setPageAPIURL() {
-    const fullURL = [...window.location.href.split("/")];
-    let removedPageSlug;
-    var ENV = fullURL.some(function(v) {
-      return v.indexOf("localhost") >= 0;
-    });
-    if (ENV) {
-      removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
-    } else {
-      removedPageSlug = fullURL.slice(0, fullURL.length - (fullURL.length - 4));
-    }
-    const URL = removedPageSlug.join("/");
-    return URL;
   }
 
   // Get the users language setting. //
