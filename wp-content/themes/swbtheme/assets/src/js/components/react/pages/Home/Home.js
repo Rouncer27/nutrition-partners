@@ -70,24 +70,24 @@ export default class Home extends Component {
     this.setUserLocation();
     console.log("hello");
 
-    // this.setState(
-    //   prevState => {
-    //     return {
-    //       ...prevState,
-    //       browserLang: sessionStart,
-    //       pageApiUrl: apiBaseURL,
-    //       pageID: pageID
-    //     };
-    //   },
-    //   () => {
-    //     this.getSiteSettings();
-    //     this.getPageData();
-    //     this.getPostsData();
-    //     this.getEnglishMenuItems();
-    //     this.getFrenchMenuItems();
-    //     this.getOptionsData();
-    //   }
-    // );
+    this.setState(
+      prevState => {
+        return {
+          ...prevState,
+          browserLang: sessionStart,
+          pageApiUrl: apiBaseURL,
+          pageID: pageID
+        };
+      },
+      () => {
+        // this.getSiteSettings();
+        // this.getPageData();
+        // this.getPostsData();
+        // this.getEnglishMenuItems();
+        // this.getFrenchMenuItems();
+        // this.getOptionsData();
+      }
+    );
   }
 
   getSiteSettings() {
