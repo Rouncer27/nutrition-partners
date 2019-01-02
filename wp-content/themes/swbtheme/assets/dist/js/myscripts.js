@@ -46849,6 +46849,7 @@ var Home = function (_Component) {
           pageID: pageID
         });
       }, function () {
+        console.log("hello2");
         // this.getSiteSettings();
         // this.getPageData();
         // this.getPostsData();
