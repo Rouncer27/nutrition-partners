@@ -81,7 +81,8 @@ export default class Home extends Component {
       },
       () => {
         console.log("hello2");
-        // this.getSiteSettings();
+        this.getSiteSettings();
+        console.log("hello3");
         // this.getPageData();
         // this.getPostsData();
         // this.getEnglishMenuItems();

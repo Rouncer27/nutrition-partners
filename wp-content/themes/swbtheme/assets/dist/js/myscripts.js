@@ -46836,6 +46836,8 @@ var Home = function (_Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       var pageID = document.querySelector(".swb-home-page").dataset.pageid;
       var sessionStart = sessionStorage.getItem("npWebLang");
       var apiBaseURL = this.setPageAPIURL();
@@ -46850,7 +46852,8 @@ var Home = function (_Component) {
         });
       }, function () {
         console.log("hello2");
-        // this.getSiteSettings();
+        _this2.getSiteSettings();
+        console.log("hello3");
         // this.getPageData();
         // this.getPostsData();
         // this.getEnglishMenuItems();
@@ -46861,10 +46864,10 @@ var Home = function (_Component) {
   }, {
     key: "getSiteSettings",
     value: function getSiteSettings() {
-      var _this2 = this;
+      var _this3 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/").then(function (res) {
-        _this2.setState(function (prevState) {
+        _this3.setState(function (prevState) {
           return _extends({}, prevState, {
             siteSettings: res.data
           });
@@ -46877,10 +46880,10 @@ var Home = function (_Component) {
   }, {
     key: "getEnglishMenuItems",
     value: function getEnglishMenuItems() {
-      var _this3 = this;
+      var _this4 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp-api-menus/v2/menus/2").then(function (res) {
-        _this3.setState(function (prevState) {
+        _this4.setState(function (prevState) {
           return _extends({}, prevState, {
             siteMainEnglishMenu: res.data
           });
@@ -46890,10 +46893,10 @@ var Home = function (_Component) {
   }, {
     key: "getFrenchMenuItems",
     value: function getFrenchMenuItems() {
-      var _this4 = this;
+      var _this5 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp-api-menus/v2/menus/3").then(function (res) {
-        _this4.setState(function (prevState) {
+        _this5.setState(function (prevState) {
           return _extends({}, prevState, {
             siteMainFrenchMenu: res.data
           });
@@ -46906,10 +46909,10 @@ var Home = function (_Component) {
   }, {
     key: "getOptionsData",
     value: function getOptionsData() {
-      var _this5 = this;
+      var _this6 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/acf/v3/options/options").then(function (res) {
-        _this5.setState(function (prevState) {
+        _this6.setState(function (prevState) {
           return _extends({}, prevState, {
             siteOptions: res.data.acf
           });
@@ -46922,10 +46925,10 @@ var Home = function (_Component) {
   }, {
     key: "getPostsData",
     value: function getPostsData() {
-      var _this6 = this;
+      var _this7 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp/v2/posts?_embed&per_page=3").then(function (result) {
-        _this6.setState(function (prevState) {
+        _this7.setState(function (prevState) {
           return _extends({}, prevState, {
             postsData: result.data
           });
@@ -46938,10 +46941,10 @@ var Home = function (_Component) {
   }, {
     key: "getPageData",
     value: function getPageData() {
-      var _this7 = this;
+      var _this8 = this;
 
       _axios2.default.get(this.state.pageApiUrl + "/wp-json/wp/v2/pages/" + this.state.pageID).then(function (result) {
-        _this7.setState(function (prevState) {
+        _this8.setState(function (prevState) {
           return _extends({}, prevState, {
             pageData: result.data,
             slides: result.data.acf._np_featured_opening_slides,
@@ -46958,7 +46961,7 @@ var Home = function (_Component) {
   }, {
     key: "setUserLocation",
     value: function setUserLocation() {
-      var _this8 = this;
+      var _this9 = this;
 
       var API_KEY = "8e2f5850676548cb8ad0de88a1813fe4";
       var sessionLocation = sessionStorage.getItem("npWebLocation");
@@ -46975,7 +46978,7 @@ var Home = function (_Component) {
           var userIP = result.data.ip;
           _axios2.default.get("https://api.ipgeolocation.io/ipgeo?apiKey=" + API_KEY + "&ip=" + userIP).then(function (result) {
             sessionStorage.setItem("npWebLocation", result.data.state_prov);
-            _this8.setState(function (prevState) {
+            _this9.setState(function (prevState) {
               return _extends({}, prevState, {
                 userLocation: result.data.state_prov.toLowerCase()
               });
