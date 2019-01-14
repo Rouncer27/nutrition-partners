@@ -36,8 +36,18 @@
 			}
 		?>
 		<noscript>
-			<div style="max-width: 500px; margin: 150px auto 50px;">
-      	<p style="text-align: center">Nutrition Partners website requires JavaScript in order to use it properly. Please enable JavaScript on your browser to view this website.</p>
+			<style>
+				.noscript-div {
+					max-width: 500px;
+					margin: 150px auto 50px;
+				}
+
+				.noscript-div p {
+					text-align: center
+				}
+			</style>
+			<div class="noscript-div">
+      	<p>Nutrition Partners website requires JavaScript in order to use it properly. Please enable JavaScript on your browser to view this website.</p>
 			</div>
     </noscript>
 		<div data-browserlang="<?php echo esc_attr( $langSet ); ?>" class="swbwrapper"><!-- Website Wrapper -->			
