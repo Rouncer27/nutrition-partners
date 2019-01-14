@@ -12,8 +12,6 @@ class Footer extends Component {
       siteSettings
     } = this.props;
 
-    console.log(siteSettings);
-
     const heroImageSrc = pageData.acf._np_footer_image.sizes.fullbackground;
     const heroImageAlt = pageData.acf._np_footer_image.alt;
 

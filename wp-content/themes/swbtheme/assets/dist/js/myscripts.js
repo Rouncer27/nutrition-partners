@@ -20220,8 +20220,6 @@ var Footer = function (_Component) {
           siteSettings = _props.siteSettings;
 
 
-      console.log(siteSettings);
-
       var heroImageSrc = pageData.acf._np_footer_image.sizes.fullbackground;
       var heroImageAlt = pageData.acf._np_footer_image.alt;
 
@@ -46831,8 +46829,8 @@ var Home = function (_Component) {
     _this.getEnglishMenuItems = _this.getEnglishMenuItems.bind(_this);
     _this.getFrenchMenuItems = _this.getFrenchMenuItems.bind(_this);
     _this.getSiteSettings = _this.getSiteSettings.bind(_this);
-    _this.confirmToGetLocation = _this.confirmToGetLocation.bind(_this);
-    _this.noThankYou = _this.noThankYou.bind(_this);
+    //this.confirmToGetLocation = this.confirmToGetLocation.bind(this);
+    //this.noThankYou = this.noThankYou.bind(this);
 
     _this.state = {
       browserLang: "",
@@ -46872,6 +46870,7 @@ var Home = function (_Component) {
           askedPermission: askedAlreadyBoo
         });
       }, function () {
+        _this2.setUserLocation();
         _this2.getSiteSettings();
         _this2.getPageData();
         _this2.getPostsData();
@@ -46974,59 +46973,67 @@ var Home = function (_Component) {
         });
       });
     }
-  }, {
-    key: "noThankYou",
-    value: function noThankYou() {
-      var confirmed = true;
-      sessionStorage.setItem("npPermission", confirmed);
-      this.setState(function (prevState) {
-        sessionStorage.setItem("npWebLocation", "default");
-        return _extends({}, prevState, {
-          userLocation: "default",
-          askedPermission: true
-        });
-      });
-    }
-  }, {
-    key: "confirmToGetLocation",
-    value: function confirmToGetLocation() {
-      var _this9 = this;
 
-      var confirmed = true;
-      sessionStorage.setItem("npPermission", confirmed);
-      this.setState(function (prevState) {
-        return _extends({}, prevState, {
-          askedPermission: true
-        });
-      }, function () {
-        _this9.setUserLocation();
-      });
-    }
+    // noThankYou() {
+    //   let confirmed = true;
+    //   sessionStorage.setItem("npPermission", confirmed);
+    //   this.setState(prevState => {
+    //     sessionStorage.setItem("npWebLocation", "default");
+    //     return {
+    //       ...prevState,
+    //       userLocation: "default",
+    //       askedPermission: true
+    //     };
+    //   });
+    // }
+
+    // confirmToGetLocation() {
+    //   let confirmed = true;
+    //   sessionStorage.setItem("npPermission", confirmed);
+    //   this.setState(
+    //     prevState => {
+    //       return {
+    //         ...prevState,
+    //         askedPermission: true
+    //       };
+    //     },
+    //     () => {
+    //       this.setUserLocation();
+    //     }
+    //   );
+    // }
 
     // Get the users location. //
 
   }, {
     key: "setUserLocation",
     value: function setUserLocation() {
-      var _this10 = this;
+      var _this9 = this;
 
       var API_KEY = "8e2f5850676548cb8ad0de88a1813fe4";
-
-      _axios2.default.get("https://api.ipgeolocation.io/getip").then(function (result) {
-        var userIP = result.data.ip;
-        _axios2.default.get("https://api.ipgeolocation.io/ipgeo?apiKey=" + API_KEY + "&ip=" + userIP).then(function (result) {
-          sessionStorage.setItem("npWebLocation", result.data.state_prov);
-          _this10.setState(function (prevState) {
-            return _extends({}, prevState, {
-              userLocation: result.data.state_prov.toLowerCase()
+      if (sessionStorage.getItem("npWebLocation") === null || sessionStorage.getItem("npWebLocation") === "") {
+        _axios2.default.get("https://api.ipgeolocation.io/getip").then(function (result) {
+          var userIP = result.data.ip;
+          _axios2.default.get("https://api.ipgeolocation.io/ipgeo?apiKey=" + API_KEY + "&ip=" + userIP).then(function (result) {
+            sessionStorage.setItem("npWebLocation", result.data.state_prov);
+            _this9.setState(function (prevState) {
+              return _extends({}, prevState, {
+                userLocation: result.data.state_prov.toLowerCase()
+              });
             });
+          }).catch(function (err) {
+            return console.log(err);
           });
         }).catch(function (err) {
           return console.log(err);
         });
-      }).catch(function (err) {
-        return console.log(err);
-      });
+      } else {
+        this.setState(function (prevState) {
+          return _extends({}, prevState, {
+            userLocation: sessionStorage.getItem("npWebLocation").toLowerCase()
+          });
+        });
+      }
     }
 
     // Get the users language setting. //
@@ -47045,14 +47052,14 @@ var Home = function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var askPermission = this.state.askedPermission;
+      // const askPermission = this.state.askedPermission;
 
-      var renderComponent = Object.keys(this.state.pageData).length > 0 && Object.keys(this.state.siteOptions).length > 0 && Object.keys(this.state.siteMainEnglishMenu).length > 0 && Object.keys(this.state.siteMainFrenchMenu).length > 0 && Object.keys(this.state.siteSettings).length > 0 && this.state.postsData.length > 0;
+      var renderComponent = this.state.userLocation && Object.keys(this.state.pageData).length > 0 && Object.keys(this.state.siteOptions).length > 0 && Object.keys(this.state.siteMainEnglishMenu).length > 0 && Object.keys(this.state.siteMainFrenchMenu).length > 0 && Object.keys(this.state.siteSettings).length > 0 && this.state.postsData.length > 0;
 
       return _react2.default.createElement(
         "div",
         { className: "np-page-root" },
-        askPermission ? renderComponent ? _react2.default.createElement(
+        renderComponent ? _react2.default.createElement(
           "div",
           null,
           _react2.default.createElement(_Header2.default, {
@@ -47106,35 +47113,7 @@ var Home = function (_Component) {
             siteOptions: this.state.siteOptions,
             siteSettings: this.state.siteSettings
           })
-        ) : _react2.default.createElement(_PageLoad2.default, null) : _react2.default.createElement(
-          "div",
-          { className: "np-permission" },
-          _react2.default.createElement(
-            "div",
-            { className: "np-permission__container" },
-            _react2.default.createElement(
-              "div",
-              { className: "np-permission__logos" },
-              _react2.default.createElement("div", { className: "np-permission__logos--en np-permission__logos--item" }),
-              _react2.default.createElement("div", { className: "np-permission__logos--fr np-permission__logos--item" })
-            ),
-            _react2.default.createElement(
-              "p",
-              null,
-              this.state.browserLang === "fr" ? "Notre nouveau site Web nutritionpartners.com utilise votre adresse IP pour déterminer votre emplacement. Nous faisons cela pour personnaliser le contenu en fonction de votre région. Il n'est pas nécessaire de consulter le site Web." : "Our New website nutritionpartners.com uses your IP address to determine your location. We do this so we can customized the content to your region. It's not necessary to view the website."
-            ),
-            _react2.default.createElement(
-              "button",
-              { onClick: this.confirmToGetLocation },
-              this.state.browserLang === "fr" ? "Oui, utilisez mon adresse IP pour déterminer ma position." : "Yes, use my IP address to determine my location."
-            ),
-            _react2.default.createElement(
-              "button",
-              { onClick: this.noThankYou },
-              this.state.browserLang === "fr" ? "Non, utilisez simplement les paramètres par défaut." : "No, just use the default settings."
-            )
-          )
-        )
+        ) : _react2.default.createElement(_PageLoad2.default, null)
       );
     }
   }]);

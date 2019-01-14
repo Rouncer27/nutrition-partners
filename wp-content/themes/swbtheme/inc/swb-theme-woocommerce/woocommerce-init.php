@@ -9,7 +9,7 @@
 */
 
 // How many products per page //
-add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 12;' ), 24 );
+//add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 12;' ), 24 );
 
 // Remove all the css that comes with woocommerce. We will add our own to it. //
 require_once(get_template_directory() . '/inc/swb-theme-woocommerce/woo-remove-default-css.php');
