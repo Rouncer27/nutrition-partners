@@ -222,13 +222,13 @@ require_once( get_template_directory() . '/inc/swb-theme-acf/swb-theme-acf-init.
  * WooCommerce
  */
 
-require_once(get_template_directory() . '/inc/swb-theme-woocommerce/woocommerce-init.php');
+// require_once(get_template_directory() . '/inc/swb-theme-woocommerce/woocommerce-init.php');
 
 /*
  * Theme optimization
  */
 
-/*require_once(get_template_directory() . '/inc/swb-theme-optimization/swb-theme-optimization.php');*/
+require_once(get_template_directory() . '/inc/swb-theme-optimization/swb-theme-optimization.php');
 
 /*
  * Theme security
