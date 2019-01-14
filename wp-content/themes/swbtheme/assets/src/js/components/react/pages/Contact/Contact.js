@@ -165,7 +165,7 @@ export default class Contact extends Component {
             <TitleWithContent browserLang={this.state.browserLang} acf={acf} />
             <ContactForm
               browserLang={this.state.browserLang}
-              getBaseURL={this.setPageAPIURL}
+              getBaseURL={utilities.setPageAPIURL}
             />
             <LocationMaps browserLang={this.state.browserLang} acf={acf} />
             <Footer

@@ -94664,7 +94664,7 @@ var Contact = function (_Component) {
           _react2.default.createElement(_TitleWithContent2.default, { browserLang: this.state.browserLang, acf: acf }),
           _react2.default.createElement(_ContactForm2.default, {
             browserLang: this.state.browserLang,
-            getBaseURL: this.setPageAPIURL
+            getBaseURL: _helpers2.default.setPageAPIURL
           }),
           _react2.default.createElement(_LocationMaps2.default, { browserLang: this.state.browserLang, acf: acf }),
           _react2.default.createElement(_Footer2.default, {
