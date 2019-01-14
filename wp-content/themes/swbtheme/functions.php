@@ -234,7 +234,7 @@ require_once(get_template_directory() . '/inc/swb-theme-optimization/swb-theme-o
  * Theme security
  */
 
-/*require_once(get_template_directory() . '/inc/swb-theme-security/swb-theme-security.php');*/
+require_once(get_template_directory() . '/inc/swb-theme-security/swb-theme-security.php');
 
 
 // Enable the option show in rest

@@ -59,12 +59,12 @@ deny from all
 </files>
 
 # Prevent anyone from loging in except from my IP address.
-<Files wp-login.php>
-order deny,allow
-Deny from all
+# <Files wp-login.php>
+# order deny,allow
+# Deny from all
 # allow access from my IP address
-allow from 50.66.56.117
-</Files>
+# allow from 50.66.56.117
+# </Files>
 
 # swb-theme addition END
 
