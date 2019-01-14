@@ -43,7 +43,7 @@ get_header(); ?>
 						<li>the type and version of your browser, and</li>
 						<li>the name and size of the file you request.</li>
 					</ul>
-					<p>This information is collected in order to help make our site more useful to visitors, to learn about the number of visitors to our site, and to learn about the types of technology our visitors use. We do not track information about individuals and their visit.</p>
+					<p>This information is collected in order to help make our site more useful to visitors, to learn about the number of visitors to our site, and to learn about the types of technology our visitors use. We do not track information about individuals and their visit. We also use the IP address to detect your region and display the content on the home page in a different order based on the region. This is to give users a better experiance.</p>
 					<h2>Cookies</h2>
 					<p>We may use ‘cookies’ that identify you as a return visitor. A cookie is a piece of data that a website can send to your browser, which may then store the cookie on your hard drive. Cookies do not contain any personally identifying information. Browsers allow you to disable cookie collection if you wish, or inform you when a cookie is being stored on your hard drive.</p>
 					<h2>Links to other websites</h2>
