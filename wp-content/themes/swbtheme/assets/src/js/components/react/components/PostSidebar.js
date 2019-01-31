@@ -18,10 +18,6 @@ const PostSidebar = props => {
         );
       })}
       <div className="np-blogposts__sidebar--background" />
-      <div className="np-blogposts__sidebar--signup">
-        <p>Join our newsletter</p>
-        <button>Sign-up</button>
-      </div>
     </div>
   );
 };
